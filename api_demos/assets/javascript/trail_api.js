@@ -10,7 +10,7 @@ $.ajax({
 }).done(function(response) {
     console.table(response.places);
 
-})
+});
 
 function setHeader(xhr) {
     xhr.setRequestHeader('X-Mashape-Key', 'YJAiQK0Cirmshoi4JIWN51e4ZBWzp1FCJuTjsng1orgLvIxQK9');
