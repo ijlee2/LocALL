@@ -1,6 +1,4 @@
 # LocAll
-
-## Description
 A website that lets you pick places to eat, drink, and play locally in Austin. Check places to go, pin them, and visit!
 
 ## Team Members
