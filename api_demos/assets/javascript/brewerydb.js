@@ -5,7 +5,7 @@
     
 *****************************************************************************
 *****************************************************************************/
-var api_url = "http://api.brewerydb.com/v2/?key=cc8daa1e9ba37ff2c611bfa432a7d04a&format=json";
+var api_url = "https://api.brewerydb.com/v2/?key=cc8daa1e9ba37ff2c611bfa432a7d04a&format=json";
 
 /*
 $.ajax({
