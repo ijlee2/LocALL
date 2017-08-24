@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" 
+    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" 
+    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>LocALL</title>
+</head>
+
+<body id ="dcd">
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+            <h4 class="text-white">Menu</h4>
+            <span class="text-muted">
+                <button type="button" class="btn btn-outline-primary">Home</button>
+                <button type="button" class="btn btn-outline-secondary">About</button>
+                <button type="button" class="btn btn-outline-success">Contact</button>
+            </span>
+        </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        </nav>
+      
+    </div>
+
+    <div class="jumbotron">
+        <h1 class="display-3">LocALL</h1>
+        <p>Eat, Play, and Drink Locally</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">About Us</a>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Eat
+        </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">BBQ</button>
+            </div>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Play
+        </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">Hiking</button>
+
+            </div>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drink
+        </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">Breweries</button>
+            </div>
+    </div>
+    <div id = "aboutU">
+        <h1></h1>
+        <p></p>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="row">
+        <h1 class="text-center"><a href="#myModal" role="button" class="btn btn-primary btn-lg" data-toggle="modal">Contact Us</a></h1>
+    </div>
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModal">We'd Love to Hear From You</h3>
+            </div>
+        <div class="modal-body">
+            <form class="form-horizontal col-sm-12">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control required" placeholder="Your name" data-placement="top" data-trigger="manual" 
+                    data-content="Must be at least 3 characters long, and must only contain letters." type="text">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea class="form-control" placeholder="Your message here.." data-placement="top" data-trigger="manual"></textarea>
+                    </div>
+                <div class="form-group">
+                    <label>E-Mail</label>
+                    <input class="form-control email" placeholder="email@you.com (so that we can contact you)" data-placement="top" data-trigger="manual" 
+                    data-content="Must be a valid e-mail address (user@gmail.com)" type="text">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input class="form-control phone" placeholder="999-999-9999" data-placement="top" data-trigger="manual" 
+                    data-content="Must be a valid phone number (999-999-9999)" type="text">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success pull-right">Send It!</button> 
+                    <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not valid. </p>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+<script src = "assets/js/local.js"></script>
+</html>
+
