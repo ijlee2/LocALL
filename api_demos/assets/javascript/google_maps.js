@@ -41,5 +41,8 @@ function displayMap() {
                          "lng": p.longitude},
             "map": map
         });
+
+        // Store the markers in case
+        markers.push(marker);
     });
 }
