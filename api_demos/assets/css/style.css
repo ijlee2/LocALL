@@ -8,15 +8,12 @@
 :root {
     /* Define color scheme */
     --color-background    : #f0f2f0;
-    --color-light-brown   : #ebd9a3;
-    --color-light-blue    : #78b6ed;
     --color-dark-blue     : #3773a8;
     --color-text          : #202020;
-    --color-text-contrast : #f9f6e3;
     --color-text-highlight: #ff6600;
 }
 
-body, input {
+body {
     background-color: var(--color-background);
     color           : var(--color-text);
     font-family     : "Quicksand", sans-serif;
