@@ -10,9 +10,23 @@ $.ajax({
 }).done(function(response) {
     var restaurants = [];
 
-    response.restaurants.forEach(r => restaurants.push(r.restaurant));
-    
-    console.table(restaurants);
+    response.restaurants.forEach(r => {
+    	var restaurant = {"name": r.restaurant.name,
+                          "location": {"address": r.restaurant.location.address,
+                          			   "city": r.restaurant.location.city,
+                          			   "zipcode": r.restaurant.location.zipcode, 
+                                       "longitude": parseFloat(r.restaurant.location.longitude),
+                                       "latitude": parseFloat(r.restaurant.location.latitude)},
+                          "image_feature": r.restaurant.featured_image,
+                          "rating": {"starRating": parseFloat(r.restaurant.user_rating.aggregate_rating),
+                          			 "numRatings": parseInt(r.restaurant.user_rating.votes)},
+                          "price": r.restaurant.price_range,
+                          "type": "bbq"
+                         };
+    	restaurants.push(restaurant);
+    });
+   
+    // console.table(restaurants);
 
 });
 
