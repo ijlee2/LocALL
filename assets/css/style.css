@@ -17,23 +17,65 @@ h1 .btn {
 }
 .jumbotron{
     text-align: center;
-    opacity: 0.7;
+    opacity: 0.75;
 }
 .navbar{
     opacity: .7;
 }
-.row{
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    left: 40%;
-    top: 50%; 
-    margin-left: 50px;
-    margin-top:  300px;
+.myModal{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row /* works with row or column */
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+
+   
 }
 h2{
     font-size: 40px;
 }
 .local-head{
     font-size: 90px;
+}
+#primary {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 300px;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 300px;
+}
+
+#secondary {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 300px;
+}
+
+#sea{
+    display:flex;
+    flex-direction: column;
+    flex-basis: 300px;
+}
+.flexContainer {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row /* works with row or column */
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+.page1Button{
+    width: 178px;
+    height: 60px;
+    margin-bottom: .5em;
+    font-size: 30px;
 }

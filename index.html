@@ -17,6 +17,7 @@
 </head>
 
 <body id ="dcd">
+
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
@@ -27,63 +28,22 @@
                 <button type="button" class="btn btn-outline-success">Contact</button>
             </span>
         </div>
-        </div>
-        <nav class="navbar navbar-dark bg-dark">
+       </div>
+    </div>
+        <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         </nav>
       
     </div>
-
+<div id = "page1">
     <div class="jumbotron">
         <h1 class="local-head">LocALL</h1>
         <h2>Eat, Play, and Drink Locally</h2>
-        <a class="btn btn-primary btn-lg" href="#" role="button">About Us</a>
-    </div>
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Eat
-        </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">BBQ</button>
-            </div>
-    </div>
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Play
-        </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">Hiking</button>
-
-            </div>
-    </div>
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Drink
-        </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">Breweries</button>
-            </div>
-    </div>
-    <div id = "aboutU">
-        <div class="row">
-        <h1></h1>
-        <p></p>
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-        </div>
-    </div>
-    <div class="row">
+        <a class="btn btn-primary btn-lg page1Button" id ="goLocal" href="#" role="button">Go Local!</a><br>
+        <a class="btn btn-primary btn-lg page1Button" id ="aboutUs" href="#" role="button">About Us</a>
+        <div class="row myModal" >
         <h1 class="text-center"><a href="#myModal" role="button" class="btn btn-primary btn-lg" data-toggle="modal">Contact Us</a></h1>
     </div>
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -125,6 +85,59 @@
         </div>
     </div>
 </div>
+    </div>
+</div>
+</div>
+<div id = "page2">
+	<div class = "row flexContainer ">
+    <div class="btn-group col-md-3" id = "primary" >
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Eat
+        </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">BBQ</button>
+            </div>
+    </div>
+
+    <div class="btn-group col-md-3" id = "main">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Play
+        </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">Hiking</button>
+
+            </div>
+    </div>
+
+    <div class="btn-group col-md-3" id = "secondary">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drink
+        </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">Breweries</button>
+            </div>
+    </div>
+    	<div class = "btn-group col-md-3" id = "sea">
+    	<button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning">Search</button>
+    	</div>
+    </div>
+    </div>
+    <div id = "page3">
+    <div class = "row">
+    <div id = "aboutU" class= "col-sm-12">
+        <h1></h1>
+        <p></p>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    </div>
+    </div>
 
 </body>
 <script src = "assets/js/local.js"></script>
