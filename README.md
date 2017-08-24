@@ -7,6 +7,9 @@ A website that lets you pick places to eat, drink, and play locally in Austin. C
 3. Isaac Lee (backend)
 4. Jacque White (backend)
 
+## GitHub Page
+[Click here to see the website in action.](https://ijlee2.github.io/LocAll/)
+
 ## API Demos
 1. [Beer Mapping](https://ijlee2.github.io/LocAll/api_demos/beer_mapping.html)
 2. [BreweryDB](https://ijlee2.github.io/LocAll/api_demos/brewerydb.html)
