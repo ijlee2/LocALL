@@ -1,8 +1,8 @@
 body {
-    background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
     /*
-    background: url("../images/background.jpg") no-repeat center center fixed;
+    background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
     */
+    background: url("../images/background.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
