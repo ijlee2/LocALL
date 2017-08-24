@@ -8,7 +8,6 @@ $.ajax({
     beforeSend: setHeader
 
 }).done(function(response) {
-    console.log(response.restaurants);
     var restaurants = [];
 
     response.restaurants.forEach(r => {
@@ -18,8 +17,8 @@ $.ajax({
                                             "city"     : r.restaurant.location.city,
                                             "state"    : "TX",
                                             "zipcode"  : r.restaurant.location.zipcode,
-                                            "longitude": parseFloat(r.restaurant.location.longitude),
-                                            "latitude" : parseFloat(r.restaurant.location.latitude)},
+                                            "latitude" : parseFloat(r.restaurant.location.latitude),
+                                            "longitude": parseFloat(r.restaurant.location.longitude)},
                           "website"      : undefined,
                           "image_feature": r.restaurant.featured_image,
                           "rating"       : {"starRating": parseFloat(r.restaurant.user_rating.aggregate_rating),
@@ -29,11 +28,11 @@ $.ajax({
                          };
 
         // Add the restaurant object to our array
-    	restaurants.push(restaurant);
+        restaurants.push(restaurant);
     });
     
-    // Uncomment this to see the restaurants array on the console
-    // console.table(restaurants);
+    // Comment this to hide the restaurants array on the console
+    console.table(restaurants);
 });
 
 function setHeader(xhr) {

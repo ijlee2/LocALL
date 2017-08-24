@@ -10,9 +10,9 @@ $.getJSON(api_url, function(response) {
                        "location"     : {"address"  : b.street,
                                          "city"     : b.city,
                                          "state"    : b.state,
-                                         "zipcode"  : b.zip, 
-                                         "longitude": undefined,
-                                         "latitude" : undefined},
+                                         "zipcode"  : b.zip,
+                                         "latitude" : undefined,
+                                         "longitude": undefined},
                        "website"      : b.url,
                        "image_feature": undefined,
                        // Make the rating out of 5 stars (1 decimal point)
@@ -26,6 +26,6 @@ $.getJSON(api_url, function(response) {
         breweries.push(brewery);
     });
     
-    // Uncomment this to see the breweries array on the console
+    // Comment this to hide the breweries array on the console
     console.table(breweries);
 });
