@@ -9,27 +9,24 @@ $.ajax({
 
 }).done(function(response) {
     var trails = [];
-    console.log(response);
+
     response.places.forEach(p => { 
-    	var trail = {"name": p.name,
-    				 "location": {"address": undefined,
-    				  			  "city": p.city,
-    				  			  "state": p.state,
-    				  			  "zipcode": undefined,
-    				  			  "longitide": p.longitide,
-    				  			  "latitude": p.longitide},
-    				  "website": p.activities[0].url,
-    				  "image_feature": undefined,
-    				  "rating": p.activities[0].rating,
-    				  "type": p.activities[0].activity_type_name
-					   };
-		trails.push(trail);
-	});
+        var trail = {"name": p.name,
+                     "location": {"address": undefined,
+                                  "city": p.city,
+                                  "state": p.state,
+                                  "zipcode": undefined,
+                                  "longitide": p.lon,
+                                  "latitude": p.lat},
+                     "website": p.activities[0].url,
+                     "image_feature": undefined,
+                     "rating": p.activities[0].rating,
+                     "type": p.activities[0].activity_type_name
+                    };
+        trails.push(trail);
+    });
 
-	console.table(trails);
-
-
-
+    console.table(trails);
 });
 
 function setHeader(xhr) {
