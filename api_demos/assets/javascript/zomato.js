@@ -9,7 +9,7 @@ $.ajax({
 
 }).done(function(response) {
     var restaurants = [];
-
+    console.log(response);
     response.restaurants.forEach(r => {
         // Create a custom restaurant object
         var restaurant = {"name"         : r.restaurant.name,
