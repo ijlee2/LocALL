@@ -8,7 +8,27 @@ $.ajax({
     beforeSend: setHeader
 
 }).done(function(response) {
-    console.table(response.places);
+    var trails = [];
+    console.log(response);
+    response.places.forEach(p => { 
+    	var trail = {"name": p.name,
+    				 "location": {"address": undefined,
+    				  			  "city": p.city,
+    				  			  "state": p.state,
+    				  			  "zipcode": undefined,
+    				  			  "longitide": p.longitide,
+    				  			  "latitude": p.longitide},
+    				  "website": p.activities[0].url,
+    				  "image_feature": undefined,
+    				  "rating": p.activities[0].rating,
+    				  "type": p.activities[0].activity_type_name
+					   };
+		trails.push(trail);
+	});
+
+	console.table(trails);
+
+
 
 });
 

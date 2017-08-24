@@ -9,7 +9,7 @@ $.ajax({
 
 }).done(function(response) {
     var restaurants = [];
-
+    console.log(response);
     response.restaurants.forEach(r => {
     	var restaurant = {"name": r.restaurant.name,
                           "location": {"address": r.restaurant.location.address,
