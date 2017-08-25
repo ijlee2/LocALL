@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Google Maps API demo">
+        <meta name="description" content="create brewery, trail, and bbq databases">
         <meta name="author" content="Isaac J. Lee">
 
-        <title>Google Maps API Demo</title>
+        <title>Creating Databases</title>
         <style>
           /* IMPORTANT: Always set the map height explicitly to define the size
            * of the div element that contains the map. */
@@ -14,11 +14,13 @@
             height: 500px;
           }
           /* Optional: Makes the sample page fill the window. */
+          /*
           html, body {
             height: 100%;
             margin: 0;
             padding: 0;
           }
+          */
         </style>
 
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
@@ -29,21 +31,30 @@
     </head>
     <body>
         <div class="container">
-            <h1>Google Maps API</h1>
+            <h1>Creating Databases</h1>
 
             <div class="panel">
-                <h2>Notes</h2>
-                <p>Documentation is great.</p>
+                <h2>Restaurants, Trails, Breweries</h2>
+                <p>Directions: Open the Console to see each database.</p>
+            </div>
+
+            <div class="panel">
+                <h2>Google Maps</h2>
                 <div id="map"></div>
             </div>
             
             <div class="panel">
-                <h2>Documentation</h2>
-                <p><a href="https://developers.google.com/maps/documentation/javascript/tutorial">Link to the API documentation</a></p>
+                <h2>Documentations</h2>
+                <ul>
+                    <li><a href="https://beermapping.com/api/reference/">Beer Mapping API</a></li>
+                    <li><a href="https://developers.google.com/maps/documentation/javascript/tutorial">Google Maps API</a></li>
+                    <li><a href="https://market.mashape.com/trailapi/trailapi">Trail API</a></li>
+                    <li><a href="https://developers.zomato.com/documentation">Zomato API</a></li>
+                </ul>
             </div>
         </div>
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUXkXE4GQC50D5MTJSZRnoy47XBou0f1U&callback=displayMap" async defer></script>
-        <script type="text/javascript" src="assets/javascript/google_maps.js"></script>
+        <script type="text/javascript" src="assets/javascript/create_databases.js"></script>
     </body>
 </html>

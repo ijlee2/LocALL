@@ -46,6 +46,12 @@ h2 {
     margin-bottom : 0.85em;
 }
 
+li {
+    list-style-position: inside;
+    list-style-type    : square;
+    margin-bottom      : 2.5%;
+}
+
 p {
     letter-spacing: 0.03em;
     line-height   : 1.5em;
