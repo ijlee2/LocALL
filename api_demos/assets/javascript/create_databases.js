@@ -46,8 +46,6 @@ const restaurants = [], trails = [], breweries = [];
 let map;
 const markers = [];
 
-
-
 // BEGINNING OF $(document).ready()
 $(document).ready(function() {
 
@@ -103,6 +101,8 @@ $.ajax({
     // Display the array on the console
     console.log("-- Restaurants --");
     console.table(restaurants);
+
+  // });
 });
 
 function setHeader_zomato(xhr) {
