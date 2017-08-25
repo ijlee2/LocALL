@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Place searches</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+                height: 100%;
+            }
+            
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+                height : 100%;
+                margin : 0;
+                padding: 0;
+            }
+        </style>
+        <script>
+            var map;
+            var infowindow;
+            var service;
+
+            function initMap() {
+                var austin = {lat: 30.307182, lng: -97.755996};
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: austin,
+                    zoom  : 12
+                });
+
+                infowindow = new google.maps.InfoWindow();
+                service    = new google.maps.places.PlacesService(map);
+
+                service.nearbySearch({
+                    keyword : "bbq",
+                    location: austin,
+                    radius  : 16000,
+                    type    : ["restaurant"]
+
+                }, getPlaceID);
+                /*
+                service.nearbySearch({
+                    keyword : "hiking trail",
+                    location: austin,
+                    radius  : 16000,
+                    type    : ["park"]
+
+                }, getPlaceID);
+                */
+            }
+
+            function getPlaceID(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    var i = 0;
+
+                    var intervalID = setInterval(function() {
+                        service.getDetails({
+                                // Get the ID
+                                "placeId": results[i].place_id
+                        
+                            }, getPlaceDetails);
+
+    //                        createMarker(results[i]);
+                        i++;
+
+                        if (i === results.length) {
+                            clearInterval(intervalID);
+                        }
+
+                    }, 400);
+                }
+            }
+
+            function getPlaceDetails(place, status) {
+                console.log("status: " + status + ", place: " + place);
+
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    console.log(place.formatted_address);
+
+                    createMarker(place);
+                }
+            }
+
+            function createMarker(place) {
+                var marker = new google.maps.Marker({
+                    map     : map,
+                    position: place.geometry.location
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                                          'Place ID: ' + place.place_id + '<br>' + place.formatted_address + '</div>');
+                    infowindow.open(map, this);
+                });
+            }
+        </script>
+      </head>
+      <body>
+        <div id="map"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5UBuB1NoQsps2oc6EdyNhrLGbYY_FZMQ&libraries=places&callback=initMap" async defer></script>
+      </body>
+</html>

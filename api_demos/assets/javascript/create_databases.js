@@ -85,7 +85,7 @@ $.ajax({
                                             "latitude" : parseFloat(r.restaurant.location.latitude),
                                             "longitude": parseFloat(r.restaurant.location.longitude)
                                            },
-                          "website"      : undefined,
+                          "website"      : null,
                           "image_feature": r.restaurant.featured_image,
                           "rating"       : {"starRating": parseFloat(r.restaurant.user_rating.aggregate_rating),
                                             "numRatings": parseInt(r.restaurant.user_rating.votes)
@@ -98,9 +98,7 @@ $.ajax({
     });
 
     // Save the restaurants array to Firebase
-    database.ref().push({
-        "restaurants": restaurants
-    });
+    database.ref("restaurants").set(restaurants);
     
     // Display the array on the console
     console.log("-- Restaurants --");
@@ -141,17 +139,17 @@ $.ajax({
     response.places.forEach(p => {
         // Extract the information that we want
         let trail = {"name"         : p.name,
-                     "location"     : {"address"  : undefined,
+                     "location"     : {"address"  : null,
                                        "city"     : p.city,
                                        "state"    : p.state,
-                                       "zipcode"  : undefined,
+                                       "zipcode"  : null,
                                        "latitude" : p.lat,
                                        "longitide": p.lon
                                       },
                      "website"      : p.activities[0].url,
-                     "image_feature": undefined,
+                     "image_feature": null,
                      "rating"       : {"starRating": p.activities[0].rating,
-                                       "numRatings": undefined
+                                       "numRatings": null
                                       },
                      "type"         : p.activities[0].activity_type_name
                     };
@@ -161,9 +159,7 @@ $.ajax({
     });
 
     // Save the trails array to Firebase
-    database.ref().push({
-        "trails": trails
-    });
+    database.ref("trails").set(trails);
     
     // Display the array on the console
     console.log("-- Trails --");
@@ -179,7 +175,7 @@ function setHeader_trails(xhr) {
 /****************************************************************************
  ****************************************************************************
     
-    Trail API (Trails)
+    Beer Mapping API (breweries)
     
 *****************************************************************************
 *****************************************************************************/
@@ -195,29 +191,29 @@ $.getJSON(api_url, function(response) {
                                          "city"     : b.city,
                                          "state"    : b.state,
                                          "zipcode"  : b.zip,
-                                         "latitude" : undefined,
-                                         "longitude": undefined
+                                         "latitude" : null,
+                                         "longitude": null
                                         },
                        "website"      : b.url,
-                       "image_feature": undefined,
+                       "image_feature": null,
                        // Make the rating out of 5 stars (1 decimal point)
                        "rating"       : {"starRating": Math.round(parseFloat(b.overall) / 2) / 10,
-                                         "numRatings": undefined
+                                         "numRatings": null
                                         },
                        "type"         : "brewery"
                       };
 
         // Find the latitude and longitude
-        brewery.location = geocode(`${brewery.location.address} ${brewery.location.city}, ${brewery.location.state}`);
-
-        // Store the information in our array
-        breweries.push(brewery);
+        geocode(`${brewery.location.address} ${brewery.location.city}, ${brewery.location.state}`).then(function(location) {
+            console.log(location);
+            
+            // Store the information in our array
+            breweries.push(brewery); 
+        });
     });
 
     // Save the breweries array to Firebase
-    database.ref().push({
-        "breweries": breweries
-    });
+    database.ref("breweries").set(breweries);
     
     // Display the array on the console
     console.log("-- Breweries --");
