@@ -5,21 +5,18 @@
     
 *****************************************************************************
 *****************************************************************************/
-/* TODO - Jacque: Uncomment this block of code, then replace the config
-                  object with our own
 const config = {
-    apiKey           : "AIzaSyDTZzRZokWqHyFnA0T11Hte9ZwJ9QgO4kI",
-    authDomain       : "train-scheduler-3f682.firebaseapp.com",
-    databaseURL      : "https://train-scheduler-3f682.firebaseio.com",
-    projectId        : "train-scheduler-3f682",
-    storageBucket    : "train-scheduler-3f682.appspot.com",
-    messagingSenderId: "886128771331"
-};
+    apiKey: "AIzaSyDjGV94on0gidAzG2sLCy5F8s-tkQXAzPc",
+    authDomain: "locall-atx512.firebaseapp.com",
+    databaseURL: "https://locall-atx512.firebaseio.com",
+    projectId: "locall-atx512",
+    storageBucket: "locall-atx512.appspot.com",
+    messagingSenderId: "1032168672035"
+  };
 
 firebase.initializeApp(config);
 
 const database = firebase.database();
-*/
 
 
 
@@ -48,7 +45,6 @@ const restaurants = [], trails = [], breweries = [];
 // For Google Maps
 let map;
 const markers = [];
-
 
 
 /****************************************************************************
@@ -85,7 +81,7 @@ $.ajax({
                                             "latitude" : parseFloat(r.restaurant.location.latitude),
                                             "longitude": parseFloat(r.restaurant.location.longitude)
                                            },
-                          "website"      : undefined,
+                          "website"      : null,
                           "image_feature": r.restaurant.featured_image,
                           "rating"       : {"starRating": parseFloat(r.restaurant.user_rating.aggregate_rating),
                                             "numRatings": parseInt(r.restaurant.user_rating.votes)
@@ -98,10 +94,15 @@ $.ajax({
     });
 
     /* TODO - Jacque: Save the restaurants array to Firebase. */
-    
+    database.ref().push({
+      restaurant: restaurants
+    });
+
     // Display the array on the console
     console.log("-- Restaurants --");
     console.table(restaurants);
+
+  // });
 });
 
 function setHeader_zomato(xhr) {
@@ -138,17 +139,17 @@ $.ajax({
     response.places.forEach(p => {
         // Extract the information that we want
         let trail = {"name"         : p.name,
-                     "location"     : {"address"  : undefined,
+                     "location"     : {"address"  : null,
                                        "city"     : p.city,
                                        "state"    : p.state,
-                                       "zipcode"  : undefined,
+                                       "zipcode"  : null,
                                        "latitude" : p.lat,
                                        "longitide": p.lon
                                       },
                      "website"      : p.activities[0].url,
-                     "image_feature": undefined,
+                     "image_feature": null,
                      "rating"       : {"starRating": p.activities[0].rating,
-                                       "numRatings": undefined
+                                       "numRatings": null
                                       },
                      "type"         : p.activities[0].activity_type_name
                     };
@@ -158,6 +159,9 @@ $.ajax({
     });
 
     /* TODO - Jacque: Save the trails array to Firebase. */
+    database.ref().push({
+      trails: trails
+    });
     
     // Display the array on the console
     console.log("-- Trails --");
@@ -189,14 +193,14 @@ $.getJSON(api_url, function(response) {
                                          "city"     : b.city,
                                          "state"    : b.state,
                                          "zipcode"  : b.zip,
-                                         "latitude" : undefined,
-                                         "longitude": undefined
+                                         "latitude" : null,
+                                         "longitude": null
                                         },
                        "website"      : b.url,
-                       "image_feature": undefined,
+                       "image_feature": null,
                        // Make the rating out of 5 stars (1 decimal point)
                        "rating"       : {"starRating": Math.round(parseFloat(b.overall) / 2) / 10,
-                                         "numRatings": undefined
+                                         "numRatings": null
                                         },
                        "type"         : "brewery"
                       };
@@ -206,6 +210,9 @@ $.getJSON(api_url, function(response) {
     });
 
     /* TODO - Jacque: Save the breweries array to Firebase. */
+    database.ref().push({
+      breweries: breweries
+    });
     
     // Display the array on the console
     console.log("-- Breweries --");
