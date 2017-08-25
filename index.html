@@ -13,6 +13,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" 
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/style.css">
+     <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+     <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+     <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'> 
+     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+     <link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
     <title>LocALL</title>
 </head>
 
@@ -23,8 +28,8 @@
         <div class="bg-dark p-4">
             <h4 class="text-white">Menu</h4>
             <span class="text-muted">
-                <button type="button" class="btn btn-outline-primary">Home</button>
-                <button type="button" class="btn btn-outline-secondary">About</button>
+                <button type="button" class="btn btn-outline-primary" onClick="displayPage(1)">Home</button>
+                <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)">About</button>
                 <button type="button" class="btn btn-outline-success">Contact</button>
             </span>
         </div>
@@ -37,108 +42,134 @@
         </nav>
       
     </div>
-<div id = "page1">
+<div id = "page1" class = "page">
     <div class="jumbotron">
-        <h1 class="local-head">LocALL</h1>
+        <h1 class="local-head heading">LocALL</h1>
         <h2>Eat, Play, and Drink Locally</h2>
-        <a class="btn btn-primary btn-lg page1Button" id ="goLocal" href="#" role="button">Go Local!</a><br>
-        <a class="btn btn-primary btn-lg page1Button" id ="aboutUs" href="#" role="button">About Us</a>
-        <div class="row myModal" >
-        <h1 class="text-center"><a href="#myModal" role="button" class="btn btn-primary btn-lg" data-toggle="modal">Contact Us</a></h1>
-    </div>
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModal">We'd Love to Hear From You</h3>
-            </div>
-        <div class="modal-body">
-            <form class="form-horizontal col-sm-12">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input class="form-control required" placeholder="Your name" data-placement="top" data-trigger="manual" 
-                    data-content="Must be at least 3 characters long, and must only contain letters." type="text">
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea class="form-control" placeholder="Your message here.." data-placement="top" data-trigger="manual"></textarea>
-                    </div>
-                <div class="form-group">
-                    <label>E-Mail</label>
-                    <input class="form-control email" placeholder="email@you.com (so that we can contact you)" data-placement="top" data-trigger="manual" 
-                    data-content="Must be a valid e-mail address (user@gmail.com)" type="text">
-                </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input class="form-control phone" placeholder="999-999-9999" data-placement="top" data-trigger="manual" 
-                    data-content="Must be a valid phone number (999-999-9999)" type="text">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success pull-right">Send It!</button> 
-                    <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not valid. </p>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        </div>
+        <a class="btn btn-primary btn-lg page1Button" id ="goLocal" onClick="displayPage(2)" href="#" role="button">Go Local!</a><br>
+        <a class="btn btn-primary btn-lg page1Button" id ="aboutUs" href="#" role="button" onClick="displayPage(3)">About Us</a>
     </div>
 </div>
-    </div>
-</div>
-</div>
-<div id = "page2">
-	<div class = "row flexContainer ">
+
+<div id = "page2" class ="content page" style="display: none">
+    <div class = "row flexContainer ">
     <div class="btn-group col-md-3" id = "primary" >
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Eat
         </button>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
                 <button class="dropdown-item" type="button">BBQ</button>
             </div>
     </div>
 
     <div class="btn-group col-md-3" id = "main">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Play
         </button>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
                 <button class="dropdown-item" type="button">Hiking</button>
 
             </div>
     </div>
 
     <div class="btn-group col-md-3" id = "secondary">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Drink
         </button>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
                 <button class="dropdown-item" type="button">Breweries</button>
             </div>
     </div>
-    	<div class = "btn-group col-md-3" id = "sea">
-    	<button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning">Search</button>
-    	</div>
+        <div class = "btn-group col-md-3" id = "sea">
+        <button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning page2Button">Search</button>
+        </div>
     </div>
     </div>
-    <div id = "page3">
-    <div class = "row">
-    <div id = "aboutU" class= "col-sm-12">
-        <h1></h1>
-        <p></p>
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
-    </div>
-    </div>
+    
+    <div id = "page3" class = "page" style="display: none">
+        
+            <div class="bg skrollable skrollable-between" 
+                data-anchor-target="#aboutTeam-section" data-bottom-top="transform: 
+                translate3d(0px, -150px, 0px);" data-top-bottom="transform: 
+                translate3d(0px, 150px, 0px);" style="transform: 
+                translate3d(0px, -111.857px, 0px);">
+            </div> 
+    
+        
+            <div class="fade-in"> 
+                <div class="center"> 
+                    <h2 class="section-heading">About Us</h2> 
+                    <span class="divider center"></span> 
+                    <p class="experience-description">Loreum Ipsum!</p> 
+                </div>
+            <div>
 
+            <div >
+                <div id="team" class="flexContainer row"> 
+                    <div class=" team-block team-block1 col-md-3"> 
+                        <div class="team-content"> 
+                            <h2 class="person">Jaqueline</h2> 
+                            <h3 class="position">
+                                <a href="#"target="_blank">Junior Software Developer</a>
+                            </h3> 
+                            <p class="bio-des">lorem ipsum</strong></p> 
+                        </div> 
+
+                        <div class="teamline-img"> 
+                        <div class="sprite software">
+                        </div> 
+                        </div>
+                        <span class="date">May17 - Present</span> 
+                    </div> 
+
+                    <div class="team-block team-block2 col-md-3"> 
+                        <div class="team-content"> 
+                            <h2 class="person">Isaac</h2> 
+                            <h3 class="position">
+                                <a href="#" target="_blank">Junior Software Developer</a>
+                            </h3> 
+                            <p class="bio-des">loreum ipsum</p> 
+                        </div> 
+                        <div class="teamline-img"> 
+                            <div class="sprite computer">
+                            </div> 
+                        </div> 
+                        <span class="date">May17 - Present</span> 
+                    </div> 
+
+                    <div class="team-block team-block3 col-md-3"> 
+                        <div class="team-content "> 
+                            <h2 class="person">Aaron</h2> 
+                            <h3 class="position">
+                                <a href="#" target="_blank">Junior Software Developer</a>
+                            </h3> 
+                            <p class="bio-des">lorem ipsum</p> 
+                        </div> 
+                        <div class="teamline-img"> 
+                            <div class="sprite industry">
+                            </div> 
+                        </div> 
+                        <span class="date">May17 - Present</span> 
+                    </div> 
+
+                    <div class="team-block team-block4 col-md-3"> 
+                        <div class="team-content"> 
+                            <h2 class="person">Margarita Tagaban</h2>
+                            <h3 class="position">
+                                <a href="#" target="_blank">Junior Software Developer</a>
+                            </h3> 
+                            <p class="bio-des">Lorem ipsum</p> 
+                        </div> 
+                        <div class="teamline-img"> 
+                            <div class="sprite development">    
+                            </div> 
+                        </div> 
+                        <span class="date">May17 - Present</span> 
+                    </div> 
+                </div> 
+            </div>
+                   
+    </div>  
 </body>
 <script src = "assets/js/local.js"></script>
 </html>

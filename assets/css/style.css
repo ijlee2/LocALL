@@ -1,5 +1,5 @@
 body {
-    background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
+   background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
     /*
     background: url("../images/background.jpg") no-repeat center center fixed;
     */
@@ -9,23 +9,51 @@ body {
     background-size: cover;
     background-color:#333;
     text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-h1 .btn {
-    font-size:30px;
+h1 {
+    font-family:"Arvo";
+    font-weight:normal;
+    font-size: 100px;
     text-align: center;
+    margin: 0;
+    padding: 0;
+    -webkit-animation-name: font; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 5s; /* Safari 4.0 - 8.0 */
+    animation-name: font;
+    animation-duration: 5s;
+}
+@keyframes font {
+    0%   {color: 5bfe35;}
+    25%  {color: #35fec8;}
+    50%  {color: #35a9fe;}
+    100% {color: #e135fe;}
+} 
+h2{
+    font-size:40px;
+    text-align: center;
+}
+.page2Button{
+    font-size:20px;
+    text-align: center;
+    margin-top: 2em;
 }
 .jumbotron{
     text-align: center;
     opacity: 0.75;
+    margin-top: 6em;
 }
+
 .navbar{
     opacity: .7;
 }
 .myModal{
     display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: row /* works with row or column */
+    -webkit-flex-direction: row; /* works with row or column */
     flex-direction: row;
     -webkit-align-items: center;
     align-items: center;
@@ -34,12 +62,11 @@ h1 .btn {
 
    
 }
-h2{
-    font-size: 40px;
-}
-.local-head{
+
+.heading{
     font-size: 90px;
 }
+
 #primary {
     display: flex;
     flex-direction: column;
@@ -66,7 +93,7 @@ h2{
 .flexContainer {
    display: -webkit-flex;
    display: flex;
-   -webkit-flex-direction: row /* works with row or column */
+   -webkit-flex-direction: row; /* works with row or column */
    flex-direction: row;
    -webkit-align-items: center;
    align-items: center;
@@ -78,4 +105,57 @@ h2{
     height: 60px;
     margin-bottom: .5em;
     font-size: 30px;
+}
+
+
+.team-block1{
+order:1;
+
+
+align-self: flex-end;
+min-width: 50px;
+min-height: 50px;
+color: cyan;
+flex-direction: row;
+}
+    
+  
+  
+}
+.team-block2{
+order:2;
+flex: 0 1 auto;
+flex-grow: 0;
+flex-shrink: 1;
+flex-basis: auto;
+align-self: flex-start;
+min-width: 50px;
+min-height: 50px;
+background-color: pink;
+    
+}
+.team-block4{
+order:4;
+flex: 0 1 auto;
+flex-grow: 0;
+flex-shrink: 1;
+flex-basis: auto;
+align-self: flex-end;
+min-width: 50px;
+min-height: 50px;
+    color: beige;
+}
+
+.team-block3 {
+   color:cyan;
+order:3;
+flex: 0 1 auto;
+flex-grow: 0;
+flex-shrink: 1;
+flex-basis: inherit;
+align-self: flex-start;
+min-width: 50px;
+min-height: 50px;
+   
+    
 }
