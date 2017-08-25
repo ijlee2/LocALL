@@ -19,6 +19,9 @@
             }
         </style>
         <script>
+            var restaurants = [], breweries = [], trails = [];
+            var arrayType; 
+
             var map;
             var infowindow;
             var service;
@@ -34,6 +37,7 @@
                 infowindow = new google.maps.InfoWindow();
                 service    = new google.maps.places.PlacesService(map);
 
+                arrayType = "restaurants";
                 service.nearbySearch({
                     keyword : "bbq",
                     location: austin,
@@ -41,15 +45,6 @@
                     type    : ["restaurant"]
 
                 }, getPlaceID);
-                /*
-                service.nearbySearch({
-                    keyword : "hiking trail",
-                    location: austin,
-                    radius  : 16000,
-                    type    : ["park"]
-
-                }, getPlaceID);
-                */
             }
 
             function getPlaceID(results, status) {
@@ -75,12 +70,50 @@
             }
 
             function getPlaceDetails(place, status) {
-                console.log("status: " + status + ", place: " + place);
+                // console.log(this.arrayType);
+                // console.log("status: " + status + ", place: " + place);
 
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    console.log(place.formatted_address);
+                    console.log(place);
+                    var formatted_address = place.formatted_address;
+
+                    var temp = formatted_address.split(",");
+
+                    var street, city, state, zipcode;
+
+                        street = temp[0].trim();
+                        city = temp[1].trim();
+                        state = temp[2].trim().substring(0,2);
+                        zipcode = temp[2].trim().substring(3);
+
+                    var location =  {
+                                     "street": street,
+                                     "city": city,
+                                     "state": state,
+                                     "zipcode": zipcode
+                                    }
+
+// object for info on each place 
+
+                    var photoUrl = typeof place.photos !== 'undefined'
+                        ? place.photos[0].getUrl({'maxWidth':300, 'maxHeight': 300})
+                        : '' ;
+
+                    var placeData = {"name"    : place.name,
+                                     "location": location,
+                                     "geometry": place.geometry,
+                                     "phone"   : place.formatted_phone_number,
+                                     "hours"   : place.opening_hours.periods,
+                                     "website" : place.website,
+                                     "image"   : photoUrl,
+                                     "rating"  : place.rating,
+                                     "type"    : place.types[0]
+                                     }
 
                     createMarker(place);
+                    restaurants.push(placeData)
+                    // console.log(placeData);
+
                 }
             }
 
