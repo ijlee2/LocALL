@@ -6,13 +6,13 @@
 *****************************************************************************
 *****************************************************************************/
 const config = {
-    apiKey: "AIzaSyDjGV94on0gidAzG2sLCy5F8s-tkQXAzPc",
-    authDomain: "locall-atx512.firebaseapp.com",
-    databaseURL: "https://locall-atx512.firebaseio.com",
-    projectId: "locall-atx512",
-    storageBucket: "locall-atx512.appspot.com",
+    apiKey           : "AIzaSyDjGV94on0gidAzG2sLCy5F8s-tkQXAzPc",
+    authDomain       : "locall-atx512.firebaseapp.com",
+    databaseURL      : "https://locall-atx512.firebaseio.com",
+    projectId        : "locall-atx512",
+    storageBucket    : "locall-atx512.appspot.com",
     messagingSenderId: "1032168672035"
-  };
+};
 
 firebase.initializeApp(config);
 
@@ -46,6 +46,8 @@ const restaurants = [], trails = [], breweries = [];
 let map;
 const markers = [];
 
+// BEGINNING OF $(document).ready()
+$(document).ready(function() {
 
 /****************************************************************************
  ****************************************************************************
@@ -93,11 +95,9 @@ $.ajax({
         restaurants.push(restaurant);
     });
 
-    /* TODO - Jacque: Save the restaurants array to Firebase. */
-    database.ref().push({
-      restaurant: restaurants
-    });
-
+    // Save the restaurants array to Firebase
+    database.ref("restaurants").set(restaurants);
+    
     // Display the array on the console
     console.log("-- Restaurants --");
     console.table(restaurants);
@@ -158,10 +158,8 @@ $.ajax({
         trails.push(trail);
     });
 
-    /* TODO - Jacque: Save the trails array to Firebase. */
-    database.ref().push({
-      trails: trails
-    });
+    // Save the trails array to Firebase
+    database.ref("trails").set(trails);
     
     // Display the array on the console
     console.log("-- Trails --");
@@ -177,7 +175,7 @@ function setHeader_trails(xhr) {
 /****************************************************************************
  ****************************************************************************
     
-    Trail API (Trails)
+    Beer Mapping API (breweries)
     
 *****************************************************************************
 *****************************************************************************/
@@ -205,18 +203,24 @@ $.getJSON(api_url, function(response) {
                        "type"         : "brewery"
                       };
 
-        // Store the information in our array
-        breweries.push(brewery);
+        // Find the latitude and longitude
+        geocode(`${brewery.location.address} ${brewery.location.city}, ${brewery.location.state}`).then(function(location) {
+            console.log(location);
+            
+            // Store the information in our array
+            breweries.push(brewery); 
+        });
     });
 
-    /* TODO - Jacque: Save the breweries array to Firebase. */
-    database.ref().push({
-      breweries: breweries
-    });
+    // Save the breweries array to Firebase
+    database.ref("breweries").set(breweries);
     
     // Display the array on the console
     console.log("-- Breweries --");
     console.table(breweries);
+});
+
+// END OF $(document).ready()
 });
 
 
@@ -273,5 +277,42 @@ function displayMap() {
 
         // Store the markers for future reference
         markers.push(marker);
+    });
+}
+
+
+function geocode(query) {
+    // Replace whitespaces with plus signs
+    query = query.replace(/\s/g, "+");
+
+    parameters = {"address": query,
+                  "key"    : "AIzaSyAUXkXE4GQC50D5MTJSZRnoy47XBou0f1U"
+                 };
+    api_url = "https://maps.googleapis.com/maps/api/geocode/json?" + $.param(parameters);
+    
+    let addressFull, address, city, state, zipcode;
+    let location;
+
+    $.getJSON(api_url, function(response) {
+        // Return example: "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA"
+        addressFull = response.results[0].formatted_address.split(",");
+
+        // Extract information
+        address     = addressFull[0];
+        city        = addressFull[1].trim();
+        state       = addressFull[2].substring(1, 3);
+        zipcode     = addressFull[2].substring(4);
+
+        location = {"address"  : address,
+                    "city"     : city,
+                    "state"    : state,
+                    "zipcode"  : zipcode,
+                    "latitude" : response.results[0].geometry.location.lat,
+                    "longitude": response.results[0].geometry.location.lng
+                   };
+
+        console.log(location);
+
+        return location;
     });
 }
