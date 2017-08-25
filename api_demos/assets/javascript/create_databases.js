@@ -6,12 +6,12 @@
 *****************************************************************************
 *****************************************************************************/
 const config = {
-    apiKey           : "AIzaSyDjGV94on0gidAzG2sLCy5F8s-tkQXAzPc",
-    authDomain       : "locall-atx512.firebaseapp.com",
-    databaseURL      : "https://locall-atx512.firebaseio.com",
-    projectId        : "locall-atx512",
-    storageBucket    : "locall-atx512.appspot.com",
-    messagingSenderId: "1032168672035"
+    "apiKey"           : "AIzaSyDjGV94on0gidAzG2sLCy5F8s-tkQXAzPc",
+    "authDomain"       : "locall-atx512.firebaseapp.com",
+    "databaseURL"      : "https://locall-atx512.firebaseio.com",
+    "projectId"        : "locall-atx512",
+    "storageBucket"    : "locall-atx512.appspot.com",
+    "messagingSenderId": "1032168672035"
 };
 
 firebase.initializeApp(config);
@@ -27,202 +27,17 @@ const database = firebase.database();
     
 *****************************************************************************
 *****************************************************************************/
-// Search radius in miles
-let user = {"city"      : "Austin",
-            "state"     : "Texas",
-            "state_abbr": "TX",
-            "latitude"  :  30.307182,
-            "longitude" : -97.755996,
-            "radius"    : 50
-           };
-
-// For API calls
-let query, parameters, api_url;
+// Search radius in meters
+const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
+const search_radius      = 20 * 1609.34;
 
 // Database (arrays) that we want to populate and send to Firebase
 const restaurants = [], trails = [], breweries = [];
 
 // For Google Maps
-let map;
+let map, infowindow, service;
 const markers = [];
-
-// BEGINNING OF $(document).ready()
-$(document).ready(function() {
-
-/****************************************************************************
- ****************************************************************************
-    
-    Zomato API (Restaurants)
-    
-*****************************************************************************
-*****************************************************************************/
-// Find all bbq locations in Austin, TX
-query      = "bbq%2C%20barbecue";
-parameters = {"q"     : query,
-              "lat"   : user.latitude,
-              "lon"   : user.longitude,
-              "radius": 1609.34 * user.radius
-             };
-api_url    = "https://developers.zomato.com/api/v2.1/search?" + $.param(parameters);
-
-$.ajax({
-    url       : api_url,
-    method    : 'GET',
-    dataType  : 'JSON',
-    beforeSend: setHeader_zomato
-
-}).done(function(response) {
-    // For each restaurant that Zomato API provides us
-    response.restaurants.forEach(r => {
-        // Extract the information that we want
-        let restaurant = {"name"         : r.restaurant.name,
-                          "location"     : {"address"  : r.restaurant.location.address,
-                                            "city"     : r.restaurant.location.city,
-                                            "state"    : "TX",
-                                            "zipcode"  : r.restaurant.location.zipcode,
-                                            "latitude" : parseFloat(r.restaurant.location.latitude),
-                                            "longitude": parseFloat(r.restaurant.location.longitude)
-                                           },
-                          "website"      : null,
-                          "image_feature": r.restaurant.featured_image,
-                          "rating"       : {"starRating": parseFloat(r.restaurant.user_rating.aggregate_rating),
-                                            "numRatings": parseInt(r.restaurant.user_rating.votes)
-                                           },
-                          "type"         : "bbq"
-                         };
-
-        // Store the information in our array
-        restaurants.push(restaurant);
-    });
-
-    // Save the restaurants array to Firebase
-    database.ref("restaurants").set(restaurants);
-    
-    // Display the array on the console
-    console.log("-- Restaurants --");
-    console.table(restaurants);
-
-  // });
-});
-
-function setHeader_zomato(xhr) {
-    // API key for Zomato
-    xhr.setRequestHeader('user-key', 'b5ee5402ab1c74adead9b0b432d1db0f');
-}
-
-
-
-/****************************************************************************
- ****************************************************************************
-    
-    Trail API (Trails)
-    
-*****************************************************************************
-*****************************************************************************/
-// Find all hiking trails in Austin, TX
-query      = "hiking";
-parameters = {"q[activities_activity_type_name_eq]": query,
-              "q[city_cont]"                       : user.city,
-              "q[state_cont]"                      : user.state,
-              "radius"                             : user.radius
-             };
-api_url    = "https://trailapi-trailapi.p.mashape.com/?" + $.param(parameters);
-
-$.ajax({
-    url       : api_url,
-    method    : 'GET',
-    dataType  : 'JSON',
-    beforeSend: setHeader_trails
-
-}).done(function(response) {
-    // For each trail that Trails API provides us
-    response.places.forEach(p => {
-        // Extract the information that we want
-        let trail = {"name"         : p.name,
-                     "location"     : {"address"  : null,
-                                       "city"     : p.city,
-                                       "state"    : p.state,
-                                       "zipcode"  : null,
-                                       "latitude" : p.lat,
-                                       "longitide": p.lon
-                                      },
-                     "website"      : p.activities[0].url,
-                     "image_feature": null,
-                     "rating"       : {"starRating": p.activities[0].rating,
-                                       "numRatings": null
-                                      },
-                     "type"         : p.activities[0].activity_type_name
-                    };
-
-        // Store the information in our array
-        trails.push(trail);
-    });
-
-    // Save the trails array to Firebase
-    database.ref("trails").set(trails);
-    
-    // Display the array on the console
-    console.log("-- Trails --");
-    console.table(trails);
-});
-
-function setHeader_trails(xhr) {
-    xhr.setRequestHeader('X-Mashape-Key', 'YJAiQK0Cirmshoi4JIWN51e4ZBWzp1FCJuTjsng1orgLvIxQK9');
-}
-
-
-
-/****************************************************************************
- ****************************************************************************
-    
-    Beer Mapping API (breweries)
-    
-*****************************************************************************
-*****************************************************************************/
-// Find all beer locations in Austin, TX
-api_url = `https://beermapping.com/webservice/loccity/68a06dbe893eb0da2b905eecb80e8c2f/${user.city},${user.state_abbr}&s=json`;
-
-$.getJSON(api_url, function(response) {
-    // For each brewery that Beer Mapping API provides us
-    response.forEach(b => {
-        // Extract the information that we want
-        var brewery = {"name"         : b.name,
-                       "location"     : {"address"  : b.street,
-                                         "city"     : b.city,
-                                         "state"    : b.state,
-                                         "zipcode"  : b.zip,
-                                         "latitude" : null,
-                                         "longitude": null
-                                        },
-                       "website"      : b.url,
-                       "image_feature": null,
-                       // Make the rating out of 5 stars (1 decimal point)
-                       "rating"       : {"starRating": Math.round(parseFloat(b.overall) / 2) / 10,
-                                         "numRatings": null
-                                        },
-                       "type"         : "brewery"
-                      };
-
-        // Find the latitude and longitude
-        geocode(`${brewery.location.address} ${brewery.location.city}, ${brewery.location.state}`).then(function(location) {
-            console.log(location);
-            
-            // Store the information in our array
-            breweries.push(brewery); 
-        });
-    });
-
-    // Save the breweries array to Firebase
-    database.ref("breweries").set(breweries);
-    
-    // Display the array on the console
-    console.log("-- Breweries --");
-    console.table(breweries);
-});
-
-// END OF $(document).ready()
-});
-
+const delayBetweenAPICalls = 1500;
 
 
 /****************************************************************************
@@ -232,87 +47,176 @@ $.getJSON(api_url, function(response) {
     
 *****************************************************************************
 *****************************************************************************/
-let places = [{"name"     : "Rudy's BBQ",
-               "address"  : "512 W 29th Street, Austin 78705",
-               "latitude" : 30.2953166667,
-               "longitude": -97.7423694444},
-               
-              {"name"     : "Bert's BBQ",
-               "address"  : "907 W 24th Street, Austin 78705",
-               "latitude" : 30.2881055556,
-               "longitude": -97.7474527778},
-               
-              {"name"     : "BBQ Revolution",
-               "address"  : "3111 Manor Road, Austin 78723",
-               "latitude" : 30.3154988,
-               "longitude": -97.7167106}
-             ];
-
 function displayMap() {
-    // Where we want Google Maps to zoom in
-    let center = {"lat": 0, "lng": 0};
-
-    // Take the average location of all places
-    places.forEach(p => {
-        center.lat += p.latitude;
-        center.lng += p.longitude;
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: coordinates_austin,
+        zoom  : 11
     });
 
-    center.lat /= places.length;
-    center.lng /= places.length;
+    infowindow = new google.maps.InfoWindow();
+    service    = new google.maps.places.PlacesService(map);
 
-    // Create the map
-    map = new google.maps.Map(document.getElementById("map"), {
-        "center": center,
-        "zoom"  : 13
+    // Create the restaurants database
+    service.nearbySearch({
+        keyword : "bbq",
+        location: coordinates_austin,
+        radius  : search_radius,
+        type    : ["restaurant"]
+
+    }, function(results, status) {
+        getPlaceIDs(results, status, "restaurants");
+
     });
-    
-    // Place a marker for each place
-    places.forEach(p => {
-        let marker = new google.maps.Marker({
-            "position": {"lat": p.latitude,
-                         "lng": p.longitude},
-            "map": map
-        });
 
-        // Store the markers for future reference
-        markers.push(marker);
+    // Create the trails database
+    service.nearbySearch({
+        keyword : "trail",
+        location: coordinates_austin,
+        radius  : search_radius,
+        type    : ["park"]
+
+    }, function(results, status) {
+        getPlaceIDs(results, status, "trails");
+
+    });
+
+    // Create the breweries database
+    service.nearbySearch({
+        keyword : "brewery",
+        location: coordinates_austin,
+        radius  : search_radius,
+        type    : ["bar"]
+
+    }, function(results, status) {
+        getPlaceIDs(results, status, "breweries");
+
     });
 }
 
+function getPlaceIDs(results, status, arrayName) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        let i = 0;
 
-function geocode(query) {
-    // Replace whitespaces with plus signs
-    query = query.replace(/\s/g, "+");
+        // Delay calling getPlaceDetails to avoid the OVER_QUERY_LIMIT status
+        const intervalID = setInterval(function() {
+            // Get the place ID from Google Maps API
+            service.getDetails({
+                "placeId": results[i].place_id
+            
+            // Use an anonymous function to pass an extra parameter
+            }, function(place, status) {
+                // Find the place details
+                getPlaceDetails(place, status, arrayName);
 
-    parameters = {"address": query,
-                  "key"    : "AIzaSyAUXkXE4GQC50D5MTJSZRnoy47XBou0f1U"
-                 };
-    api_url = "https://maps.googleapis.com/maps/api/geocode/json?" + $.param(parameters);
-    
-    let addressFull, address, city, state, zipcode;
-    let location;
+            });
 
-    $.getJSON(api_url, function(response) {
-        // Return example: "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA"
-        addressFull = response.results[0].formatted_address.split(",");
+            i++;
 
-        // Extract information
-        address     = addressFull[0];
-        city        = addressFull[1].trim();
-        state       = addressFull[2].substring(1, 3);
-        zipcode     = addressFull[2].substring(4);
+            if (i === results.length) {
+                clearInterval(intervalID);
+            }
 
-        location = {"address"  : address,
-                    "city"     : city,
-                    "state"    : state,
-                    "zipcode"  : zipcode,
-                    "latitude" : response.results[0].geometry.location.lat,
-                    "longitude": response.results[0].geometry.location.lng
-                   };
+        }, delayBetweenAPICalls);
+    }
+}
 
-        console.log(location);
+function getPlaceDetails(place, status, arrayName) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        // Find the street name, city, state, and zip code
+        const address = place.formatted_address;
 
-        return location;
+        const temp     = address.split(",");
+        const location = {
+            "address": address,
+            "street" : temp[0].trim(),
+            "city"   : temp[1].trim(),
+            "state"  : temp[2].trim().substring(0, 2),
+            "zipcode": temp[2].trim().substring(3)
+        };
+
+        // Find the latitude and longitude
+        const geometry = {
+            "lat": place.geometry.location.lat(),
+            "lng": place.geometry.location.lng()
+        };
+
+        // Provide null value if an information is missing
+        // (Firebase does not allow undefined)
+        const phone      = (typeof place.formatted_phone_number !== "undefined") ? place.formatted_phone_number : null;
+        const hours      = (typeof place.opening_hours !== "undefined") ? place.opening_hours.periods : null;
+        const websiteURL = (typeof place.website !== "undefined") ? place.website : null;
+        const imageURL   = (typeof place.photos !== "undefined") ? place.photos[0].getUrl({"maxWidth": 300, "maxHeight": 300}) : null;
+
+        // Save the information that we want
+        const placeData = {
+            "id"      : place.place_id,
+            "name"    : place.name,
+            "location": location,
+            "geometry": geometry,
+            "phone"   : place.formatted_phone_number,
+            "hours"   : hours,
+            "website" : websiteURL,
+            "image"   : imageURL,
+            "rating"  : place.rating,
+            "type"    : arrayName
+        };
+
+        // Place a marker on the map
+        displayMarker(placeData, arrayName);
+
+        // Display to HTML
+        const output = `<tr>
+                            <td>${placeData.name}</td>
+                            <td>${placeData.location.address}</td>
+                            <td>${placeData.phone}</td>
+                            <td><a href="${placeData.website}" target="_blank">Webpage</a></td>
+                            <td><a href="${placeData.image}" target="_blank">Image</a></td>
+                            <td>${placeData.rating}</td>
+                        </tr>`;
+
+        // Store the information to the correct array
+        if (arrayName === "restaurants") {
+            restaurants.push(placeData);
+            
+            $("#restaurants thead").append(output);
+
+        } else if (arrayName === "trails") {
+            trails.push(placeData);
+
+            $("#trails thead").append(output);
+
+        } else if (arrayName === "breweries") {
+            breweries.push(placeData);
+
+            $("#breweries thead").append(output);
+
+        }
+
+    } else {
+        // Use this information to determine the value of delayBetweenAPICalls
+        console.error(`${arrayName}: Data read failed.`);
+
+    }
+}
+
+function displayMarker(placeData, arrayName) {
+    /* TODO: Depending on arrayName, choose the correct icon */
+
+
+    const marker = new google.maps.Marker({
+        "map"     : map,
+        "position": placeData.geometry
+        /* TODO: Place the icon */
+
+    });
+
+    // Store the marker for future reference
+    markers.push(marker);
+
+    google.maps.event.addListener(marker, "click", function() {
+        const output = `<div><strong>${placeData.name}</strong><br>${placeData.location.address}</div>`;
+
+        infowindow.setContent(output);
+        infowindow.open(map, this);
     });
 }
