@@ -4,173 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
     integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" 
     integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" 
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="assets/css/style.css">
-     <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
-     <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
-     <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'> 
-     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-     <link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
+    
+    <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
+    
     <title>LocALL</title>
 </head>
 
-<body id ="dcd">
-
+<body>
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
-            <h4 class="text-white">Menu</h4>
-            <span class="text-muted">
-                <button type="button" class="btn btn-outline-primary" onClick="displayPage(1)">Home</button>
-                <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)">About</button>
-                <button type="button" class="btn btn-outline-success">Contact</button>
-            </span>
+            <div class="bg-dark p-4">
+                <h4 class="text-white">Menu</h4>
+                <span class="text-muted">
+                    <button type="button" class="btn btn-outline-primary" onClick="displayPage(1)">Home</button>
+                    <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)">About</button>
+                    <button type="button" class="btn btn-outline-success">Contact</button>
+                </span>
+            </div>
         </div>
-       </div>
-    </div>
+        
         <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </nav>
-      
-    </div>
-<div id = "page1" class = "page">
-    <div class="jumbotron">
-        <h1 class="local-head heading">LocALL</h1>
-        <h2>Eat, Play, and Drink Locally</h2>
-        <a class="btn btn-primary btn-lg page1Button" id ="goLocal" onClick="displayPage(2)" href="#" role="button">Go Local!</a><br>
-        <a class="btn btn-primary btn-lg page1Button" id ="aboutUs" href="#" role="button" onClick="displayPage(3)">About Us</a>
-    </div>
-</div>
-
-<div id = "page2" class ="content page" style="display: none">
-    <div class = "row flexContainer ">
-    <div class="btn-group col-md-3" id = "primary" >
-        <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Eat
-        </button>
-            <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
-                <button class="dropdown-item" type="button">BBQ</button>
-            </div>
     </div>
 
-    <div class="btn-group col-md-3" id = "main">
-        <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Play
-        </button>
-            <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
-                <button class="dropdown-item" type="button">Hiking</button>
+    <div id="page1" class="page">
+        <div class="jumbotron">
+            <h1 class="local-head heading">LocALL</h1>
+            <h2>Eat, Play, and Drink Locally</h2>
 
-            </div>
-    </div>
-
-    <div class="btn-group col-md-3" id = "secondary">
-        <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Drink
-        </button>
-            <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
-                <button class="dropdown-item" type="button">Breweries</button>
-            </div>
-    </div>
-        <div class = "btn-group col-md-3" id = "sea">
-        <button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning page2Button">Search</button>
+            <a class="btn btn-primary btn-lg" onClick="displayPage(2)" href="#" role="button">Go Local!</a><br>
+            <a class="btn btn-primary btn-lg" onClick="displayPage(3)" href="#" role="button">About Us</a>
         </div>
     </div>
+
+    <div id="page2" class="content page" style="display: none">
+        <div class = "row flexContainer ">
+            <div class="btn-group col-md-3 button_search"  >
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Eat
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item" type="button">BBQ</button>
+                </div>
+            </div>
+
+            <div class="btn-group col-md-3 button_search">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Play
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item" type="button">Hiking</button>
+                </div>
+            </div>
+
+            <div class="btn-group col-md-3 button_search" >
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Drink
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item" type="button">Breweries</button>
+                </div>
+            </div>
+            
+            <div class = "btn-group col-md-3 button_search">
+                <button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning">
+                    Search
+                </button>
+            </div>
+        </div>
     </div>
     
-    <div id = "page3" class = "page" style="display: none">
-        
-            <div class="bg skrollable skrollable-between" 
-                data-anchor-target="#aboutTeam-section" data-bottom-top="transform: 
-                translate3d(0px, -150px, 0px);" data-top-bottom="transform: 
-                translate3d(0px, 150px, 0px);" style="transform: 
-                translate3d(0px, -111.857px, 0px);">
-            </div> 
-    
-        
-            <div class="fade-in"> 
-                <div class="center"> 
-                    <h2 class="section-heading">About Us</h2> 
-                    <span class="divider center"></span> 
-                    <p class="experience-description">Loreum Ipsum!</p> 
-                </div>
-            <div>
+    <div class="page" style="display: none">
+        <div class="bg skrollable skrollable-between" 
+             data-anchor-target="#aboutTeam-section"
+             data-bottom-top="transform: translate3d(0px, -150px, 0px);"
+             data-top-bottom="transform: translate3d(0px, 150px, 0px);"
+             style="transform: translate3d(0px, -111.857px, 0px);">
+        </div> 
 
-            <div >
-                <div id="team" class="flexContainer row"> 
-                    <div class=" team-block team-block1 col-md-3"> 
-                        <div class="team-content"> 
-                            <h2 class="person">Jaqueline</h2> 
-                            <h3 class="position">
-                                <a href="#"target="_blank">Junior Software Developer</a>
-                            </h3> 
-                            <p class="bio-des">lorem ipsum</strong></p> 
-                        </div> 
-
-                        <div class="teamline-img"> 
-                        <div class="sprite software">
-                        </div> 
-                        </div>
-                        <span class="date">May17 - Present</span> 
-                    </div> 
-
-                    <div class="team-block team-block2 col-md-3"> 
-                        <div class="team-content"> 
-                            <h2 class="person">Isaac</h2> 
-                            <h3 class="position">
-                                <a href="#" target="_blank">Junior Software Developer</a>
-                            </h3> 
-                            <p class="bio-des">loreum ipsum</p> 
-                        </div> 
-                        <div class="teamline-img"> 
-                            <div class="sprite computer">
-                            </div> 
-                        </div> 
-                        <span class="date">May17 - Present</span> 
-                    </div> 
-
-                    <div class="team-block team-block3 col-md-3"> 
-                        <div class="team-content "> 
-                            <h2 class="person">Aaron</h2> 
-                            <h3 class="position">
-                                <a href="#" target="_blank">Junior Software Developer</a>
-                            </h3> 
-                            <p class="bio-des">lorem ipsum</p> 
-                        </div> 
-                        <div class="teamline-img"> 
-                            <div class="sprite industry">
-                            </div> 
-                        </div> 
-                        <span class="date">May17 - Present</span> 
-                    </div> 
-
-                    <div class="team-block team-block4 col-md-3"> 
-                        <div class="team-content"> 
-                            <h2 class="person">Margarita Tagaban</h2>
-                            <h3 class="position">
-                                <a href="#" target="_blank">Junior Software Developer</a>
-                            </h3> 
-                            <p class="bio-des">Lorem ipsum</p> 
-                        </div> 
-                        <div class="teamline-img"> 
-                            <div class="sprite development">    
-                            </div> 
-                        </div> 
-                        <span class="date">May17 - Present</span> 
-                    </div> 
-                </div> 
+        <div class="fade-in"> 
+            <div class="center"> 
+                <h2 class="section-heading">About Us</h2> 
+                <span class="divider center"></span> 
+                <p class="experience-description">Loreum Ipsum!</p> 
             </div>
-                   
-    </div>  
-</body>
-<script src = "assets/js/local.js"></script>
-</html>
+        </div>    
+          
+        <div id="team" class="flexContainer"> 
+            <div class="flex-item"> 
+             <!--   <div class="team-content1"> -->
+                    <h2 class="person">Jaqueline</h2> 
+                    <h3 class="position">
+                        <a href="#"target="_blank">Junior Software Developer</a>
+                    </h3> 
+                    <p class="bio-des">lorem ipsum</strong></p> 
+                 <!--  </div> -->
 
+              <!--  <div class="teamline-img"> 
+                <div class="sprite software">
+                </div> 
+                </div>-->
+                    <span class="date">May17 - Present</span> 
+            </div> 
+
+            <div class="flex-item2"> 
+               <!-- <div class="team-content2"> -->
+                    <h2 class="person">Isaac</h2> 
+                    <h3 class="position">
+                        <a href="#" target="_blank">Junior Software Developer</a>
+                    </h3> 
+                    <p class="bio-des">loreum ipsum</p> 
+               <!-- </div> 
+                <div class="teamline-img"> 
+                    <div class="sprite computer">
+                    </div> 
+                </div> -->
+                    <span class="date">May17 - Present</span> 
+            </div> 
+
+            <div class="flex-item3"> 
+                  <!--  <div class="team-content3 "> -->
+                    <h2 class="person">Aaron</h2> 
+                    <h3 class="position">
+                        <a href="#" target="_blank">Junior Software Developer</a>
+                    </h3> 
+                    <p class="bio-des">lorem ipsum</p> 
+              <!--  </div> 
+                <div class="teamline-img"> 
+                    <div class="sprite industry">
+                    </div> 
+                </div> -->
+                <span class="date">May17 - Present</span> 
+            </div> 
+
+            <div class="flex-item4"> 
+               <!-- <div class="team-content4"> -->
+                    <h2 class="person">Margarita Tagaban</h2>
+                    <h3 class="position">
+                        <a href="#" target="_blank">Junior Software Developer</a>
+                    </h3> 
+                    <p class="bio-des">Lorem ipsum</p> 
+              <!--  </div> 
+                <div class="teamline-img"> 
+                    <div class="sprite development">    
+                    </div> 
+                </div> -->
+                <span class="date">May17 - Present</span> 
+            </div> 
+        </div> 
+    </div>
+
+    <script src = "assets/js/local.js"></script>
+</body>
+</html>

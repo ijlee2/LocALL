@@ -36,11 +36,7 @@ h2{
     font-size:40px;
     text-align: center;
 }
-.page2Button{
-    font-size:20px;
-    text-align: center;
-    margin-top: 2em;
-}
+
 .jumbotron{
     text-align: center;
     opacity: 0.75;
@@ -56,30 +52,30 @@ h2{
     font-size: 90px;
 }
 
-#primary {
+.button_search {
     display: flex;
     flex-direction: column;
     flex-basis: 300px;
+    width:270px;
+    margin-left: 20px;   
 }
 
-#main {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 300px;
+
+
+#page1 a {
+    width: 178px;
+    height: 60px;
+    margin-bottom: .5em;
+    font-size: 30px;
 }
 
-#secondary {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 300px;
+#page2 button {
+    font-size:20px;
+    text-align: center;
+    margin-top: 2em;
 }
 
-#sea{
-    display:flex;
-    flex-direction: column;
-    flex-basis: 300px;
-}
-.flexContainer {
+.team-line{
    display: -webkit-flex;
    display: flex;
    -webkit-flex-direction: row; /* works with row or column */
@@ -88,12 +84,6 @@ h2{
    align-items: center;
    -webkit-justify-content: center;
    justify-content: center;
-}
-.page1Button{
-    width: 178px;
-    height: 60px;
-    margin-bottom: .5em;
-    font-size: 30px;
 }
 
 
@@ -113,7 +103,7 @@ flex-direction: row;
 }
 .team-block2{
 order:2;
-flex: 0 1 auto;
+flex: auto;
 flex-grow: 0;
 flex-shrink: 1;
 flex-basis: auto;
@@ -125,7 +115,7 @@ background-color: pink;
 }
 .team-block4{
 order:4;
-flex: 0 1 auto;
+
 flex-grow: 0;
 flex-shrink: 1;
 flex-basis: auto;
@@ -137,9 +127,8 @@ min-height: 50px;
 
 .team-block3 {
    color:cyan;
+
 order:3;
-flex: 0 1 auto;
-flex-grow: 0;
 flex-shrink: 1;
 flex-basis: inherit;
 align-self: flex-start;
