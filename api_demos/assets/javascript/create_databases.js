@@ -38,11 +38,12 @@ const restaurants = [], trails = [], breweries = [];
 let map, infowindow, service;
 const markers = [];
 const delayBetweenAPICalls = 1500;
-const mapIcons = [
-                  "https://www.shareicon.net/data/32x32/2016/08/02/805660_bbq_512x512.png",
+const mapIcons = ["https://www.shareicon.net/data/32x32/2016/08/02/805660_bbq_512x512.png",
                   "https://cdn2.iconfinder.com/data/icons/new-year-resolutions/64/resolutions-02-32.png", 
                   "https://www.shareicon.net/data/32x32/2016/08/23/818914_alcohol_512x512.png"
-                  ];
+                 ];
+
+
 
 /****************************************************************************
  ****************************************************************************
