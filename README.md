@@ -14,9 +14,6 @@ A website that lets you pick places to eat, drink, and play locally in Austin. C
 
 ## API Demos
 - [Beer Mapping](https://ijlee2.github.io/LocAll/api_demos/beer_mapping.html)
-- BreweryDB
 - [Google Maps](https://ijlee2.github.io/LocAll/api_demos/google_maps.html)
-- Mapbox
 - [TrailAPI](https://ijlee2.github.io/LocAll/api_demos/trail_api.html)
-- Yelp
 - [Zomato](https://ijlee2.github.io/LocAll/api_demos/zomato.html)
