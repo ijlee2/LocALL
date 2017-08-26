@@ -185,9 +185,6 @@ metrics = metrics.filter(function(a) {
     }
 })
 
-// Assign probability of being recommended
-metrics.forEach(m => m.probability /= sum);
-
 
 
 /****************************************************************************
@@ -199,13 +196,17 @@ metrics.forEach(m => m.probability /= sum);
 *****************************************************************************/
 let output = "";
 
-for (let i = 0; i < metrics.length; i++) {
-    output += `<tr id="${i}">
-                   <td>${metrics[i].name}</td>
-                   <td>${metrics[i].value.toFixed(3)}</td>
-                   <td>${metrics[i].probability.toFixed(4)}</td>
+metrics.forEach(m => {
+    // Assign probability of being recommended
+    m => m.probability /= sum;
+
+    // Display to HTML
+    output += `<tr>
+                   <td>${m.name}</td>
+                   <td>${m.value.toFixed(3)}</td>
+                   <td>${m.probability.toFixed(4)}</td>
                </tr>`;
-}
+});
 
 $("#metrics tbody").html(output);
 
