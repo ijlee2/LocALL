@@ -198,7 +198,7 @@ let output = "";
 
 metrics.forEach(m => {
     // Assign probability of being recommended
-    m => m.probability /= sum;
+    m.probability /= sum;
 
     // Display to HTML
     output += `<tr>
