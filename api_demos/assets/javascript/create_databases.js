@@ -28,16 +28,16 @@ const database = firebase.database();
 *****************************************************************************
 *****************************************************************************/
 // Search radius in meters
-const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
-const search_radius      = 20 * 1609.34;
+const search_radius = 20 * 1609.34;
 
 // Database (arrays) that we want to populate and send to Firebase
 const restaurants = [], trails = [], breweries = [];
 
 // For Google Maps
-let map, infowindow, service;
+let   map, infowindow, service;
 const delayBetweenAPICalls = 1500;
-const markers = [];
+const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
+let   markers = [];
 const markerIcons = {
     "restaurants": "assets/images/restaurants.png",
     "trails"     : "assets/images/trails.png",
@@ -54,9 +54,12 @@ const markerIcons = {
 *****************************************************************************
 *****************************************************************************/
 function displayMap() {
+    // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById('map'), {
-        center: coordinates_austin,
-        zoom  : 11
+        "center"          : coordinates_austin,
+        "disableDefaultUI": true,
+        "zoomControl"     : true,
+        "zoom"            : 11
     });
 
     infowindow = new google.maps.InfoWindow();

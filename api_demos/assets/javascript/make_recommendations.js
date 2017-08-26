@@ -44,8 +44,9 @@ const breweries = [
 let metrics = [];
 
 // For Google Maps
-let map;
-let markers = [];
+let   map;
+const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
+let   markers = [];
 const markerIcons = {
     "restaurants": "assets/images/restaurants.png",
     "trails"     : "assets/images/trails.png",
@@ -218,10 +219,12 @@ $("#metrics tbody").html(output);
 *****************************************************************************
 *****************************************************************************/
 function displayMap() {
-    // Initialize the map
+    // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById("map"), {
-        "center": {"lat": 30.2849, "lng": -97.7341},
-        "zoom"  : 13
+        "center"          : coordinates_austin,
+        "disableDefaultUI": true,
+        "zoomControl"     : true,
+        "zoom"            : 13
     });
 }
 
@@ -229,7 +232,7 @@ $("tbody tr").on("click", function() {
     // Delete existing markers
     markers.forEach(m => m.setMap(null));
     markers = [];
-
+    
     // Find out which row was clicked
     const index  = $("tbody tr").index(this);
     const places = metrics[index].places;
