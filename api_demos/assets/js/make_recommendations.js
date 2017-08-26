@@ -5,7 +5,7 @@
     
 *****************************************************************************
 *****************************************************************************/
-const restaurants = [
+const eat = [
     {"name": "Stubb's"       , "geometry": {"lat": 30.268490, "lng": -97.736156}},
     {"name": "Franklin"      , "geometry": {"lat": 30.270119, "lng": -97.731273}},
     {"name": "SLAB"          , "geometry": {"lat": 30.370630, "lng": -97.725124}},
@@ -14,7 +14,7 @@ const restaurants = [
     {"name": "Green Mesquite", "geometry": {"lat": 30.261519, "lng": -97.759200}}
 ];
 
-const trails = [
+const play = [
     {"name": "Chisholm"    , "geometry": {"lat": 30.511925, "lng": -97.689391}},
     {"name": "Copperfield" , "geometry": {"lat": 30.388973, "lng": -97.655342}},
     {"name": "Roy and Ann" , "geometry": {"lat": 30.264217, "lng": -97.755940}},
@@ -22,7 +22,7 @@ const trails = [
     {"name": "Great Hills" , "geometry": {"lat": 30.410463, "lng": -97.755936}}
 ];
 
-const breweries = [
+const drink = [
     {"name": "Draught House", "geometry": {"lat": 30.311071, "lng": -97.742874}},
     {"name": "Brew Exchange", "geometry": {"lat": 30.270356, "lng": -97.749884}},
     {"name": "NXNW"         , "geometry": {"lat": 30.391162, "lng": -97.738351}},
@@ -41,16 +41,17 @@ const breweries = [
 *****************************************************************************
 *****************************************************************************/
 // A metric allows us to make a quantitative recommendation
-let metrics = [];
+let   metrics    = [];
+const metric_max = 20;
 
 // For Google Maps
 let   map;
 const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
-let   markers = [];
+let   markers     = [];
 const markerIcons = {
-    "restaurants": "assets/images/restaurants.png",
-    "trails"     : "assets/images/trails.png",
-    "breweries"  : "assets/images/breweries.png"
+    "eat"  : "assets/images/eat.png",
+    "play" : "assets/images/play.png",
+    "drink": "assets/images/drink.png"
 };
 
 
@@ -113,77 +114,65 @@ function spherical_distance(point1, point2) {
     
 *****************************************************************************
 *****************************************************************************/
-// Temporary variables
-let i, j, k;
-let r_i, t_j, b_k;
-
-// Spherical perimeter, spherical area
 let metric;
+let probability, probability_total = 0;
+
+// Temporary variables
 let perimeter, area;
 let a, b, c, s, E;
 
-for (i = 0; i < restaurants.length; i++) {
-    r_i = restaurants[i];
+eat.forEach(activity_i => {
+    play.forEach(activity_j => {
+        // Find the distance between points
+        a = spherical_distance(activity_i.geometry, activity_j.geometry);
 
-    for (j = 0; j < trails.length; j++) {
-        t_j = trails[j];
+        drink.forEach(activity_k => {
+            // Find the distance between points
+            b = spherical_distance(activity_j.geometry, activity_k.geometry);
+            c = spherical_distance(activity_k.geometry, activity_i.geometry);
 
-        // Calculate the distance between points
-        a = spherical_distance(r_i.geometry, t_j.geometry);
-
-        for (k = 0; k < breweries.length; k++) {
-            b_k = breweries[k];
-
-            // Calculate the distance between points
-            b = spherical_distance(t_j.geometry, b_k.geometry);
-            c = spherical_distance(b_k.geometry, r_i.geometry);
-
-            // Calculate the semiperimeter
+            // Semiperimeter, perimeter
             s = (a + b + c) / 2;
-            
-            // Calculate the perimeter
             perimeter = 2 * r * s;
 
-            // Calculate the excess angle
+            // Excess angle, area
             E = 4 * Math.atan(Math.sqrt( Math.abs(Math.tan(s/2) * Math.tan((s - a)/2) * Math.tan((s - b)/2) * Math.tan((s - c)/2)) ));
-
-            // Calculate the area
             area = E * Math.pow(r, 2);
 
-            // Update metrics
+            // Calculate the metric
             metric = perimeter;
 
-            metrics.push({
-                "name"       : `<p>▪ ${r_i.name}</p><p>▪ ${t_j.name}</p><p>▪ ${b_k.name}</p>`,
-                "places"     : [
-                    {"type": "restaurants", "geometry": r_i.geometry},
-                    {"type": "trails"     , "geometry": t_j.geometry},
-                    {"type": "breweries"  , "geometry": b_k.geometry}
-                ],
-                "perimeter"  : perimeter,
-                "area"       : area,
-                "value"      : metric,
-                "probability": 1 / Math.pow(Math.log(1 + metric), 2)
-            });
-        }
-    }
-}
+            // Remove bad recommendations
+            if (metric <= metric_max) {
+                probability = 1 / Math.pow(Math.log(1 + metric), 2);
 
-// List our recommendations from best to worst
+                metrics.push({
+                    "name"       : `<p>▪ ${activity_i.name}</p><p>▪ ${activity_j.name}</p><p>▪ ${activity_k.name}</p>`,
+                    "places"     : [
+                        {"type": "eat"  , "geometry": activity_i.geometry},
+                        {"type": "play" , "geometry": activity_j.geometry},
+                        {"type": "drink", "geometry": activity_k.geometry}
+                    ],
+                    "perimeter"  : perimeter,
+                    "area"       : area,
+                    "value"      : metric,
+                    "probability": probability
+                });
+
+                // Tally the total
+                probability_total += probability;
+            }
+        });
+    });
+});
+
+// List our recommendations from best (low metric) to worst (high metric)
 metrics.sort(function(a, b) {
     return a.value - b.value;
 });
 
-// Remove bad recommendations
-let sum = 0;
-
-metrics = metrics.filter(function(a) {
-    if (a.perimeter < 20) {
-        sum += a.probability;
-
-        return true;
-    }
-})
+// Assign the probability that a recommendation occurs
+metrics.forEach(m => m.probability /= probability_total);
 
 
 
@@ -196,17 +185,7 @@ metrics = metrics.filter(function(a) {
 *****************************************************************************/
 let output = "";
 
-metrics.forEach(m => {
-    // Assign probability of being recommended
-    m.probability /= sum;
-
-    // Display to HTML
-    output += `<tr>
-                   <td>${m.name}</td>
-                   <td>${m.value.toFixed(3)}</td>
-                   <td>${m.probability.toFixed(4)}</td>
-               </tr>`;
-});
+metrics.forEach(m => output += `<tr><td>${m.name}</td><td>${m.value.toFixed(3)}</td><td>${m.probability.toFixed(4)}</td></tr>`);
 
 $("#metrics tbody").html(output);
 
@@ -252,7 +231,7 @@ $("tbody tr").on("click", function() {
     map.setCenter(center);
 
     // Adjust the zoom level
-    map.setZoom(Math.max(10, 15 - Math.floor((metrics[index].perimeter + 4) / 4)));
+    map.setZoom(Math.max(10, 15 - Math.floor(1 + metrics[index].perimeter / 4)));
     
     // Place a marker for each place
     places.forEach(p => {
