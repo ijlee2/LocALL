@@ -98,7 +98,7 @@ function createDatabases() {
     });
 }
 
-function getPlaceIDs(results, status, activity) {
+function getPlaceIDs(results, status, event) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         let i = 0;
 
@@ -111,7 +111,7 @@ function getPlaceIDs(results, status, activity) {
             // Use an anonymous function to pass an extra parameter
             }, function(place, status) {
                 // Find the place details
-                getPlaceDetails(place, status, activity);
+                getPlaceDetails(place, status, event);
 
             });
 
@@ -125,7 +125,7 @@ function getPlaceIDs(results, status, activity) {
     }
 }
 
-function getPlaceDetails(place, status, activity) {
+function getPlaceDetails(place, status, event) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         /********************************************************************
             
@@ -172,7 +172,7 @@ function getPlaceDetails(place, status, activity) {
         };
 
         // Place a marker on the map
-        displayMarker(placeData, activity.type);
+        displayMarker(placeData, event.type);
 
         // Display to HTML
         const output = `<tr>
@@ -184,20 +184,20 @@ function getPlaceDetails(place, status, activity) {
                             <td>${placeData.rating}</td>
                         </tr>`;
         
-            $(`#${activity.name} thead`).append(output);
+            $(`#${event.name} thead`).append(output);
 
     } else {
         // Use this to find the ideal value of delayBetweenAPICalls
-        console.error(`${activity.type}, ${activity.name}: Data read failed.`);
+        console.error(`${event.type}, ${event.name}: Data read failed.`);
 
     }
 }
 
-function displayMarker(placeData, activityType) {
+function displayMarker(placeData, eventType) {
     const marker = new google.maps.Marker({
         "map"     : map,
         "position": placeData.geometry,
-        "icon"    : markerIcons[activityType]
+        "icon"    : markerIcons[eventType]
     });
 
     google.maps.event.addListener(marker, "click", function() {

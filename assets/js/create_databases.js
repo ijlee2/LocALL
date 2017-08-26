@@ -43,18 +43,18 @@ const markerIcons = {
 // Do 10 queries at a time
 // (Google Maps limits the number of calls
 const queries = [
-    {"keyword": "asian"  , "type": ["restaurant"]   , "activity": {"type": "eat"  , "name": "asian"  }},
-    {"keyword": "bbq"    , "type": ["restaurant"]   , "activity": {"type": "eat"  , "name": "bbq"    }},
-    {"keyword": "mexican", "type": ["restaurant"]   , "activity": {"type": "eat"  , "name": "mexican"}},
-    {"keyword": "pizza"  , "type": ["restaurant"]   , "activity": {"type": "eat"  , "name": "pizza"  }},
+    {"keyword": "asian"  , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "asian"  }},
+    {"keyword": "bbq"    , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "bbq"    }},
+    {"keyword": "mexican", "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "mexican"}},
+    {"keyword": "pizza"  , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "pizza"  }},
 
-    {"keyword": "trail"  , "type": ["park"]         , "activity": {"type": "play" , "name": "hike"   }},
-    {"keyword": "theater", "type": ["movie_theater"], "activity": {"type": "play" , "name": "movie"  }},
-    {"keyword": "pool"   , "type": ["park"]         , "activity": {"type": "play" , "name": "swim"   }},
+    {"keyword": "trail"  , "type": ["park"]         , "event": {"type": "play" , "name": "hike"   }},
+    {"keyword": "theater", "type": ["movie_theater"], "event": {"type": "play" , "name": "movie"  }},
+    {"keyword": "pool"   , "type": ["park"]         , "event": {"type": "play" , "name": "swim"   }},
 
-    {"keyword": "bar"    , "type": ["bar"]          , "activity": {"type": "drink", "name": "bar"    }},
-    {"keyword": "brewery", "type": ["bar"]          , "activity": {"type": "drink", "name": "brewery"}},
-    {"keyword": "coffee" , "type": ["cafe"]         , "activity": {"type": "drink", "name": "coffee" }}
+    {"keyword": "bar"    , "type": ["bar"]          , "event": {"type": "drink", "name": "bar"    }},
+    {"keyword": "brewery", "type": ["bar"]          , "event": {"type": "drink", "name": "brewery"}},
+    {"keyword": "coffee" , "type": ["cafe"]         , "event": {"type": "drink", "name": "coffee" }}
 ];
 
 
@@ -87,13 +87,13 @@ function createDatabases() {
             type    : q.type
 
         }, function(results, status) {
-            getPlaceIDs(results, status, q.activity);
+            getPlaceIDs(results, status, q.event);
 
         });
     });
 }
 
-function getPlaceIDs(results, status, activity) {
+function getPlaceIDs(results, status, event) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         let i = 0;
 
@@ -106,7 +106,7 @@ function getPlaceIDs(results, status, activity) {
             // Use an anonymous function to pass an extra parameter
             }, function(place, status) {
                 // Find the place details
-                getPlaceDetails(place, status, activity);
+                getPlaceDetails(place, status, event);
 
             });
 
@@ -120,7 +120,7 @@ function getPlaceIDs(results, status, activity) {
     }
 }
 
-function getPlaceDetails(place, status, activity) {
+function getPlaceDetails(place, status, event) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         /********************************************************************
             
@@ -166,9 +166,9 @@ function getPlaceDetails(place, status, activity) {
             "rating"  : rating
         };
 
-        database.ref("activities/" + activity.type).child(activity.name).push(placeData);
+        database.ref("events/" + event.type).child(event.name).push(placeData);
 
-        if (activity.name === "bbq" || activity.name === "hike" || activity.name === "brewery") {
+        if (event.name === "bbq" || event.name === "hike" || event.name === "brewery") {
             // Display to HTML
             const output = `<tr>
                             <td>${placeData.name}</td>
@@ -179,24 +179,24 @@ function getPlaceDetails(place, status, activity) {
                             <td>${placeData.rating}</td>
                         </tr>`;
         
-            $(`#${activity.name} thead`).append(output);
+            $(`#${event.name} thead`).append(output);
 
             // Place a marker on the map
-            displayMarker(placeData, activity.type);
+            displayMarker(placeData, event.type);
         }
 
     } else {
         // Use this to find the ideal value of delayBetweenAPICalls
-        console.error(`${activity.type}, ${activity.name}: Data read failed.`);
+        console.error(`${event.type}, ${event.name}: Data read failed.`);
 
     }
 }
 
-function displayMarker(placeData, activityType) {
+function displayMarker(placeData, eventType) {
     const marker = new google.maps.Marker({
         "map"     : map,
         "position": placeData.geometry,
-        "icon"    : markerIcons[activityType]
+        "icon"    : markerIcons[eventType]
     });
 
     google.maps.event.addListener(marker, "click", function() {
