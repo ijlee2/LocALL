@@ -25,9 +25,10 @@ h1 {
     -webkit-animation-duration: 5s; /* Safari 4.0 - 8.0 */
     animation-name: font;
     animation-duration: 5s;
+    animation-iteration-count: infinite;
 }
 @keyframes font {
-    0%   {color: 5bfe35;}
+    0%   {color: #5bfe35;}
     25%  {color: #35fec8;}
     50%  {color: #35a9fe;}
     100% {color: #e135fe;}
@@ -74,66 +75,12 @@ h2{
     text-align: center;
     margin-top: 2em;
 }
-
-.team-line{
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row; /* works with row or column */
-   flex-direction: row;
-   -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: center;
-   justify-content: center;
-}
-
-
-.team-block1{
-order:1;
-
-
-align-self: flex-end;
-min-width: 50px;
-min-height: 50px;
-color: cyan;
-flex-direction: row;
-}
-    
-  
-  
-}
-.team-block2{
-order:2;
-flex: auto;
-flex-grow: 0;
-flex-shrink: 1;
-flex-basis: auto;
-align-self: flex-start;
-min-width: 50px;
-min-height: 50px;
-background-color: pink;
-    
-}
-.team-block4{
-order:4;
-
-flex-grow: 0;
-flex-shrink: 1;
-flex-basis: auto;
-align-self: flex-end;
-min-width: 50px;
-min-height: 50px;
-    color: beige;
-}
-
-.team-block3 {
-   color:cyan;
-
-order:3;
-flex-shrink: 1;
-flex-basis: inherit;
-align-self: flex-start;
-min-width: 50px;
-min-height: 50px;
+.aboutUs{
+    background-color: #fff;
+    height: 600px;
+    padding: 170px 0 0 0;
+    background-size: cover;
+    opacity: .7;
    
-    
 }
+
