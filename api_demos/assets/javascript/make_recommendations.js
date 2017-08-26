@@ -31,8 +31,27 @@ const breweries = [
     {"name": "Wright Bros"  , "geometry": {"lat": 30.264564, "lng": -97.733129}}
 ];
 
+
+
+/****************************************************************************
+ ****************************************************************************
+    
+    Useful objects
+    
+*****************************************************************************
+*****************************************************************************/
 // A metric allows us to make a quantitative recommendation
 let metrics = [];
+
+// For Google Maps
+let map;
+let markers = [];
+const markerIcons = {
+    "restaurants": "assets/images/restaurants.png",
+    "trails"     : "assets/images/trails.png",
+    "breweries"  : "assets/images/breweries.png"
+};
+
 
 
 /****************************************************************************
@@ -135,7 +154,11 @@ for (i = 0; i < restaurants.length; i++) {
 
             metrics.push({
                 "name"       : `<p>▪ ${r_i.name}</p><p>▪ ${t_j.name}</p><p>▪ ${b_k.name}</p>`,
-                "places"     : [r_i.geometry, t_j.geometry, b_k.geometry],
+                "places"     : [
+                    {"type": "restaurants", "geometry": r_i.geometry},
+                    {"type": "trails"     , "geometry": t_j.geometry},
+                    {"type": "breweries"  , "geometry": b_k.geometry}
+                ],
                 "perimeter"  : perimeter,
                 "area"       : area,
                 "value"      : metric,
@@ -194,9 +217,7 @@ $("#metrics tbody").html(output);
     
 *****************************************************************************
 *****************************************************************************/
-let map, markers = [];
-
-function displayMap(places) {
+function displayMap() {
     // Initialize the map
     map = new google.maps.Map(document.getElementById("map"), {
         "center": {"lat": 30.2849, "lng": -97.7341},
@@ -217,8 +238,8 @@ $("tbody tr").on("click", function() {
     let center = {"lat": 0, "lng": 0};
     
     places.forEach (p => {
-        center.lat += p.lat;
-        center.lng += p.lng;
+        center.lat += p.geometry.lat;
+        center.lng += p.geometry.lng;
     });
 
     center.lat /= places.length;
@@ -233,7 +254,8 @@ $("tbody tr").on("click", function() {
     places.forEach(p => {
         var marker = new google.maps.Marker({
             "map"     : map,
-            "position": p
+            "position": p.geometry,
+            "icon"    : markerIcons[p.type]
         });
 
         markers.push(marker);
