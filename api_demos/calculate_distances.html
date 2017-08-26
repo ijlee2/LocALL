@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="calculate distance between two points along the earth">
+        <meta name="author" content="Isaac Lee">
+
+        <title>Calculate Distances</title>
+
+        <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Calculate Distances</h1>
+
+            <div class="panel" id="metrics">
+                <h2>Metrics</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Perimeter</th>
+                            <th>Area</th>
+                            <th>Metric</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            const restaurants = [{"name": "Stubb's"       , "geometry": {"lat": 30.268490, "lng": -97.736156}},
+                                 {"name": "Franklin"      , "geometry": {"lat": 30.270119, "lng": -97.731273}},
+                                 {"name": "SLAB"          , "geometry": {"lat": 30.370630, "lng": -97.725124}},
+                                 {"name": "Stiles"        , "geometry": {"lat": 30.334553, "lng": -97.721391}},
+                                 {"name": "Black's"       , "geometry": {"lat": 30.298485, "lng": -97.741200}},
+                                 {"name": "Green Mesquite", "geometry": {"lat": 30.261519, "lng": -97.759200}}
+                                ];
+
+            const trails = [{"name": "Chisholm"    , "geometry": {"lat": 30.511925, "lng": -97.689391}},
+                            {"name": "Copperfield" , "geometry": {"lat": 30.388973, "lng": -97.655342}},
+                            {"name": "Roy and Ann" , "geometry": {"lat": 30.264217, "lng": -97.755940}},
+                            {"name": "Ranch Trails", "geometry": {"lat": 30.523158, "lng": -97.770973}},
+                            {"name": "Great Hills" , "geometry": {"lat": 30.410463, "lng": -97.755936}}
+                           ];
+
+            const breweries = [{"name": "Draught House", "geometry": {"lat": 30.311071, "lng": -97.742874}},
+                               {"name": "Brew Exchange", "geometry": {"lat": 30.270356, "lng": -97.749884}},
+                               {"name": "NXNW"         , "geometry": {"lat": 30.391162, "lng": -97.738351}},
+                               {"name": "Jester King"  , "geometry": {"lat": 30.232402, "lng": -98.000223}},
+                               {"name": "Lazarus"      , "geometry": {"lat": 30.261739, "lng": -97.722008}},
+                               {"name": "Wright Bros"  , "geometry": {"lat": 30.264564, "lng": -97.733129}}
+                              ];
+
+            // In miles
+            const r = 6371 / 1.60934;
+
+            function euclidean_distance(point1, point2) {
+                const cos_lat1 = Math.cos(point1.lat * Math.PI / 180);
+                const sin_lat1 = Math.sin(point1.lat * Math.PI / 180);
+                const cos_lng1 = Math.cos(point1.lng * Math.PI / 180);
+                const sin_lng1 = Math.cos(point1.lng * Math.PI / 180);
+
+                const x1 = cos_lat1 * cos_lng1;
+                const y1 = cos_lat1 * sin_lng1;
+                const z1 = sin_lat1;
+
+                const cos_lat2 = Math.cos(point2.lat * Math.PI / 180);
+                const sin_lat2 = Math.sin(point2.lat * Math.PI / 180);
+                const cos_lng2 = Math.cos(point2.lng * Math.PI / 180);
+                const sin_lng2 = Math.cos(point2.lng * Math.PI / 180);
+
+                const x2 = cos_lat2 * cos_lng2;
+                const y2 = cos_lat2 * sin_lng2;
+                const z2 = sin_lat2;
+
+                // Distance (normalized by r)
+                return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
+            }
+
+            // Haversine formula
+            function spherical_distance(point1, point2) {
+                const lat1_rad = point1.lat * Math.PI / 180;
+                const lng1_rad = point1.lng * Math.PI / 180;
+
+                const lat2_rad = point2.lat * Math.PI / 180;
+                const lng2_rad = point2.lng * Math.PI / 180;
+
+                // Distance (normalized by r)
+                return 2 * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
+            }
+
+            // Restaurants to Trails
+            let i, j, k;
+            let ri, tj, bk;
+
+            let p, A;
+            let a, b, c, s, E;
+
+            const metrics = [];
+
+            for (i = 0; i < restaurants.length; i++) {
+                ri = restaurants[i];
+
+                for (j = 0; j < trails.length; j++) {
+                    tj = trails[j];
+
+                    // Calculate spherical distances between points
+                    a = spherical_distance(ri.geometry, tj.geometry);
+
+                    for (k = 0; k < breweries.length; k++) {
+                        bk = breweries[k];
+
+                        // Calculate spherical distances between points
+                        b = spherical_distance(tj.geometry, bk.geometry);
+                        c = spherical_distance(bk.geometry, ri.geometry);
+
+                        // Calculate the semiperimeter
+                        s = (a + b + c) / 2;
+                        p = 2 * r * s;
+
+                        // Calculate the excess angle
+                        E = 4 * Math.atan(Math.sqrt( Math.abs(Math.tan(s/2) * Math.tan((s - a)/2) * Math.tan((s - b)/2) * Math.tan((s - c)/2)) ));
+                        A = E * Math.pow(r, 2);
+
+                        metrics.push({
+                            "name"  : `${ri.name} <--> ${tj.name} <--> ${bk.name}`,
+                            "p"     : p.toFixed(3),
+                            "A"     : A.toFixed(3),
+                            "value" : p.toFixed(3)
+                        });
+                    }
+                }
+            }
+
+            // Sort the values in ascending order
+            metrics.sort(function(a, b) {
+                return a.value - b.value;
+            });
+
+            // Display to HTML
+            let output = "";
+
+            for (let i = 0; i < metrics.length; i++) {
+                output += `<tr><td>${metrics[i].name}</td><td>${metrics[i].p}</td><td>${metrics[i].A}</td><td>${metrics[i].value}</td></tr>`;
+            }
+            
+            $("#metrics tbody").html(output);
+        </script>
+    </body>
+</html>
