@@ -7,6 +7,13 @@
         <meta name="author" content="Isaac Lee">
 
         <title>Calculate Distances</title>
+        <style>
+            /* IMPORTANT: Always set the map height explicitly to define the size
+             * of the div element that contains the map. */
+            #map {
+                height: 500px;
+            }
+        </style>
 
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
@@ -17,6 +24,11 @@
     <body>
         <div class="container">
             <h1>Calculate Distances</h1>
+
+            <div class="panel">
+                <h2>Google Maps</h2>
+                <div id="map"></div>
+            </div>
 
             <div class="panel" id="metrics">
                 <h2>Metrics</h2>
@@ -35,6 +47,7 @@
             </div>
         </div>
 
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5UBuB1NoQsps2oc6EdyNhrLGbYY_FZMQ&libraries=places&callback=displayMap" async defer></script>
         <script type="text/javascript">
             const restaurants = [{"name": "Stubb's"       , "geometry": {"lat": 30.268490, "lng": -97.736156}},
                                  {"name": "Franklin"      , "geometry": {"lat": 30.270119, "lng": -97.731273}},
@@ -132,6 +145,7 @@
 
                         metrics.push({
                             "name"  : `${ri.name} <--> ${tj.name} <--> ${bk.name}`,
+                            "places": [ri.geometry, tj.geometry, bk.geometry],
                             "p"     : p.toFixed(3),
                             "A"     : A.toFixed(3),
                             "value" : p.toFixed(3)
@@ -149,10 +163,55 @@
             let output = "";
 
             for (let i = 0; i < metrics.length; i++) {
-                output += `<tr><td>${metrics[i].name}</td><td>${metrics[i].p}</td><td>${metrics[i].A}</td><td>${metrics[i].value}</td></tr>`;
+                output += `<tr id="${i}"><td>${metrics[i].name}</td><td>${metrics[i].p}</td><td>${metrics[i].A}</td><td>${metrics[i].value}</td></tr>`;
             }
             
             $("#metrics tbody").html(output);
+
+
+            let map, markers = [];
+
+            function displayMap(places) {
+                // Create the map
+                map = new google.maps.Map(document.getElementById("map"), {
+                    "center": {"lat": 30.2849, "lng": -97.7341},
+                    "zoom"  : 14
+                });
+            }
+
+            $("tbody tr").on("click", function() {
+                // Delete existing markers
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+                markers = [];
+
+                const index  = $("tbody tr").index(this);
+                const places = metrics[index].places;
+                
+                // Find the center of the 3 places
+                let center = {"lat": 0, "lng": 0};
+                
+                places.forEach (p => {
+                    center.lat += p.lat;
+                    center.lng += p.lng;
+                });
+
+                center.lat /= places.length;
+                center.lng /= places.length;
+
+                map.setCenter(center);
+
+                // Place a marker for each place
+                places.forEach(p => {
+                    var marker = new google.maps.Marker({
+                        "map"     : map,
+                        "position": p
+                    });
+
+                    markers.push(marker);
+                });
+            });
         </script>
     </body>
 </html>
