@@ -36,12 +36,13 @@ const restaurants = [], trails = [], breweries = [];
 
 // For Google Maps
 let map, infowindow, service;
-const markers = [];
 const delayBetweenAPICalls = 1500;
-const mapIcons = ["https://www.shareicon.net/data/32x32/2016/08/02/805660_bbq_512x512.png",
-                  "https://cdn2.iconfinder.com/data/icons/new-year-resolutions/64/resolutions-02-32.png", 
-                  "https://www.shareicon.net/data/32x32/2016/08/23/818914_alcohol_512x512.png"
-                 ];
+const markers = [];
+const markerIcons = {
+    "restaurants": "assets/images/restaurants.png",
+    "trails"     : "assets/images/trails.png",
+    "breweries"  : "assets/images/breweries.png"
+};
 
 
 
@@ -205,27 +206,10 @@ function getPlaceDetails(place, status, arrayName) {
 }
 
 function displayMarker(placeData, arrayName) {
-    /* TODO: Depending on arrayName, choose the correct icon */
-
-    var image;
-
-        if (arrayName === "restaurants") {
-            image = mapIcons[0];
-
-        } else if (arrayName === "trails") {
-            image = mapIcons[1];
-
-        } else if (arrayName === "breweries") {
-            image = mapIcons[2];
-
-        }
-
     const marker = new google.maps.Marker({
         "map"     : map,
         "position": placeData.geometry,
-        "icon"    : image
-        /* TODO: Place the icon */
-
+        "icon"    : markerIcons[arrayName]
     });
 
     // Store the marker for future reference
