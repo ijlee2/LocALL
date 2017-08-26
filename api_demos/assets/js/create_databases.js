@@ -30,18 +30,14 @@ const database = firebase.database();
 // Search radius in meters
 const search_radius = 20 * 1609.34;
 
-// Database (arrays) that we want to populate and send to Firebase
-const restaurants = [], trails = [], breweries = [];
-
 // For Google Maps
 let   map, infowindow, service;
 const delayBetweenAPICalls = 1500;
 const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
-let   markers = [];
 const markerIcons = {
-    "restaurants": "assets/images/restaurants.png",
-    "trails"     : "assets/images/trails.png",
-    "breweries"  : "assets/images/breweries.png"
+    "eat"  : "assets/images/eat.png",
+    "play" : "assets/images/play.png",
+    "drink": "assets/images/drink.png"
 };
 
 
@@ -53,7 +49,7 @@ const markerIcons = {
     
 *****************************************************************************
 *****************************************************************************/
-function displayMap() {
+function createDatabases() {
     // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById('map'), {
         "center"          : coordinates_austin,
@@ -73,7 +69,7 @@ function displayMap() {
         type    : ["restaurant"]
 
     }, function(results, status) {
-        getPlaceIDs(results, status, "restaurants");
+        getPlaceIDs(results, status, {"type": "eat", "name": "bbq"});
 
     });
 
@@ -85,7 +81,7 @@ function displayMap() {
         type    : ["park"]
 
     }, function(results, status) {
-        getPlaceIDs(results, status, "trails");
+        getPlaceIDs(results, status, {"type": "play", "name": "hike"});
 
     });
 
@@ -97,12 +93,12 @@ function displayMap() {
         type    : ["bar"]
 
     }, function(results, status) {
-        getPlaceIDs(results, status, "breweries");
+        getPlaceIDs(results, status, {"type": "drink", "name": "brewery"});
 
     });
 }
 
-function getPlaceIDs(results, status, arrayName) {
+function getPlaceIDs(results, status, activity) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         let i = 0;
 
@@ -115,7 +111,7 @@ function getPlaceIDs(results, status, arrayName) {
             // Use an anonymous function to pass an extra parameter
             }, function(place, status) {
                 // Find the place details
-                getPlaceDetails(place, status, arrayName);
+                getPlaceDetails(place, status, activity);
 
             });
 
@@ -129,8 +125,13 @@ function getPlaceIDs(results, status, arrayName) {
     }
 }
 
-function getPlaceDetails(place, status, arrayName) {
+function getPlaceDetails(place, status, activity) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
+        /********************************************************************
+            
+            Clean the data
+            
+        *********************************************************************/
         // Find the street name, city, state, and zip code
         const address = place.formatted_address;
 
@@ -154,7 +155,8 @@ function getPlaceDetails(place, status, arrayName) {
         const phone      = (typeof place.formatted_phone_number !== "undefined") ? place.formatted_phone_number : null;
         const hours      = (typeof place.opening_hours !== "undefined") ? place.opening_hours.periods : null;
         const websiteURL = (typeof place.website !== "undefined") ? place.website : null;
-        const imageURL   = (typeof place.photos !== "undefined") ? place.photos[0].getUrl({"maxWidth": 300, "maxHeight": 300}) : null;
+        const imageURL   = (typeof place.photos  !== "undefined") ? place.photos[0].getUrl({"maxWidth": 300, "maxHeight": 300}) : null;
+        const rating     = (typeof place.rating  !== "undefined") ? place.rating : null;
 
         // Save the information that we want
         const placeData = {
@@ -162,16 +164,15 @@ function getPlaceDetails(place, status, arrayName) {
             "name"    : place.name,
             "location": location,
             "geometry": geometry,
-            "phone"   : place.formatted_phone_number,
+            "phone"   : phone,
             "hours"   : hours,
             "website" : websiteURL,
             "image"   : imageURL,
-            "rating"  : place.rating,
-            "type"    : arrayName
+            "rating"  : rating
         };
 
         // Place a marker on the map
-        displayMarker(placeData, arrayName);
+        displayMarker(placeData, activity.type);
 
         // Display to HTML
         const output = `<tr>
@@ -182,41 +183,22 @@ function getPlaceDetails(place, status, arrayName) {
                             <td><a href="${placeData.image}" target="_blank">Image</a></td>
                             <td>${placeData.rating}</td>
                         </tr>`;
-
-        // Store the information to the correct array
-        if (arrayName === "restaurants") {
-            restaurants.push(placeData);
-            
-            $("#restaurants thead").append(output);
-
-        } else if (arrayName === "trails") {
-            trails.push(placeData);
-
-            $("#trails thead").append(output);
-
-        } else if (arrayName === "breweries") {
-            breweries.push(placeData);
-
-            $("#breweries thead").append(output);
-
-        }
+        
+            $(`#${activity.name} thead`).append(output);
 
     } else {
-        // Use this information to determine the value of delayBetweenAPICalls
-        console.error(`${arrayName}: Data read failed.`);
+        // Use this to find the ideal value of delayBetweenAPICalls
+        console.error(`${activity.type}, ${activity.name}: Data read failed.`);
 
     }
 }
 
-function displayMarker(placeData, arrayName) {
+function displayMarker(placeData, activityType) {
     const marker = new google.maps.Marker({
         "map"     : map,
         "position": placeData.geometry,
-        "icon"    : markerIcons[arrayName]
+        "icon"    : markerIcons[activityType]
     });
-
-    // Store the marker for future reference
-    markers.push(marker);
 
     google.maps.event.addListener(marker, "click", function() {
         const output = `<div><strong>${placeData.name}</strong><br>${placeData.location.address}</div>`;
