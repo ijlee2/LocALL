@@ -46,12 +46,13 @@ const markerIcons = {
     
 *****************************************************************************
 *****************************************************************************/
-let eventName_eat = "", eventName_play = "", eventName_drink = "";
+let eventName_eat = "", eventName_play = "", eventName_drink = "", myLocation = "";
 let recommendations = [];
 
 // Handle button clicks
 $("li").click(function() {
     const eventType = $(this).parent().attr("id");
+    const eventName = $(this).text().toLowerCase();
 
     // Highlight the choices
     var index  = $("li").index(this) % 5;
@@ -67,24 +68,57 @@ $("li").click(function() {
 
     switch (eventType) {
         case "eat":
-            eventName_eat = $(this).text().toLowerCase();
+            eventName_eat = eventName;
             break;
 
         case "play":
-            eventName_play = $(this).text().toLowerCase();
+            eventName_play = eventName;
             break;
 
         case "drink":
-            eventName_drink = $(this).text().toLowerCase();
+            eventName_drink = eventName;
+            break;
+
+        case "location":
+            if (eventName === "central") {
+                // UT Austin
+                myLocation = coordinates_austin;
+
+            } else if (eventName === "north") {
+                // The Domain
+                myLocation = {"lat": 30.402065, "lng": -97.725883};
+
+            } else if (eventName === "south") {
+                // Auditorium Shores
+                myLocation = {"lat": 30.262717, "lng": -97.751530};
+
+            }
+
             break;
 
     }
 
     // Display recommendations once the user selects 3 events
-    if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "") {
+    if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && myLocation !== "") {
         displayRecommendations(eventName_eat, eventName_play, eventName_drink);
     }
 });
+
+
+// Haversine formula
+const deg_to_rad = Math.PI / 180;
+const r = 6371 / 1.60934;
+
+function spherical_distance(point1, point2) {
+    const lat1_rad = point1.lat * deg_to_rad;
+    const lng1_rad = point1.lng * deg_to_rad;
+
+    const lat2_rad = point2.lat * deg_to_rad;
+    const lng2_rad = point2.lng * deg_to_rad;
+
+    // Find the distance
+    return 2 * r * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
+}
 
 
 function displayRecommendations(eventName_eat, eventName_play, eventName_drink) {
@@ -100,6 +134,15 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
 
         console.log(data);
         console.log(bins);
+        console.log("Number of recommendations (original): " + numData);
+        
+
+        // Display recommendations close to the user
+        data = data.filter(function(a) {
+            return spherical_distance(a.center, myLocation) <= 2.5;
+        });
+
+        console.log("Number of recommendations (near user): " + data.length);
 
 
         // Display the top 10 recommendations
@@ -138,8 +181,6 @@ function displayMap() {
 
 // Respond to clicks on dynamically generated rows
 $("body").on("click", "tbody tr", function() {
-    console.log("clicked");
-
     // Delete existing markers
     markers.forEach(m => m.setMap(null));
     markers = [];
