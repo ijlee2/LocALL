@@ -26,13 +26,16 @@ $("#button_logout").click(function() {
 
 
 $("#button_submit").click(function() {
-    // TODO - Jacque: Validate first name (must be all letters)
+    // TODO - Jacque:
+    // Validate the inputs. If there is an error, display an error message in the input field
+
+    // First name must be all letters
     const name = $("#userName").val().trim();
 
-    // TODO - Jacque: Validate email (must have format of ***@***.com)
+    // Email must have format of ***@***.com
     const email = $("#userEmail").val().trim();
 
-    // TODO - Jacque: Validate password (8-64 characters, 1 letter, 1 number, 1 special character)
+    // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
     const password = $("#userPassword").val();
 
 
