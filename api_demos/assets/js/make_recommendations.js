@@ -121,15 +121,15 @@ let probability, probability_total = 0;
 let perimeter, area;
 let a, b, c, s, E;
 
-eat.forEach(activity_i => {
-    play.forEach(activity_j => {
+eat.forEach(event_i => {
+    play.forEach(event_j => {
         // Find the distance between points
-        a = spherical_distance(activity_i.geometry, activity_j.geometry);
+        a = spherical_distance(event_i.geometry, event_j.geometry);
 
-        drink.forEach(activity_k => {
+        drink.forEach(event_k => {
             // Find the distance between points
-            b = spherical_distance(activity_j.geometry, activity_k.geometry);
-            c = spherical_distance(activity_k.geometry, activity_i.geometry);
+            b = spherical_distance(event_j.geometry, event_k.geometry);
+            c = spherical_distance(event_k.geometry, event_i.geometry);
 
             // Semiperimeter, perimeter
             s = (a + b + c) / 2;
@@ -144,14 +144,15 @@ eat.forEach(activity_i => {
 
             // Remove bad recommendations
             if (metric <= metric_max) {
+                // Probability is yet to be normalized
                 probability = 1 / Math.pow(Math.log(1 + metric), 2);
 
                 metrics.push({
-                    "name"       : `<p>▪ ${activity_i.name}</p><p>▪ ${activity_j.name}</p><p>▪ ${activity_k.name}</p>`,
+                    "name"       : `<p>▪ ${event_i.name}</p><p>▪ ${event_j.name}</p><p>▪ ${event_k.name}</p>`,
                     "places"     : [
-                        {"type": "eat"  , "geometry": activity_i.geometry},
-                        {"type": "play" , "geometry": activity_j.geometry},
-                        {"type": "drink", "geometry": activity_k.geometry}
+                        {"type": "eat"  , "geometry": event_i.geometry},
+                        {"type": "play" , "geometry": event_j.geometry},
+                        {"type": "drink", "geometry": event_k.geometry}
                     ],
                     "perimeter"  : perimeter,
                     "area"       : area,
@@ -159,7 +160,7 @@ eat.forEach(activity_i => {
                     "probability": probability
                 });
 
-                // Tally the total
+                // Tally the total for normalization
                 probability_total += probability;
             }
         });
