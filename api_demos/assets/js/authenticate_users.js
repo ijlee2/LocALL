@@ -26,27 +26,34 @@ $("#button_logout").click(function() {
 
 
 $("#button_submit").click(function() {
-    // TODO - Jacque:
-    // Validate the inputs. If there is an error, display an error message in the input field
-
-    // First name must be all letters
-    const name = $("#userName").val().trim();
-
-    // Email must have format of ***@***.com
-    const email = $("#userEmail").val().trim();
-
-    // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
+    const name     = $("#userName").val().trim();
+    const email    = $("#userEmail").val().trim();
     const password = $("#userPassword").val();
 
+    // TODO - Jacque:
+    // Validate the inputs using regular expression and match function.
+    // If there is an error, display an error message in the input field.
+
+    // First name must be all letters
+    
+
+    // Email must have format of ***@***.com
+    
+
+    // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
+    
 
     if (pageStatus === "signup") {
-        // TODO - Isaac: Create an account on Firebase
+        // TODO - Isaac:
+        // Create an account on Firebase.
 
     } else if (pageStatus === "login") {
-        // TODO - Isaac: Log in to an existing account
+        // TODO - Isaac:
+        // Log in to an existing account.
 
     } else if (pageStatus === "logout") {
-        // TODO - Isaac: Log out of an existing account
+        // TODO - Isaac:
+        // Log out of an existing account.
 
     }
 });
