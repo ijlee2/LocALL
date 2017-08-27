@@ -11,6 +11,8 @@ $("#button_signup").click(function() {
 
     $("#header").text("Sign Up");
     $("#userName_container").css({"display": "block"});
+    $("#userEmail_container").css({"display": "block"});
+    $("#userPassword_container").css({"display": "block"});
     $("#button_submit").css({"display": "block"});
 
     $("#messageToUser").text("");
@@ -23,6 +25,8 @@ $("#button_login").click(function() {
 
     $("#header").text("Log In");
     $("#userName_container").css({"display": "none"});
+    $("#userEmail_container").css({"display": "block"});
+    $("#userPassword_container").css({"display": "block"});
     $("#button_submit").css({"display": "block"});
 
     $("#messageToUser").text("");
