@@ -145,24 +145,16 @@ $("body").on("click", "tbody tr", function() {
     markers = [];
     
     // Find out which row was clicked
-    const index  = $("tbody tr").index(this);
-    const places = recommendations[index].places;
+    const r = recommendations[$("tbody tr").index(this)];
+    const places = [{"type": "eat"  , "geometry": r.eat.geometry},
+                    {"type": "play" , "geometry": r.play.geometry},
+                    {"type": "drink", "geometry": r.drink.geometry}];
     
     // Adjust the center of the map
-    let center = {"lat": 0, "lng": 0};
-    
-    places.forEach (p => {
-        center.lat += p.geometry.lat;
-        center.lng += p.geometry.lng;
-    });
-
-    center.lat /= places.length;
-    center.lng /= places.length;
-
-    map.setCenter(center);
+    map.setCenter(r.center);
 
     // Adjust the zoom level
-    map.setZoom(Math.max(10, 15 - Math.floor(1 + recommendations[index].metric / 4)));
+    map.setZoom(Math.max(10, 14 - Math.floor(1 + r.metric / 4)));
     
     // Place a marker for each place
     places.forEach(p => {

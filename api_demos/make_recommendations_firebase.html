@@ -11,17 +11,12 @@
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <style>
-            /* This div allows Google Maps to always appear on the screen */
-            .page {
-                position: relative;
-            }
-
             /* Menu */
             #menu {
                 margin-bottom: 5%;
             }
 
-            ul {
+            .menu_events {
                 float       : left;
                 width       : 28%;
                 margin-right: 5%;
@@ -46,6 +41,7 @@
     
             /* Table */
             #recommendations {
+                float: left;
                 width: 410px;
             }
 
@@ -68,19 +64,12 @@
                 transform       : scale(1.1);
             }
             
-            /* This div allows Google Maps to always appear on the screen */
-            #googleMaps {
-                position: absolute;
-                top     : 0;
-                right   : 400px;
-            }
-
             /* IMPORTANT: Always set the map height explicitly to define the size
              * of the div element that contains the map. */
             #map {
-                position: fixed !important;
-                width   : 400px;
-                height  : 400px;
+                float : right;
+                width : 400px;
+                height: 400px;
             }
         </style>
 
@@ -91,31 +80,39 @@
         <div class="container">
             <h1>Make Recommendations</h1>
             
-            <h2>Menu</h2>
             <div class="page clearfix" id="menu">
-                <ul id="eat">
-                    <li>Asian</li>
-                    <li>BBQ</li>
-                    <li>Indian</li>
-                    <li>Pizza</li>
-                    <li>Tex-Mex</li>
-                </ul>
+                <div class="menu_events">
+                    <h2>Eat</h2>
+                    <ul id="eat">
+                        <li>Asian</li>
+                        <li>BBQ</li>
+                        <li>Indian</li>
+                        <li>Pizza</li>
+                        <li>Tex-Mex</li>
+                    </ul>
+                </div>
 
-                <ul id="play">
-                    <li>Bowl</li>
-                    <li>Hike</li>
-                    <li>Movie</li>
-                    <li>Spa</li>
-                    <li>Swim</li>
-                </ul>
+                <div class="menu_events">
+                    <h2>Play</h2>
+                    <ul id="play">
+                        <li>Bowl</li>
+                        <li>Hike</li>
+                        <li>Movie</li>
+                        <li>Spa</li>
+                        <li>Swim</li>
+                    </ul>
+                </div>
 
-                <ul id="drink">
-                    <li>Bar</li>
-                    <li>Brewery</li>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Wine</li>
-                </ul>
+                <div class="menu_events">
+                    <h2>Drink</h2>
+                    <ul id="drink">
+                        <li>Bar</li>
+                        <li>Brewery</li>
+                        <li>Coffee</li>
+                        <li>Tea</li>
+                        <li>Wine</li>
+                    </ul>
+                </div>
             </div>
 
             <h2>Results</h2>
@@ -133,9 +130,7 @@
                     </table>
                 </div>
 
-                <div class="panel" id="googleMaps">
-                    <div id="map"></div>
-                </div>
+                <div id="map"></div>
             </div>
         </div>
 
