@@ -29,15 +29,20 @@
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
-                    <h4 class="text-white">Menu</h4>
-                    <span class="text-muted">
-                        <button type="button" class="btn btn-outline-primary" onClick="displayPage(1)">Home</button>
-                        <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)">About</button>
-                        <button type="button" class="btn btn-outline-success" onClick="displayPage(2)">Go</button>
-                        <div class="container page" id="page4"> 
-                            <hr class="prettyline">
+                    <span class="text-muted buton">
+                        <button type="button" class="btn btn-outline-primary" onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">
+                            Home
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">
+                            About
+                        </button>
+                        <button type="button" class="btn btn-outline-warning" onClick="displayPage(2)" data-toggle="collapse" data-target=".collapse">
+                            Go
+                        </button>
+                    </span>  
+                        <div class="container mdol"> 
                             <center>
-                            <button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In/Register</button>
+                            <button class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In/Register</button>
                             </center>
                         </div>
                         <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -174,9 +179,10 @@
                                     </center>
                                 </div>
                             </div>
+                            </div>
+
                         </div>
-                    </div>   
-                </span>
+                     
             </div>
         </div>
         <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
@@ -195,71 +201,104 @@
         </div>
     </div>
 
-    <div id="page2" class="content page" style="display: none">
-        <div class="row flexContainer ">
-            <div class="btn-group col-md-3 button_search"  >
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Eat
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <button class="dropdown-item" type="button">BBQ</button>
+    <div id = "page2" class ="content page" style="display: none">
+            <div class = "row flexContainer ">
+                <div class="btn-group col-md-3" id = "primary" >
+                    <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Eat
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
+                        <button class="dropdown-item" type="button">BBQ</button>
+                        <button class="dropdown-item" type="button">Mexican</button>
+                        <button class="dropdown-item" type="button">Asian</button>
+                        <button class="dropdown-item" type="button">Pizza</button>
+                    </div>
+                </div>
+    
+                <div class="btn-group col-md-3" id = "main">
+                    <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Play
+                    </button>
+                        <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
+                            <button class="dropdown-item" type="button">Hiking</button>
+                            <button class="dropdown-item" type="button">Swimming</button>
+                            <button class="dropdown-item" type="button">Rock Climbing</button>
+                            <button class="dropdown-item" type="button">Bowling</button>
+    
+                        </div>
+                </div>
+    
+                <div class="btn-group col-md-3" id = "secondary">
+                    <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Drink
+    
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
+                        <button class="dropdown-item" type="button">Breweries</button>
+                        <button class="dropdown-item" type="button">Winery</button>
+                        <button class="dropdown-item" type="button">Bars</button>
+                        <button class="dropdown-item" type="button">Coffee</button>
+                    </div>
+                </div>
+                <div class = "btn-group col-md-3" id = "sea">
+                    <button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning page2Button">Search</button>
                 </div>
             </div>
-
-            <div class="btn-group col-md-3 button_search">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Play
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <button class="dropdown-item" type="button">Hiking</button>
+            <div class="containerPage2">
+                <div class="subContainer">
+                    <div class="listItem">
+                        <div class="restaurantImage">
+                            <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height=100>
+                        </div>
+                        <div class="columnTwo">
+                            <div class="item restaurantName">Restaurant name</div>
+                            <div class="item restaurantRating">*****</div>
+                            <div class="item restaurantNumber">512-555-5555</div>
+                            <div class="item restaurantWebsite">restaurantwebsite@website.com</div>
+                        </div> 
+                        <div class="item restaurantAddress">2000 lamar Blvd.<br>Austin, TX<br>78705</div>   
+                    </div>
+                    <div class="listItem">
+                        <div class="restaurantImage">
+                            <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height=100>
+                        </div>
+                        <div class="columnTwo">
+                            <div class="item restaurantName">Activity</div>
+                            <div class="item restaurantRating">*****</div>
+                            <div class="item restaurantNumber">512-555-5555</div>
+                            <div class="item restaurantWebsite">activitywebsite@website.com</div>
+                        </div> 
+                        <div class="item restaurantAddress">2000 lamar Blvd.<br>Austin, TX<br>78705</div>   
+                    </div>     
+                    <div class="listItem">
+                            <div class="restaurantImage">
+                                <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height=100>
+                            </div>
+                            <div class="columnTwo">
+                                <div class="item restaurantName">Brewery</div>
+                                <div class="item restaurantRating">*****</div>
+                                <div class="item restaurantNumber">512-555-5555</div>
+                                <div class="item restaurantWebsite">Brewerywebsite@website.com</div>
+                            </div> 
+                            <div class="item restaurantAddress">2000 lamar Blvd.<br>Austin, TX<br>78705</div>   
+                    </div>  
                 </div>
-            </div>
-
-            <div class="btn-group col-md-3 button_search" >
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Drink
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <button class="dropdown-item" type="button">Breweries</button>
-                </div>
-            </div>
-            
-            <div class = "btn-group col-md-3 button_search">
-                <button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning">
-                    Search
-                </button>
+                <div class="item item-2"><img src=http://staticmapmaker.com/img/google.png></div> 
             </div>
         </div>
-    </div>
     
-    <div class="page" style="display: none">
-        <div class="bg skrollable skrollable-between" 
-             data-anchor-target="#aboutTeam-section"
-             data-bottom-top="transform: translate3d(0px, -150px, 0px);"
-             data-top-bottom="transform: translate3d(0px, 150px, 0px);"
-             style="transform: translate3d(0px, -111.857px, 0px);">
-        </div> 
-
-        <div class="fade-in"> 
-            <div class="center"> 
-                <h2 class="section-heading">About Us</h2> 
-                <span class="divider center"></span> 
-                <p class="experience-description">Loreum Ipsum!</p> 
-            </div>
-        </div>    
-          
+    <div id="page3"class="page" style="display: none">
+        <div class="center"> 
+            <h1 class="section-heading">About Us</h1> 
+        </div>
         <div id="carouselExampleSlidesOnly" class="carousel slide aboutUs" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="d-block w-100"  alt="First slide">
-                        <img src="assets/images/jacque.jpg" alt="Jaque">
-                        <h1 id="us">Jaqueline White</h1>
-                        <h2>Software Developer</h2>
+                        <img src="assets/images/jacque.jpg" class="aboutUsPics" alt="Jaque">
+                        <h2 id="us">Jaqueline White</h2>
+                        <h3>Software Developer</h3>
                         <p>
-                            BIO:
-                            <br> 
-                            Hi I'm Jaqueline!
-                            <br>
                             I'm an Austinite that has a passion for all things health 
                             and wellness, culinary arts, and travel.
                         </p>
@@ -267,8 +306,20 @@
                 </div>
                 <div class="carousel-item">
                     <div class="d-block w-100"  alt="Second slide">
-                        <h1 id="us">Isaac Lee</h1>
-                        <h2>Software Developer</h2>
+                        <img src="assets/images/issac.jpg" class="aboutUsPics" alt="issac">
+                        <h2 id="us">Isaac Lee</h2>
+                         <h3>Software Developer</h3>
+                        <p>
+                            I provide analytic and computational solutions to your engineering problems.
+                            <br> 
+                            Furthermore, I believe in beinghuman: continuous learning + communication + collaboration.
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-block w-100"  alt="First slide">
+                        <h2 id="us">Aaron Tyler</h2>
+                        <h3>Software Developer</h3>
                         <img src="" alt="">
                         <p>
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy 
@@ -281,29 +332,13 @@
                 </div>
                 <div class="carousel-item">
                     <div class="d-block w-100"  alt="First slide">
-                        <h1 id="us">Aaron Tyler</h1>
-                        <h2>Software Developer</h2>
-                        <img src="" alt="">
+                            <img src="assets/images/margie.jpg" class="aboutUsPics" alt="margie">
+                        <h2 id="us">Margarita Tagaban</h2>
+                        <h3>Software Developer</h3>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy 
-                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently 
-                            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="d-block w-100"  alt="First slide">
-                            <img src="assets/images/margie.jpg" alt="margie">
-                        <h1 id="us">Margarita Tagaban</h1>
-                        <h2>Software Developer</h2>
-                        <p>
-                           BIO:
-                           <br>
                            Hi I'm Margie!
                            <br>
-                           I'm a Texas native who loves problem solving. I earned my Bachelor's Degree July 2017. 
+                           I'm a Texas native who loves problem solving. I earned my Bachelor's Degree July 2017 at Texas State University.
                            <br>
                            My hobbies include reading, kayaking, hiking, gaming, and traveling.  
                         </p>

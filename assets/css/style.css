@@ -1,8 +1,5 @@
 body {
     background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
-    /*
-    background: url("../images/background.jpg") no-repeat center center fixed;
-    */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -11,7 +8,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    width: 100%;
+   
 }
 
 h1 {
@@ -41,27 +38,15 @@ h2{
 }
 
 .jumbotron{
+    background: rgba(255,255,255, .6);
     text-align: center;
-    opacity: 0.75;
     margin-top: 6em;
 }
-
-.navbar{
-    opacity: .7;
-}
-
 
 .heading{
     font-size: 90px;
 }
 
-.button_search {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 300px;
-    width:270px;
-    margin-left: 20px;   
-}
 
 #page1 a {
     width: 178px;
@@ -70,38 +55,58 @@ h2{
     font-size: 30px;
 }
 
-#page2 button {
-    font-size:20px;
-    text-align: center;
-    margin-top: 2em;   
-}
 .aboutUs{
-    background-color: #fff;
-    height: 600px;
+    background: rgba(255,255,255, .6);
+    height: 428px;
     padding: 45px 0 0 0;
-    background-size: cover;
-    opacity: .95;  
+    background-size: cover;   
 }
-
-.prettyline {
-    height: 5px;
-    border-top: 0;
-    background: #c4e17f;
-    border-radius: 5px;
-    background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-    background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-    background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-    background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  }
 
 .act{
     margin-right: 40px;
     margin-left: 40px;
 }
-img{
-    width:300px;
-    height:300px;
+.aboutUsPics{
+    width: 200px;
+    height: 200px;
 }
 #us{
-    font-size: 60px;
+    font-size: 50px;
+}
+
+
+.mdol{
+    float: right;
+    margin-right: 52px;
+}
+.buton{
+    margin-left: 600px;
+}
+
+p{
+    font-weight: bold;
+}
+.containerPage2{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 1em;
+    margin-top: 4em;
+}
+
+
+.subContainer{
+    display: grid;
+    grid-row-gap: 1em; 
+}
+.subContainer > div:nth-child(odd){
+    background: rgba(220, 213, 213, 0.93);
+}
+.subContainer > div:nth-child(even){
+    background: rgba(238, 232, 232, 0.93);
+}
+.listItem{
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr;
+    padding-top: 2em;
+    padding-bottom: 2em;
 }
