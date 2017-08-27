@@ -134,7 +134,6 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
 
         console.log(data);
         console.log(bins);
-        console.log("Number of recommendations (original): " + numData);
 
 
         // Reset the recommendations array
@@ -166,7 +165,6 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
         }
 
         // Display recommendations close to the user
-        
         recommendations = recommendations.filter(function(a) {
             return spherical_distance(a.center, myLocation) <= 2.5;
         });
