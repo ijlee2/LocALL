@@ -17,7 +17,7 @@ $.getJSON(api_url, function(response) {
                 "lng"    : null
             },
             "website" : b.url,
-            "imageURL": null,
+            "image"   : null,
             // Make the rating out of 5 stars (1 decimal point)
             "rating"  : Math.round(parseFloat(b.overall) / 2) / 10,
             "type"    : "brewery"

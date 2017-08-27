@@ -23,7 +23,7 @@ $.ajax({
                 "lng"    : p.lon
             },
             "website" : p.activities[0].url,
-            "imageURL": null,
+            "image"   : null,
             "rating"  : p.activities[0].rating,
             "type"    : p.activities[0].activity_type_name
         };

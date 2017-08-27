@@ -7,9 +7,10 @@
 *****************************************************************************/
 // For Google Maps
 let   map, infowindow, service;
-const search_radius = 20 * 1609.34;
 const delayBetweenAPICalls = 1500;
-const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
+
+const location_austin = {"lat": 30.2849, "lng": -97.7341};
+const searchRadius    = 20 * 1609.34;
 const markerIcons = {
     "eat"  : "assets/images/eat.png",
     "play" : "assets/images/play.png",
@@ -28,7 +29,7 @@ const markerIcons = {
 function createDatabases() {
     // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById('map'), {
-        "center"          : coordinates_austin,
+        "center"          : location_austin,
         "disableDefaultUI": true,
         "zoomControl"     : true,
         "zoom"            : 11
@@ -40,8 +41,8 @@ function createDatabases() {
     // Create the restaurants database
     service.nearbySearch({
         keyword : "bbq",
-        location: coordinates_austin,
-        radius  : search_radius,
+        location: location_austin,
+        radius  : searchRadius,
         type    : ["restaurant"]
 
     }, function(results, status) {
@@ -52,8 +53,8 @@ function createDatabases() {
     // Create the trails database
     service.nearbySearch({
         keyword : "trail",
-        location: coordinates_austin,
-        radius  : search_radius,
+        location: location_austin,
+        radius  : searchRadius,
         type    : ["park"]
 
     }, function(results, status) {
@@ -64,8 +65,8 @@ function createDatabases() {
     // Create the breweries database
     service.nearbySearch({
         keyword : "brewery",
-        location: coordinates_austin,
-        radius  : search_radius,
+        location: location_austin,
+        radius  : searchRadius,
         type    : ["bar"]
 
     }, function(results, status) {
@@ -78,7 +79,7 @@ function getPlaceIDs(results, status, event) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         let i = 0;
 
-        // Delay calling getPlaceDetails to avoid the OVER_QUERY_LIMIT status
+        // Delay calling getPlaceDetails to avoid OVER_QUERY_LIMIT status
         const intervalID = setInterval(function() {
             // Get the place ID from Google Maps API
             service.getDetails({
@@ -129,10 +130,11 @@ function getPlaceDetails(place, status, event) {
         // Provide null value if an information is missing
         // (Firebase does not allow undefined)
         const phone      = (typeof place.formatted_phone_number !== "undefined") ? place.formatted_phone_number : null;
-        const hours      = (typeof place.opening_hours !== "undefined") ? place.opening_hours.periods : null;
+        const hours      = (typeof place.opening_hours !== "undefined") ? place.opening_hours.weekday_text : null;
         const websiteURL = (typeof place.website !== "undefined") ? place.website : null;
-        const imageURL   = (typeof place.photos  !== "undefined") ? place.photos[0].getUrl({"maxWidth": 300, "maxHeight": 300}) : null;
+        const imageURL   = (typeof place.photos  !== "undefined") ? place.photos[0].getUrl({"maxWidth": 600, "maxHeight": 600}) : null;
         const rating     = (typeof place.rating  !== "undefined") ? place.rating : null;
+        const reviews    = (typeof place.reviews !== "undefined") ? place.reviews : null;
 
         // Save the information that we want
         const placeData = {
@@ -144,7 +146,8 @@ function getPlaceDetails(place, status, event) {
             "hours"   : hours,
             "website" : websiteURL,
             "image"   : imageURL,
-            "rating"  : rating
+            "rating"  : rating,
+            "reviews" : reviews
         };
 
         // Place a marker on the map
@@ -163,7 +166,7 @@ function getPlaceDetails(place, status, event) {
         $(`#${event.name} thead`).append(output);
 
     } else {
-        // Use this to find the ideal value of delayBetweenAPICalls
+        // Use this message to determine delayBetweenAPICalls
         console.error(`${event.type}, ${event.name}: Data read failed.`);
 
     }

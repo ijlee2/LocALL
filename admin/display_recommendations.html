@@ -10,7 +10,7 @@
 
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style_api.css">
         <style>
             /* Menu */
             #menu {
@@ -65,8 +65,7 @@
                 transform       : scale(1.1);
             }
             
-            /* IMPORTANT: Always set the map height explicitly to define the size
-             * of the div element that contains the map. */
+            /* IMPORTANT: Set the map height explicitly */
             #map {
                 float : right;
                 width : 400px;
@@ -145,6 +144,6 @@
         </div>
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5UBuB1NoQsps2oc6EdyNhrLGbYY_FZMQ&libraries=places&callback=displayMap" async defer></script>
-        <script type="text/javascript" src="assets/js/make_recommendations_firebase.js"></script>
+        <script type="text/javascript" src="assets/js/display_recommendations.js"></script>
     </body>
 </html>

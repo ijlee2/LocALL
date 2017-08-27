@@ -23,7 +23,7 @@ $.ajax({
                 "lng"    : parseFloat(r.restaurant.location.longitude)
             },
             "website" : null,
-            "imageURL": r.restaurant.featured_image,
+            "image"   : r.restaurant.featured_image,
             "rating"  : parseFloat(r.restaurant.user_rating.aggregate_rating),
             "type"    : "bbq"
         };
