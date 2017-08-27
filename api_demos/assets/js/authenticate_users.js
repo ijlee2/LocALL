@@ -62,7 +62,7 @@ $("#button_submit").click(function() {
     // First name must be all letters
     
 
-    // Email must have format of ***@***.com
+    // Email must have format of ***@***.com (*** cannot be empty)
     
 
     // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
