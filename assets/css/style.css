@@ -98,55 +98,50 @@ h2{
 
 
 .team-block1{
-order:1;
-
-
-align-self: flex-end;
-min-width: 50px;
-min-height: 50px;
-color: cyan;
-flex-direction: row;
+    order:1;
+    align-self: flex-end;
+    min-width: 50px;
+    min-height: 50px;
+    color: cyan;
+    flex-direction: row;
 }
     
   
   
 
 .team-block2{
-order:2;
-flex: 0 1 auto;
-flex-grow: 0;
-flex-shrink: 1;
-flex-basis: auto;
-align-self: flex-start;
-min-width: 50px;
-min-height: 50px;
-background-color: pink;
-    
+    order:2;
+    flex: 0 1 auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: flex-start;
+    min-width: 50px;
+    min-height: 50px;
+    background-color: pink;   
 }
 .team-block4{
-order:4;
-flex: 0 1 auto;
-flex-grow: 0;
-flex-shrink: 1;
-flex-basis: auto;
-align-self: flex-end;
-min-width: 50px;
-min-height: 50px;
+    order:4;
+    flex: 0 1 auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: flex-end;
+    min-width: 50px;
+    min-height: 50px;
     color: beige;
 }
 
 .team-block3 {
-   color:cyan;
-order:3;
-flex: 0 1 auto;
-flex-grow: 0;
-flex-shrink: 1;
-flex-basis: inherit;
-align-self: flex-start;
-min-width: 50px;
-min-height: 50px;
-   
-    
+    color:cyan;
+    order:3;
+    flex: 0 1 auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: inherit;
+    align-self: flex-start;
+    min-width: 50px;
+    min-height: 50px;    
 }
 .container{
     display: grid;
@@ -158,11 +153,19 @@ min-height: 50px;
 
 .subContainer{
     display: grid;
-    grid-row-gap: 1em;
-    background:#eee;
+    grid-row-gap: 1em; 
+}
+.subContainer > div:nth-child(odd){
+    background: rgba(220, 213, 213, 0.93);
+}
+.subContainer > div:nth-child(even){
+    background: rgba(238, 232, 232, 0.93);
 }
 .listItem{
-    border-bottom: medium solid black;
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr;
+    padding-top: 2em;
+    padding-bottom: 2em;
 }
 
 
