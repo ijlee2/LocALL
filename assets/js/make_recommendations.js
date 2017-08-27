@@ -23,16 +23,21 @@ const database = firebase.database();
 /****************************************************************************
  ****************************************************************************
     
-    Configure Firebase
+    Useful objects
     
 *****************************************************************************
 *****************************************************************************/
+// For Firebase
 const database_eat   = database.ref("events").child("eat");
 const database_play  = database.ref("events").child("play");
 const database_drink = database.ref("events").child("drink");
 const database_recommendations = database.ref("recommendations");
 
-function loadDatabase(eventName_eat, eventName_play, eventName_drink) {
+const eventNames_eat   = ["asian", "bbq", "mexican", "pizza"];
+const eventNames_play  = ["hike", "movie", "swim"];
+const eventNames_drink = ["bar", "brewery", "coffee"];
+
+function loadDatabases(eventName_eat, eventName_play, eventName_drink) {
     let   eat, play, drink;
     const directoryName = `${eventName_eat}_${eventName_play}_${eventName_drink}`;
 
@@ -52,7 +57,13 @@ function loadDatabase(eventName_eat, eventName_play, eventName_drink) {
     });
 }
 
-loadDatabase("asian", "movie", "bar");
+eventNames_eat.forEach(eventName_eat => 
+    eventNames_play.forEach(eventName_play =>
+        eventNames_drink.forEach(eventName_drink =>
+            loadDatabases(eventName_eat, eventName_play, eventName_drink)
+        )
+    )
+);
 
 
 
