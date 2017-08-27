@@ -27,18 +27,11 @@ const database = firebase.database();
     
 *****************************************************************************
 *****************************************************************************/
-// Search radius in meters
-const search_radius = 20 * 1609.34;
-
 // For Google Maps
-let   map, infowindow, service;
+let   map, service;
+const search_radius = 20 * 1609.34;
 const delayBetweenAPICalls = 6000;
 const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
-const markerIcons = {
-    "eat"  : "assets/images/eat.png",
-    "play" : "assets/images/play.png",
-    "drink": "assets/images/drink.png"
-};
 
 // Do 10 queries at a time
 // (Google Maps limits the number of calls
@@ -75,8 +68,7 @@ function createDatabases() {
         "zoom"            : 11
     });
 
-    infowindow = new google.maps.InfoWindow();
-    service    = new google.maps.places.PlacesService(map);
+    service = new google.maps.places.PlacesService(map);
 
     // Create databases based on the queries
     queries.forEach(q => {
@@ -168,41 +160,9 @@ function getPlaceDetails(place, status, event) {
 
         database.ref("events/" + event.type).child(event.name).push(placeData);
 
-        if (event.name === "bbq" || event.name === "hike" || event.name === "brewery") {
-            // Display to HTML
-            const output = `<tr>
-                            <td>${placeData.name}</td>
-                            <td>${placeData.location.address}</td>
-                            <td>${placeData.phone}</td>
-                            <td><a href="${placeData.website}" target="_blank">Webpage</a></td>
-                            <td><a href="${placeData.image}" target="_blank">Image</a></td>
-                            <td>${placeData.rating}</td>
-                        </tr>`;
-        
-            $(`#${event.name} thead`).append(output);
-
-            // Place a marker on the map
-            displayMarker(placeData, event.type);
-        }
-
     } else {
         // Use this to find the ideal value of delayBetweenAPICalls
         console.error(`${event.type}, ${event.name}: Data read failed.`);
 
     }
-}
-
-function displayMarker(placeData, eventType) {
-    const marker = new google.maps.Marker({
-        "map"     : map,
-        "position": placeData.geometry,
-        "icon"    : markerIcons[eventType]
-    });
-
-    google.maps.event.addListener(marker, "click", function() {
-        const output = `<div><strong>${placeData.name}</strong><br>${placeData.location.address}</div>`;
-
-        infowindow.setContent(output);
-        infowindow.open(map, this);
-    });
 }

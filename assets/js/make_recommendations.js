@@ -18,16 +18,23 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
+
+
+/****************************************************************************
+ ****************************************************************************
+    
+    Configure Firebase
+    
+*****************************************************************************
+*****************************************************************************/
 const database_eat   = database.ref("events").child("eat");
 const database_play  = database.ref("events").child("play");
 const database_drink = database.ref("events").child("drink");
 const database_recommendations = database.ref("recommendations");
 
-
 function loadDatabase(eventName_eat, eventName_play, eventName_drink) {
+    let   eat, play, drink;
     const directoryName = `${eventName_eat}_${eventName_play}_${eventName_drink}`;
-
-    let eat, play, drink;
 
     // When the page loads
     database_eat.child(eventName_eat).on("value", function(snapshot) {
@@ -39,32 +46,13 @@ function loadDatabase(eventName_eat, eventName_play, eventName_drink) {
             database_drink.child(eventName_drink).on("value", function(snapshot) {
                 drink = snapshot.val();
 
-                createRecommendations(eat, play, drink);
+                createRecommendations(eat, play, drink, directoryName);
             });
         });
     });
 }
 
 loadDatabase("asian", "movie", "bar");
-
-
-
-/****************************************************************************
- ****************************************************************************
-    
-    Useful objects
-    
-*****************************************************************************
-*****************************************************************************/
-// For Google Maps
-let   map;
-const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
-let   markers     = [];
-const markerIcons = {
-    "eat"  : "assets/images/eat.png",
-    "play" : "assets/images/play.png",
-    "drink": "assets/images/drink.png"
-};
 
 
 
@@ -92,9 +80,9 @@ function spherical_distance(point1, point2) {
     return 2 * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
 }
 
-const metric_max = 20;
+const metric_max = 10;
 
-function createRecommendations(eat, play, drink) {
+function createRecommendations(eat, play, drink, directoryName) {
     let metrics = [], metric;
 
     // Temporary variables
@@ -162,79 +150,6 @@ function createRecommendations(eat, play, drink) {
     // Assign the probability that a recommendation occurs
     metrics.forEach(m => m.probability /= total);
 
-    console.log(metrics);
+    // Save to Firebase
+    database_recommendations.child(directoryName).set(metrics);
 }
-
-
-/****************************************************************************
- ****************************************************************************
-    
-    Display the metrics
-    
-*****************************************************************************
-*****************************************************************************/
-/*
-let output = "";
-
-metrics.forEach(m => output += `<tr><td>${m.name}</td><td>${m.value.toFixed(3)}</td><td>${m.probability.toFixed(4)}</td></tr>`);
-
-$("#metrics tbody").html(output);
-*/
-
-
-
-/****************************************************************************
- ****************************************************************************
-
-    Display the map
-    
-*****************************************************************************
-*****************************************************************************/
-function displayMap() {
-    // Initialize the map (only allow zooms)
-    map = new google.maps.Map(document.getElementById("map"), {
-        "center"          : coordinates_austin,
-        "disableDefaultUI": true,
-        "zoomControl"     : true,
-        "zoom"            : 13
-    });
-}
-
-/*
-$("tbody tr").on("click", function() {
-    // Delete existing markers
-    markers.forEach(m => m.setMap(null));
-    markers = [];
-    
-    // Find out which row was clicked
-    const index  = $("tbody tr").index(this);
-    const places = metrics[index].places;
-    
-    // Adjust the center of the map
-    let center = {"lat": 0, "lng": 0};
-    
-    places.forEach (p => {
-        center.lat += p.geometry.lat;
-        center.lng += p.geometry.lng;
-    });
-
-    center.lat /= places.length;
-    center.lng /= places.length;
-
-    map.setCenter(center);
-
-    // Adjust the zoom level
-    map.setZoom(Math.max(10, 15 - Math.floor(1 + metrics[index].perimeter / 4)));
-    
-    // Place a marker for each place
-    places.forEach(p => {
-        var marker = new google.maps.Marker({
-            "map"     : map,
-            "position": p.geometry,
-            "icon"    : markerIcons[p.type]
-        });
-
-        markers.push(marker);
-    });
-});
-*/

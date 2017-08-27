@@ -1,37 +1,13 @@
 /****************************************************************************
  ****************************************************************************
     
-    Configure Firebase
-    
-*****************************************************************************
-*****************************************************************************/
-const config = {
-    "apiKey"           : "AIzaSyDjGV94on0gidAzG2sLCy5F8s-tkQXAzPc",
-    "authDomain"       : "locall-atx512.firebaseapp.com",
-    "databaseURL"      : "https://locall-atx512.firebaseio.com",
-    "projectId"        : "locall-atx512",
-    "storageBucket"    : "locall-atx512.appspot.com",
-    "messagingSenderId": "1032168672035"
-};
-
-firebase.initializeApp(config);
-
-const database = firebase.database();
-
-
-
-/****************************************************************************
- ****************************************************************************
-    
     Useful objects
     
 *****************************************************************************
 *****************************************************************************/
-// Search radius in meters
-const search_radius = 20 * 1609.34;
-
 // For Google Maps
 let   map, infowindow, service;
+const search_radius = 20 * 1609.34;
 const delayBetweenAPICalls = 1500;
 const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
 const markerIcons = {
