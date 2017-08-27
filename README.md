@@ -10,7 +10,7 @@ A website that lets you pick places to eat, drink, and play locally in Austin. C
 ## GitHub Pages
 - [Click here to see the website in action.](https://ijlee2.github.io/LocAll/)
 - [Click here to see creating databases in action.](https://ijlee2.github.io/LocAll/api_demos/create_databases.html)
-- [Click here to see making recommendations in action.](https://ijlee2.github.io/LocAll/api_demos/make_recommendations.html)
+- [Click here to see making recommendations in action.](https://ijlee2.github.io/LocAll/api_demos/make_recommendations_firebase.html)
 
 ## API Demos
 - [Beer Mapping](https://ijlee2.github.io/LocAll/api_demos/beer_mapping.html)
