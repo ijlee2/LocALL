@@ -1,10 +1,20 @@
+// When the page loads
 let pageStatus = "signup";
 
+$("#messageToUser").text("");
+$("#messageToUser").css({"display": "hide"});
+
+
+// When the user clicks on sign up, log in, or log out button
 $("#button_signup").click(function() {
     pageStatus = "signup";
 
     $("#header").text("Sign Up");
     $("#userName_container").css({"display": "block"});
+    $("#button_submit").css({"display": "block"});
+
+    $("#messageToUser").text("");
+    $("#messageToUser").css({"display": "hide"});
 
 });
 
@@ -13,6 +23,10 @@ $("#button_login").click(function() {
 
     $("#header").text("Log In");
     $("#userName_container").css({"display": "none"});
+    $("#button_submit").css({"display": "block"});
+
+    $("#messageToUser").text("");
+    $("#messageToUser").css({"display": "hide"});
 
 });
 
@@ -21,10 +35,17 @@ $("#button_logout").click(function() {
 
     $("#header").text("Log Out");
     $("#userName_container").css({"display": "none"});
+    $("#userEmail_container").css({"display": "none"});
+    $("#userPassword_container").css({"display": "none"});
+    $("#button_submit").css({"display": "none"});
+
+    $("#messageToUser").text("Success!");
+    $("#messageToUser").css({"display": "block"});
     
 });
 
 
+// When the user clicks on the submit button
 $("#button_submit").click(function() {
     const name     = $("#userName").val().trim();
     const email    = $("#userEmail").val().trim();
