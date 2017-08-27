@@ -12,6 +12,7 @@ const config = {
     "projectId"        : "locall-atx512",
     "storageBucket"    : "locall-atx512.appspot.com",
     "messagingSenderId": "1032168672035"
+
 };
 
 firebase.initializeApp(config);
@@ -91,15 +92,76 @@ $("#button_submit").click(function() {
     // If there is an error, display an error message in the input field.
 
     // First name must be all letters
+    var regex;
+    var matches;
+    var validationPassed = true;
+
+    // If valid
+    if (name === "") {
+        $("#messageToUser").text("Please enter your name.");
+        validationPassed = false; 
     
+    } else { 
+        regex = /^[a-z]+$/;
+        matches = name.match(regex);
+
+        if (!matches) {
+            $("#messageToUser").text("Name is invalid."); 
+            validationPassed = false; 
+        }
+    }
+
 
     // Email must have format of ***@***.com (*** cannot be empty)
+     if (email === "") {
+        $("#messageToUser").append("<br>Please enter your email.");
     
+    } else { 
+        regex = /^[a-z0-9._]+@[a-z]+.(com|net|edu)$/i;
+        matches = email.match(regex);
 
-    // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
+        if (!matches) {
+            $("#messageToUser").append("<br>Email is invalid.");
+            validationPassed = false; 
+        
+        }
+    }
+
     
+    // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
+      if (password === "") {
+        $("#messageToUser").append("<br>Please enter your password.");
+    
+    } else {
+        if (password.length < 8 || password.length > 64) {
+            $("#messageToUser").append("<br>Password length must be between 8-64.");
+        }
+
+        regex = /[a-z]+/i;
+        matches = password.match(regex);
+        if (!matches) {
+            $("#messageToUser").append("<br>Password must contain at least 1 letter.");
+        
+        }
+
+        regex = /[0-9]+/;
+        matches = password.match(regex);
+        if (!matches) {
+            $("#messageToUser").append("<br>Password must contain at least 1 number.");
+        
+        }
+
+        regex = /[!@#$%^&*]+/;
+        matches = password.match(regex);
+        if (!matches) {
+            $("#messageToUser").append("<br>Password must contain at least 1 special character.");
+        
+        }
+
+    }
 
     // Create an account on Firebase
+    /*
     if (pageStatus === "signup") {
         auth.createUserWithEmailAndPassword(email, password)
             .catch(e => console.log(e.message));
@@ -132,4 +194,5 @@ $("#button_submit").click(function() {
 
         }
     });
+    */
 });
