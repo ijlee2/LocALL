@@ -33,23 +33,32 @@ const search_radius = 20 * 1609.34;
 const delayBetweenAPICalls = 6000;
 const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
 
-// Do 10 queries at a time
-// (Google Maps limits the number of calls
+// Do 10 queries at a time (change query_index from 0 to 1)
+// (Google Maps limits the number of calls)
+const query_index = 0;
 const queries = [
-    {"keyword": "asian"  , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "asian"  }},
-    {"keyword": "bbq"    , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "bbq"    }},
-    {"keyword": "mexican", "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "mexican"}},
-    {"keyword": "pizza"  , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "pizza"  }},
+    [
+        {"keyword": "asian"  , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "asian"  }},
+        {"keyword": "bbq"    , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "bbq"    }},
+        {"keyword": "pizza"  , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "pizza"  }},
+        {"keyword": "indian" , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "indian" }},
+        {"keyword": "texmex" , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "tex-mex"}},
 
-    {"keyword": "trail"  , "type": ["park"]         , "event": {"type": "play" , "name": "hike"   }},
-    {"keyword": "theater", "type": ["movie_theater"], "event": {"type": "play" , "name": "movie"  }},
-    {"keyword": "pool"   , "type": ["park"]         , "event": {"type": "play" , "name": "swim"   }},
+        {"keyword": "bowling", "type": ["bowling_alley"], "event": {"type": "play" , "name": "bowl"   }},
+        {"keyword": "trail"  , "type": ["park"]         , "event": {"type": "play" , "name": "hike"   }},
+        {"keyword": "theater", "type": ["movie_theater"], "event": {"type": "play" , "name": "movie"  }},
+        {"keyword": "spa"    , "type": ["spa"]          , "event": {"type": "play" , "name": "spa"    }},
+        {"keyword": "pool"   , "type": ["park"]         , "event": {"type": "play" , "name": "swim"   }}
+    ],
 
-    {"keyword": "bar"    , "type": ["bar"]          , "event": {"type": "drink", "name": "bar"    }},
-    {"keyword": "brewery", "type": ["bar"]          , "event": {"type": "drink", "name": "brewery"}},
-    {"keyword": "coffee" , "type": ["cafe"]         , "event": {"type": "drink", "name": "coffee" }}
+    [
+        {"keyword": "bar"    , "type": ["bar"]          , "event": {"type": "drink", "name": "bar"    }},
+        {"keyword": "brewery", "type": ["bar"]          , "event": {"type": "drink", "name": "brewery"}},
+        {"keyword": "coffee" , "type": ["cafe"]         , "event": {"type": "drink", "name": "coffee" }},
+        {"keyword": "tea"    , "type": ["cafe"]         , "event": {"type": "drink", "name": "tea"    }},
+        {"keyword": "wine"   , "type": ["bar"]          , "event": {"type": "drink", "name": "wine"   }}
+    ]
 ];
-
 
 
 /****************************************************************************
@@ -70,8 +79,11 @@ function createDatabases() {
 
     service = new google.maps.places.PlacesService(map);
 
+    // Uncomment to remove existing databases (be careful!)
+//    database.ref().remove();
+    
     // Create databases based on the queries
-    queries.forEach(q => {
+    queries[query_index].forEach(q => {
         service.nearbySearch({
             keyword : q.keyword,
             location: coordinates_austin,

@@ -1,3 +1,34 @@
+/****************************************************************************
+ ****************************************************************************
+    
+    Configure Firebase
+    
+*****************************************************************************
+*****************************************************************************/
+const config = {
+    "apiKey"           : "AIzaSyDjGV94on0gidAzG2sLCy5F8s-tkQXAzPc",
+    "authDomain"       : "locall-atx512.firebaseapp.com",
+    "databaseURL"      : "https://locall-atx512.firebaseio.com",
+    "projectId"        : "locall-atx512",
+    "storageBucket"    : "locall-atx512.appspot.com",
+    "messagingSenderId": "1032168672035"
+};
+
+firebase.initializeApp(config);
+
+const database       = firebase.database();
+const database_users = database.ref("users");
+const auth           = firebase.auth();
+
+
+
+/****************************************************************************
+ ****************************************************************************
+    
+    User actions
+    
+*****************************************************************************
+*****************************************************************************/
 // When the page loads
 let pageStatus = "signup";
 
@@ -68,17 +99,37 @@ $("#button_submit").click(function() {
     // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
     
 
+    // Create an account on Firebase
     if (pageStatus === "signup") {
-        // TODO - Isaac:
-        // Create an account on Firebase.
+        auth.createUserWithEmailAndPassword(email, password)
+            .catch(e => console.log(e.message));
 
+    // Log in to an existing account
     } else if (pageStatus === "login") {
-        // TODO - Isaac:
-        // Log in to an existing account.
+        auth.signInWithEmailAndPassword(email, password).then(
+            function(results, name) {
+                console.log("1. " + password);
+                console.log("2. " + results);
+                console.log("3. " + name);
 
+                database_users.push({"name": name, "email": email});
+
+            }
+        ).catch(e => console.log(e.message));
+
+    // Log out of an existing account
     } else if (pageStatus === "logout") {
-        // TODO - Isaac:
-        // Log out of an existing account.
+        auth.signOut();
 
     }
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            console.log(user);
+
+        } else {
+            console.log("Not logged in.");
+
+        }
+    });
 });

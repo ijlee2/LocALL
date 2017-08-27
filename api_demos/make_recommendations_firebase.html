@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="recommend places based on distance">
+        <meta name="author" content="Isaac J. Lee, Jacque White">
+
+        <title>Make Recommendations</title>
+
+        <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <style>
+            /* This div allows Google Maps to always appear on the screen */
+            .page {
+                position: relative;
+            }
+
+            /* Menu */
+            #menu {
+                margin-bottom: 5%;
+            }
+
+            ul {
+                float       : left;
+                width       : 28%;
+                margin-right: 5%;
+            }
+
+            li {
+                list-style-type: none;
+                border         : 1px solid black;
+                padding        : 3%;
+            }
+
+            li:hover {
+                background-color: var(--color-light-blue);
+                color           : var(--color-text-contrast);
+            }
+
+            .clearfix::after {
+                content: "";
+                display: block;
+                clear  : both;
+            }
+    
+            /* Table */
+            #recommendations {
+                width: 410px;
+            }
+
+            #recommendations th, td {
+                padding: 0.6em 1em;
+            }
+
+            #recommendations th:nth-of-type(1), #recommendations td:nth-of-type(1) {
+                width: 64%;
+            }
+
+            #recommendations th:nth-of-type(2), #recommendations td:nth-of-type(2) {
+                text-align: center;
+                width     : 30%;
+            }
+
+            #recommendations tbody tr:hover {
+                background-color: var(--color-light-blue);
+                color           : var(--color-text-contrast);
+                transform       : scale(1.1);
+            }
+            
+            /* This div allows Google Maps to always appear on the screen */
+            #googleMaps {
+                position: absolute;
+                top     : 0;
+                right   : 400px;
+            }
+
+            /* IMPORTANT: Always set the map height explicitly to define the size
+             * of the div element that contains the map. */
+            #map {
+                position: fixed !important;
+                width   : 400px;
+                height  : 400px;
+            }
+        </style>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Make Recommendations</h1>
+            
+            <h2>Menu</h2>
+            <div class="page clearfix" id="menu">
+                <ul id="eat">
+                    <li>Asian</li>
+                    <li>BBQ</li>
+                    <li>Indian</li>
+                    <li>Pizza</li>
+                    <li>Tex-Mex</li>
+                </ul>
+
+                <ul id="play">
+                    <li>Bowl</li>
+                    <li>Hike</li>
+                    <li>Movie</li>
+                    <li>Spa</li>
+                    <li>Swim</li>
+                </ul>
+
+                <ul id="drink">
+                    <li>Bar</li>
+                    <li>Brewery</li>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Wine</li>
+                </ul>
+            </div>
+
+            <h2>Results</h2>
+            <p>Click on a table row to see the places on map.</p>
+            <div class="page">
+                <div class="panel" id="recommendations">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Metric</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div class="panel" id="googleMaps">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5UBuB1NoQsps2oc6EdyNhrLGbYY_FZMQ&libraries=places&callback=displayMap" async defer></script>
+        <script type="text/javascript" src="assets/js/make_recommendations_firebase.js"></script>
+    </body>
+</html>

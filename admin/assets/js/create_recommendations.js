@@ -33,9 +33,11 @@ const database_play  = database.ref("events").child("play");
 const database_drink = database.ref("events").child("drink");
 const database_recommendations = database.ref("recommendations");
 
-const eventNames_eat   = ["asian", "bbq", "mexican", "pizza"];
-const eventNames_play  = ["hike", "movie", "swim"];
-const eventNames_drink = ["bar", "brewery", "coffee"];
+const eventNames_eat   = ["asian"  , "bbq"    , "indian" , "pizza"  , "tex-mex"];
+const eventNames_play  = ["bowl"   , "hike"   , "movie"  , "spa"    , "swim"   ];
+const eventNames_drink = ["bar"    , "brewery", "coffee" , "tea"    , "wine"   ];
+
+const metric_max = 10;
 
 function loadDatabases(eventName_eat, eventName_play, eventName_drink) {
     let   eat, play, drink;
@@ -57,20 +59,21 @@ function loadDatabases(eventName_eat, eventName_play, eventName_drink) {
     });
 }
 
-eventNames_eat.forEach(eventName_eat => 
-    eventNames_play.forEach(eventName_play =>
-        eventNames_drink.forEach(eventName_drink =>
-            loadDatabases(eventName_eat, eventName_play, eventName_drink)
-        )
+// Do 25 queries at a time (change index from 0 to 4)
+const index = 0;
+
+eventNames_play.forEach(eventName_play =>
+    eventNames_drink.forEach(eventName_drink =>
+        loadDatabases(eventNames_eat[index], eventName_play, eventName_drink)
     )
-);
+)
 
 
 
 /****************************************************************************
  ****************************************************************************
     
-    Make recommendations
+    Create recommendations
     
 *****************************************************************************
 *****************************************************************************/
@@ -91,18 +94,20 @@ function spherical_distance(point1, point2) {
     return 2 * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
 }
 
-const metric_max = 10;
-
 function createRecommendations(eat, play, drink, directoryName) {
-    let metrics = [], metric;
+    // Variables that we will store in Firebase
+    let data = [], numData = 0, bins = [0];
 
     // Temporary variables
     let a, b, c;
+    let metric;
     let temp, total = 0;
 
     let event1, event2, event3;
+    let latitude, longitude;
 
     for (let key1 in eat) {
+        // Ignore the proto method
         if (!eat.hasOwnProperty(key1)) {
             continue;
         }
@@ -133,16 +138,23 @@ function createRecommendations(eat, play, drink, directoryName) {
                 // Spherical perimeter
                 metric = r * (a + b + c);
 
-                // Remove bad recommendations
+                // Save only good recommendations
                 if (metric <= metric_max) {
+                    numData++;
+
+                    // Find the center of the 3 places
+                    latitude  = (event1.geometry.lat + event2.geometry.lat + event3.geometry.lat) / 3;
+                    longitude = (event1.geometry.lng + event2.geometry.lng + event3.geometry.lng) / 3;
+
                     // Probability is yet to be normalized
                     temp = 1 / Math.pow(Math.log(1 + metric), 2);
 
-                    metrics.push({
+                    data.push({
                         "eat"        : event1,
                         "play"       : event2,
                         "drink"      : event3,
-                        "value"      : metric,
+                        "center"     : {"lat": latitude, "lng": longitude},
+                        "metric"     : metric,
                         "probability": temp
                     });
 
@@ -154,13 +166,27 @@ function createRecommendations(eat, play, drink, directoryName) {
     }
 
     // List our recommendations from best (low metric) to worst (high metric)
-    metrics.sort(function(a, b) {
-        return a.value - b.value;
+    data.sort(function(a, b) {
+        return a.metric - b.metric;
     });
 
     // Assign the probability that a recommendation occurs
-    metrics.forEach(m => m.probability /= total);
+    let bin_count = 0;
+
+    data.forEach(m => {
+        m.probability /= total;
+
+        bin_count += Math.round(1000000 * m.probability);
+
+        bins.push(bin_count);
+    });
 
     // Save to Firebase
-    database_recommendations.child(directoryName).set(metrics);
+    database_recommendations.child(directoryName).set({
+        "data"   : data,
+        "numData": numData,
+        "bins"   : bins
+    });
+
+    console.log(`${directoryName} successfully created.\nNumber of recommendations: ${numData}`);
 }
