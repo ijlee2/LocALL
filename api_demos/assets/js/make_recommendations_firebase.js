@@ -135,18 +135,44 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
         console.log(data);
         console.log(bins);
         console.log("Number of recommendations (original): " + numData);
-        
+
+
+        // Reset the recommendations array
+        recommendations = [];
+
+        // find last index of bins
+        var maximum = bins[bins.length - 1];
+        var randomNumbers = [];
+
+        for (var i = 0; i < 20; i++) {
+            var randomNumber = Math.floor(Math.random() * (maximum + 1));
+
+            // If randomNumber already exists in randomNumbers array
+            while (randomNumbers.indexOf(randomNumber) >= 0) {
+                // Generate a new random number
+                randomNumber = Math.floor(Math.random() * (maximum + 1));
+            }
+
+            randomNumbers.push(randomNumber);
+
+            for (var index = 0; index < numData; index++) {
+                if (bins[index] <= randomNumber && randomNumber <= bins[index + 1]) {
+                    recommendations.push(data[index]);
+
+                    break;
+                }
+            }
+
+        }
 
         // Display recommendations close to the user
-        data = data.filter(function(a) {
+        
+        recommendations = recommendations.filter(function(a) {
             return spherical_distance(a.center, myLocation) <= 2.5;
         });
-
-        console.log("Number of recommendations (near user): " + data.length);
-
-
+        
         // Display the top 10 recommendations
-        recommendations = data.slice(0, 10);
+        recommendations = recommendations.slice(0, 10);
         
         let output = "", name;
 
