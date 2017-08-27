@@ -1,5 +1,5 @@
 body {
-   background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
+    background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
     /*
     background: url("../images/background.jpg") no-repeat center center fixed;
     */
@@ -27,12 +27,14 @@ h1 {
     animation-duration: 5s;
     animation-iteration-count: infinite;
 }
+
 @keyframes font {
     0%   {color: #5bfe35;}
     25%  {color: #35fec8;}
     50%  {color: #35a9fe;}
     100% {color: #e135fe;}
 } 
+
 h2{
     font-size:40px;
     text-align: center;
@@ -61,8 +63,6 @@ h2{
     margin-left: 20px;   
 }
 
-
-
 #page1 a {
     width: 178px;
     height: 60px;
@@ -73,15 +73,14 @@ h2{
 #page2 button {
     font-size:20px;
     text-align: center;
-    margin-top: 2em;
-    
+    margin-top: 2em;   
 }
 .aboutUs{
     background-color: #fff;
     height: 600px;
-    padding: 170px 0 0 0;
+    padding: 45px 0 0 0;
     background-size: cover;
-    opacity: .7;  
+    opacity: .95;  
 }
 
 .prettyline {
@@ -98,4 +97,11 @@ h2{
 .act{
     margin-right: 40px;
     margin-left: 40px;
+}
+img{
+    width:300px;
+    height:300px;
+}
+#us{
+    font-size: 60px;
 }
