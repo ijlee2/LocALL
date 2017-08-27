@@ -160,7 +160,7 @@ function getPlaceDetails(place, status, event) {
                             <td>${placeData.rating}</td>
                         </tr>`;
         
-            $(`#${event.name} thead`).append(output);
+        $(`#${event.name} thead`).append(output);
 
     } else {
         // Use this to find the ideal value of delayBetweenAPICalls
