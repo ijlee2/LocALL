@@ -46,6 +46,7 @@ $("#button_signup").click(function() {
     $("#userName_container").css({"display": "block"});
     $("#userEmail_container").css({"display": "block"});
     $("#userPassword_container").css({"display": "block"});
+    $("#userLocation_container").css({"display": "block"});
     $("#button_submit").css({"display": "block"});
 
     $("#messageToUser").text("");
@@ -60,6 +61,7 @@ $("#button_login").click(function() {
     $("#userName_container").css({"display": "none"});
     $("#userEmail_container").css({"display": "block"});
     $("#userPassword_container").css({"display": "block"});
+    $("#userLocation_container").css({"display": "none"});
     $("#button_submit").css({"display": "block"});
 
     $("#messageToUser").text("");
@@ -74,6 +76,7 @@ $("#button_logout").click(function() {
     $("#userName_container").css({"display": "none"});
     $("#userEmail_container").css({"display": "none"});
     $("#userPassword_container").css({"display": "none"});
+    $("#userLocation_container").css({"display": "none"});
     $("#button_submit").css({"display": "none"});
 
     $("#messageToUser").text("Success!");
@@ -87,6 +90,7 @@ $("#button_submit").click(function() {
     const name     = $("#userName").val().trim();
     const email    = $("#userEmail").val().trim();
     const password = $("#userPassword").val();
+    const location = $("#userLocation").val().trim().toLowerCase();
 
     // Validate the inputs using regular expression and match function.
     // If there is an error, display an error message in the input field.
@@ -169,8 +173,9 @@ $("#button_submit").click(function() {
                 console.log(user);
 
                 database_users.child(user.uid).set({
-                    "name" : name,
-                    "email": email
+                    "name"    : name,
+                    "email"   : email,
+                    "location": location
                 });
             })
             .catch(
@@ -187,6 +192,8 @@ $("#button_submit").click(function() {
                 database_users.child(user.uid).on("value", function(snapshot) {
                     console.log("My name is: " + snapshot.val().name);
                     console.log("My email is: " + snapshot.val().email);
+                    console.log("My location is: " + snapshot.val().location);
+
                 });
             })
             .catch(
