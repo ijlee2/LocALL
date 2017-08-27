@@ -1,28 +1,35 @@
-var map, markers = [];
+let map;
 
-var places = [{"name"     : "Rudy's BBQ",
-               "address"  : "512 W 29th Street, Austin 78705",
-               "latitude" : 30.2953166667,
-               "longitude": -97.7423694444},
-               
-              {"name"     : "Bert's BBQ",
-               "address"  : "907 W 24th Street, Austin 78705",
-               "latitude" : 30.2881055556,
-               "longitude": -97.7474527778},
-               
-              {"name"     : "BBQ Revolution",
-               "address"  : "3111 Manor Road, Austin 78723",
-               "latitude" : 30.3154988,
-               "longitude": -97.7167106}
-             ];
+const places = [
+    {
+        "name"   : "Rudy's BBQ",
+        "address": "512 W 29th Street, Austin 78705",
+        "lat"    :  30.295317,
+        "lng"    : -97.742369
+    },
+
+    {
+        "name"   : "Bert's BBQ",
+        "address": "907 W 24th Street, Austin 78705",
+        "lat"    :  30.288106,
+        "lng"    : -97.747453
+    },
+    
+    {
+        "name"   : "BBQ Revolution",
+        "address": "3111 Manor Road, Austin 78723",
+        "lat"    :  30.315499,
+        "lng"    : -97.716711
+    }
+];
 
 function displayMap() {
-    var center = {"lat": 0, "lng": 0};
-
     // Find the center of all bbq places
+    const center = {"lat": 0, "lng": 0};
+
     places.forEach(p => {
-        center.lat += p.latitude;
-        center.lng += p.longitude;
+        center.lat += p.lat;
+        center.lng += p.lng;
     });
 
     center.lat /= places.length;
@@ -36,13 +43,9 @@ function displayMap() {
     
     // Place a marker for each bbq place
     places.forEach(p => {
-        var marker = new google.maps.Marker({
-            "position": {"lat": p.latitude,
-                         "lng": p.longitude},
-            "map": map
+        new google.maps.Marker({
+            "position": {"lat": p.lat, "lng": p.lng},
+            "map"     : map
         });
-
-        // Store the markers in case
-        markers.push(marker);
     });
 }
