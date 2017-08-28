@@ -50,116 +50,6 @@
                         <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">Your Dev Team</button>
                         <button type="button" class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Log In / Sign Up</button>
                     </div>
-
-                    <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="log-in-and-sign-up" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <!-- TODO: Why are bs-example and bs-example-tabs needed? -->
-                                <div class="bs-example bs-example-tabs">
-                                    <ul class="nav nav-tabs">
-                                        <li class="locall_act"><a href="#login" data-toggle="tab">Log In</a></li>
-                                        <li class="locall_act"><a href="#signup" data-toggle="tab">Sign Up</a></li>
-                                        <li class="locall_act"><a href="#closeModal" data-toggle="tab">X</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="tab-content">
-                                        <!-- Log-in page -->
-                                        <div class="tab-pane fade active in" id="login">
-                                            <form class="form-horizontal">
-                                                <fieldset>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userEmail_login">Email:</label>
-                                                        <div class="controls">
-                                                            <input type="text" class="form-control input-medium" id="userEmail_login">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userPassword_login">Password:</label>
-                                                        <div class="controls">
-                                                            <input type="password" class="form-control input-medium" id="userPassword_login">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userRemember_login"></label>
-    <!--                                                    <label class="checkbox inline" for="rememberme-0">-->
-                                                        <div class="controls">
-                                                            <input type="checkbox" id="userRemember_login"> Remember me
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <div class="controls">
-                                                            <button type="button" class="btn btn-success" id="button_login">Log In</button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                        <!-- Sign-up page -->
-                                        <div class="tab-pane fade" id="signup">
-                                            <form class="form-horizontal">
-                                                <fieldset>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userName_signup">Name:</label>
-                                                        <div class="controls">
-                                                            <input type="text" class="form-control input-medium" id="userName_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userEmail_signup">Email:</label>
-                                                        <div class="controls">
-                                                            <input type="text" class="form-control input-medium" id="userEmail_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="ZipCode">Location:</label>
-                                                        <div class="controls">
-                                                            <select name="userLocation_signup">
-                                                                <option value="central" selected>Central Austin</option>
-                                                                <option value="north">North Austin</option>
-                                                                <option value="west">West Austin</option>
-                                                                <option value="east">East Austin</option>
-                                                                <option value="south">South Austin</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userPassword_signup">Password:</label>
-                                                        <div class="controls">
-                                                            <input type="password" class="form-control input-medium" id="userPassword_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userPassword2_signup">Re-enter Password:</label>
-                                                        <div class="controls">
-                                                            <input type="password" class="form-control input-medium" id="userPassword2_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <div class="controls">
-                                                            <button type="button" class="btn btn-success" id="button_signup">Sign Up</button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End: modal-body -->
-                            </div>   
-                        </div>
-                    </div>
-                    <!-- End: Modal -->
                 </div>
             </div>
             <!--toggle function  -->
@@ -236,8 +126,8 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Metric</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody></tbody>
