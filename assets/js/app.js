@@ -114,6 +114,7 @@ $(".dropdown-item").click(function() {
 
     // Display recommendations once the user selects all options
     if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && eventName_location !== "") {
+        $("#map").css({"display": "block"});
         displayRecommendations(eventName_eat, eventName_play, eventName_drink, myLocation);
     }
 });
