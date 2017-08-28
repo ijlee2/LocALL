@@ -1,5 +1,5 @@
 # LocAll
-A website that lets you pick places to eat, drink, and play locally in Austin. Check places to go, pin them, and visit!
+A website that lets you pick places to eat, play, and drink---locally in Austin!
 
 ## Team Members
 - Margie Tagaban (frontend)
