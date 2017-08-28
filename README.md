@@ -2,16 +2,18 @@
 A website that lets you pick places to eat, drink, and play locally in Austin. Check places to go, pin them, and visit!
 
 ## Team Members
-1. Margie Tagaban (frontend)
-2. Aaron Tyler (frontend)
-3. Isaac Lee (backend)
-4. Jacque White (backend)
+- Margie Tagaban (frontend)
+- Aaron Tyler (frontend)
+- Isaac Lee (backend)
+- Jacque White (backend)
+
+## GitHub Demos
+- [Click here to see the website in action.](https://ijlee2.github.io/LocAll/)
+- [Click here to see creating databases in action.](https://ijlee2.github.io/LocAll/admin/create_databases_nofirebase.html)
+- [Click here to see making recommendations in action.](https://ijlee2.github.io/LocAll/admin/display_recommendations.html)
 
 ## API Demos
-1. [Beer Mapping](https://ijlee2.github.io/LocAll/api_demos/beer_mapping.html)
-2. [BreweryDB](https://ijlee2.github.io/LocAll/api_demos/brewerydb.html)
-3. [Google Maps](https://ijlee2.github.io/LocAll/api_demos/google_maps.html)
-4. [Mapbox](https://ijlee2.github.io/LocAll/api_demos/mapbox.html)
-5. [TrailAPI](https://ijlee2.github.io/LocAll/api_demos/trail_api.html)
-6. [Yelp](https://ijlee2.github.io/LocAll/api_demos/yelp.html)
-7. [Zomato](https://ijlee2.github.io/LocAll/api_demos/zomato.html)
+- [Beer Mapping](https://ijlee2.github.io/LocAll/api_demos/beer_mapping.html)
+- [Google Maps](https://ijlee2.github.io/LocAll/api_demos/google_maps.html)
+- [TrailAPI](https://ijlee2.github.io/LocAll/api_demos/trail_api.html)
+- [Zomato](https://ijlee2.github.io/LocAll/api_demos/zomato.html)

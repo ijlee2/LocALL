@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,23 +7,16 @@
         <meta name="author" content="Isaac J. Lee">
 
         <title>Google Maps API Demo</title>
-        <style>
-          /* IMPORTANT: Always set the map height explicitly to define the size
-           * of the div element that contains the map. */
-          #map {
-            height: 400px;
-          }
-          /* Optional: Makes the sample page fill the window. */
-          html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-          }
-        </style>
 
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style_api.css">
+        <style>
+            /* IMPORTANT: Set the map height explicitly */
+            #map {
+                height: 500px;
+            }
+        </style>
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
@@ -39,11 +32,11 @@
             
             <div class="panel">
                 <h2>Documentation</h2>
-                <p><a href="https://developers.google.com/maps/documentation/javascript/tutorial">Link to the API documentation</a>
+                <p><a href="https://developers.google.com/maps/documentation/javascript/tutorial">Link to the API documentation</a></p>
             </div>
         </div>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUXkXE4GQC50D5MTJSZRnoy47XBou0f1U&callback=initMap" async defer></script>
-        <script type="text/javascript" src="assets/javascript/google_maps.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUXkXE4GQC50D5MTJSZRnoy47XBou0f1U&callback=displayMap" async defer></script>
+        <script type="text/javascript" src="assets/js/google_maps.js"></script>
     </body>
 </html>
