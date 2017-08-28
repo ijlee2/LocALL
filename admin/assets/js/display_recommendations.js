@@ -183,8 +183,10 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
             // Select a number at random
             randomNumber = Math.floor(bin_max * Math.random());
 
+            // Find the correct bin
             for (j = 0; j < (bins.length - 1); j++) {
                 if (bins[j] <= randomNumber && randomNumber < bins[j + 1]) {
+                    // Save the recommendation
                     recommendations.push(...data.splice(j, 1));
 
                     break;
@@ -192,6 +194,7 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
             }
         }
         
+        // Display recommendations
         let names, output = "";
 
         recommendations.forEach(r => {
