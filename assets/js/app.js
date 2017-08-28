@@ -1,12 +1,3 @@
-$(".dropdown-toggle").dropdown("update");
-
-function displayPage(page) {
-    $(".page").hide();
-    $(`.page:nth-of-type(${page + 1})`).show();
-};
-
-
-
 /****************************************************************************
  ****************************************************************************
     
@@ -61,7 +52,7 @@ const markerIcons = {
 *****************************************************************************
 *****************************************************************************/
 let eventType, eventName;
-let eventName_eat = "", eventName_play = "", eventName_drink = "", eventName_location = "";
+let eventName_eat, eventName_play, eventName_drink, eventName_location;
 
 $(".dropdown-item").click(function() {
     const eventName = $(this).text();
@@ -114,7 +105,6 @@ $(".dropdown-item").click(function() {
 
     // Display recommendations once the user selects all options
     if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && eventName_location !== "") {
-        $("#map").css({"display": "block"});
         displayRecommendations(eventName_eat, eventName_play, eventName_drink, myLocation);
     }
 });
@@ -208,41 +198,23 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
         let names, output = "";
 
         recommendations.forEach(r => {
-
-            output +=`<div class = "subContainer">
-                        <div class="listItem food">
-                            <div class="restaurantImage">
-                                <p> ${r.eat.name}</p>
-                                <img height="150" width="150" src="${r.eat.image}" alt="${r.eat.name}"> 
-                            </div>
-                            <div class="columnTwo">  
-                                <p>${r.play.name}</p>
-                                <img height="150" width="150" src="${r.play.image}" alt="${r.play.name}">
-                            </div>
-                            <div class="item restaurantAddress">
-                                <p> ${r.drink.name}</p>
-                                <img height="150" width="150" src="${r.drink.image}" alt="${r.drink.name}">
-                            </div>
+            output +=
+                `<div class = "subContainer">
+                    <div class="listItem food">
+                        <div class="restaurantImage">
+                            <p> ${r.eat.name}</p>
+                            <img height="150" width="150" src="${r.eat.image}" alt="${r.eat.name}"> 
                         </div>
-                      </div>`;
-
-            // output +=`<div class = "subContainer">
-            //                 <div class="listItem play">
-            //                     <div class="restaurantImage">
-
-            //                     </div>
-            //                     <div class="columnTwo"> 
-            //                         <p>${r.play.phone}</p>
-            //                         <p> <a href="${r.play.website}" target="_blank">Visit their website</a></p>
-            //                         <p> ${r.play.rating} / 5</p>
-            //                     </div>
-            //                     <div class="item restaurantAddress"> 
-            //                         <p> ${r.play.location.address}</p>
-            //                     </div>    
-            //                 </div>
-            //             </div>`;
-
-
+                        <div class="columnTwo">  
+                            <p>${r.play.name}</p>
+                            <img height="150" width="150" src="${r.play.image}" alt="${r.play.name}">
+                        </div>
+                        <div class="item restaurantAddress">
+                            <p> ${r.drink.name}</p>
+                            <img height="150" width="150" src="${r.drink.image}" alt="${r.drink.name}">
+                        </div>
+                    </div>
+                </div>`;
         });
 
         $("#recommendations").html(output);
@@ -316,7 +288,14 @@ $("body").on("click", ".subContainer", function() {
     
 *****************************************************************************
 *****************************************************************************/
-// When the page loads
+$(".dropdown-toggle").dropdown("update");
+
+function displayPage(page) {
+    $(".page").hide();
+    $(`.page:nth-of-type(${page + 1})`).show();
+
+    eventName_eat = "", eventName_play = "", eventName_drink = "", eventName_location = "";
+};
 
 $("#button_login").click(function() {
     $(".messageToUser").empty();
@@ -409,16 +388,6 @@ $("#button_signup").click(function() {
             );
     }
 });
-
-// auth.onAuthStateChanged(user => {
-//     if (user) {
-//         console.log("Logged in.");
-
-//     } else {
-//         console.log("Not logged in.");
-        
-//     }
-// });
 
 
 
