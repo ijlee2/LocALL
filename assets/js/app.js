@@ -230,8 +230,6 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
     
 *****************************************************************************
 *****************************************************************************/
-$(document).on("ready", displayMap);
-
 function displayMap() {
     // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById("map"), {
