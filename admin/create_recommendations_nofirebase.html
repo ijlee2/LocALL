@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="recommend places based on distance">
+        <meta name="description" content="create databases of recommendations">
         <meta name="author" content="Isaac J. Lee, Jacque White">
 
-        <title>Make Recommendations</title>
+        <title>Create Recommendations</title>
 
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
@@ -18,29 +18,29 @@
             }
     
             /* Customize the look of the table */
-            #metrics {
+            #recommendations {
                 width: 410px;
             }
 
-            #metrics th, td {
+            #recommendations th, td {
                 padding: 0.6em 1em;
             }
 
-            #metrics th:nth-of-type(1), #metrics td:nth-of-type(1) {
+            #recommendations th:nth-of-type(1), #recommendations td:nth-of-type(1) {
                 width: 56%;
             }
 
-            #metrics th:nth-of-type(2), #metrics td:nth-of-type(2) {
+            #recommendations th:nth-of-type(2), #recommendations td:nth-of-type(2) {
                 text-align: center;
                 width     : 20%;
             }
 
-            #metrics th:nth-of-type(3), #metrics td:nth-of-type(3) {
+            #recommendations th:nth-of-type(3), #recommendations td:nth-of-type(3) {
                 text-align: center;
                 width     : 20%;
             }
 
-            #metrics tbody tr:hover {
+            #recommendations tbody tr:hover {
                 background-color: var(--color-light-blue);
                 color           : var(--color-text-contrast);
                 transform       : scale(1.1);
@@ -65,13 +65,13 @@
     </head>
     <body>
         <div class="container">
-            <h1>Make Recommendations</h1>
+            <h1>Create Recommendations</h1>
             
-            <h2>Metric: Spherical Perimeter</h2>
+            <h2>Results</h2>
             <p>Click on a table row to see the places on map.</p>
 
             <div class="page">
-                <div class="panel" id="metrics">
+                <div class="panel" id="recommendations">
                     <table>
                         <thead>
                             <tr>

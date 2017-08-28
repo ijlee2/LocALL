@@ -15,20 +15,20 @@ const eat = [
 ];
 
 const play = [
-    {"name": "Chisholm"    , "geometry": {"lat": 30.511925, "lng": -97.689391}},
-    {"name": "Copperfield" , "geometry": {"lat": 30.388973, "lng": -97.655342}},
-    {"name": "Roy and Ann" , "geometry": {"lat": 30.264217, "lng": -97.755940}},
-    {"name": "Ranch Trails", "geometry": {"lat": 30.523158, "lng": -97.770973}},
-    {"name": "Great Hills" , "geometry": {"lat": 30.410463, "lng": -97.755936}}
+    {"name": "Chisholm"      , "geometry": {"lat": 30.511925, "lng": -97.689391}},
+    {"name": "Copperfield"   , "geometry": {"lat": 30.388973, "lng": -97.655342}},
+    {"name": "Roy and Ann"   , "geometry": {"lat": 30.264217, "lng": -97.755940}},
+    {"name": "Ranch Trails"  , "geometry": {"lat": 30.523158, "lng": -97.770973}},
+    {"name": "Great Hills"   , "geometry": {"lat": 30.410463, "lng": -97.755936}}
 ];
 
 const drink = [
-    {"name": "Draught House", "geometry": {"lat": 30.311071, "lng": -97.742874}},
-    {"name": "Brew Exchange", "geometry": {"lat": 30.270356, "lng": -97.749884}},
-    {"name": "NXNW"         , "geometry": {"lat": 30.391162, "lng": -97.738351}},
-    {"name": "Jester King"  , "geometry": {"lat": 30.232402, "lng": -98.000223}},
-    {"name": "Lazarus"      , "geometry": {"lat": 30.261739, "lng": -97.722008}},
-    {"name": "Wright Bros"  , "geometry": {"lat": 30.264564, "lng": -97.733129}}
+    {"name": "Draught House" , "geometry": {"lat": 30.311071, "lng": -97.742874}},
+    {"name": "Brew Exchange" , "geometry": {"lat": 30.270356, "lng": -97.749884}},
+    {"name": "NXNW"          , "geometry": {"lat": 30.391162, "lng": -97.738351}},
+    {"name": "Jester King"   , "geometry": {"lat": 30.232402, "lng": -98.000223}},
+    {"name": "Lazarus"       , "geometry": {"lat": 30.261739, "lng": -97.722008}},
+    {"name": "Wright Bros"   , "geometry": {"lat": 30.264564, "lng": -97.733129}}
 ];
 
 
@@ -36,17 +36,17 @@ const drink = [
 /****************************************************************************
  ****************************************************************************
     
-    Useful objects
+    Initialize
     
 *****************************************************************************
 *****************************************************************************/
 // A metric allows us to make a quantitative recommendation
-let   metrics    = [];
 const metric_max = 20;
 
 // For Google Maps
 let   map;
-const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
+const location_austin = {"lat": 30.284919, "lng": -97.734057};
+
 let   markers     = [];
 const markerIcons = {
     "eat"  : "assets/images/eat.png",
@@ -68,31 +68,6 @@ const deg_to_rad = Math.PI / 180;
 // Radius of Earth (in miles)
 const r = 6371 / 1.60934;
 
-function euclidean_distance(point1, point2) {
-    // Find the Cartesian coordinates of point1
-    const cos_lat1 = Math.cos(point1.lat * deg_to_rad);
-    const sin_lat1 = Math.sin(point1.lat * deg_to_rad);
-    const cos_lng1 = Math.cos(point1.lng * deg_to_rad);
-    const sin_lng1 = Math.cos(point1.lng * deg_to_rad);
-
-    const x1 = cos_lat1 * cos_lng1;
-    const y1 = cos_lat1 * sin_lng1;
-    const z1 = sin_lat1;
-
-    // Find the Cartesian coordinates of point2
-    const cos_lat2 = Math.cos(point2.lat * deg_to_rad);
-    const sin_lat2 = Math.sin(point2.lat * deg_to_rad);
-    const cos_lng2 = Math.cos(point2.lng * deg_to_rad);
-    const sin_lng2 = Math.cos(point2.lng * deg_to_rad);
-
-    const x2 = cos_lat2 * cos_lng2;
-    const y2 = cos_lat2 * sin_lng2;
-    const z2 = sin_lat2;
-
-    // Find the distance (normalized by r)
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
-}
-
 // Haversine formula
 function spherical_distance(point1, point2) {
     const lat1_rad = point1.lat * deg_to_rad;
@@ -101,8 +76,8 @@ function spherical_distance(point1, point2) {
     const lat2_rad = point2.lat * deg_to_rad;
     const lng2_rad = point2.lng * deg_to_rad;
 
-    // Find the distance (normalized by r)
-    return 2 * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
+    // Find the distance
+    return 2 * r * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
 }
 
 
@@ -110,138 +85,131 @@ function spherical_distance(point1, point2) {
 /****************************************************************************
  ****************************************************************************
     
-    Make recommendations
+    Create recommendations
     
 *****************************************************************************
 *****************************************************************************/
-let metric;
-let probability, probability_total = 0;
+// Our recommendations
+let data = [];
 
 // Temporary variables
-let perimeter, area;
-let a, b, c, s, E;
+let a, b, c;
+let metric;
+let latitude, longitude;
+let temp, total = 0;
 
-eat.forEach(event_i => {
-    play.forEach(event_j => {
+eat.forEach(event1 => {
+    play.forEach(event2 => {
         // Find the distance between points
-        a = spherical_distance(event_i.geometry, event_j.geometry);
+        a = spherical_distance(event1.geometry, event2.geometry);
 
-        drink.forEach(event_k => {
+        drink.forEach(event3 => {
             // Find the distance between points
-            b = spherical_distance(event_j.geometry, event_k.geometry);
-            c = spherical_distance(event_k.geometry, event_i.geometry);
+            b = spherical_distance(event2.geometry, event3.geometry);
+            c = spherical_distance(event3.geometry, event1.geometry);
 
-            // Semiperimeter, perimeter
-            s = (a + b + c) / 2;
-            perimeter = 2 * r * s;
+            // Use the spherical perimeter as our metric
+            metric = a + b + c;
 
-            // Excess angle, area
-            E = 4 * Math.atan(Math.sqrt( Math.abs(Math.tan(s/2) * Math.tan((s - a)/2) * Math.tan((s - b)/2) * Math.tan((s - c)/2)) ));
-            area = E * Math.pow(r, 2);
+            // Save the recommendation if it is good
+            if (metric < metric_max) {
+                // Find the center of the 3 places
+                latitude  = (event1.geometry.lat + event2.geometry.lat + event3.geometry.lat) / 3;
+                longitude = (event1.geometry.lng + event2.geometry.lng + event3.geometry.lng) / 3;
 
-            // Calculate the metric
-            metric = perimeter;
+                // Un-normalized probability
+                temp = 1 / Math.pow(Math.log(1 + metric), 2);
 
-            // Remove bad recommendations
-            if (metric <= metric_max) {
-                // Probability is yet to be normalized
-                probability = 1 / Math.pow(Math.log(1 + metric), 2);
-
-                metrics.push({
-                    "name"       : `<p>▪ ${event_i.name}</p><p>▪ ${event_j.name}</p><p>▪ ${event_k.name}</p>`,
-                    "places"     : [
-                        {"type": "eat"  , "geometry": event_i.geometry},
-                        {"type": "play" , "geometry": event_j.geometry},
-                        {"type": "drink", "geometry": event_k.geometry}
-                    ],
-                    "perimeter"  : perimeter,
-                    "area"       : area,
-                    "value"      : metric,
-                    "probability": probability
+                data.push({
+                    "eat"        : event1,
+                    "play"       : event2,
+                    "drink"      : event3,
+                    "center"     : {"lat": latitude, "lng": longitude},
+                    "metric"     : metric,
+                    "probability": temp
                 });
 
-                // Tally the total for normalization
-                probability_total += probability;
+                // Keep track of the total for normalization
+                total += temp;
             }
         });
     });
 });
 
-// List our recommendations from best (low metric) to worst (high metric)
-metrics.sort(function(a, b) {
-    return a.value - b.value;
+// List our recommendations from best to worst (low to high metric)
+data.sort(function(a, b) {
+    return a.metric - b.metric;
 });
 
 // Assign the probability that a recommendation occurs
-metrics.forEach(m => m.probability /= probability_total);
+data.forEach(d => d.probability /= total);
 
 
 
 /****************************************************************************
  ****************************************************************************
     
-    Display the metrics
+    Display recommendations
     
 *****************************************************************************
 *****************************************************************************/
-let output = "";
+let names, output = "";
 
-metrics.forEach(m => output += `<tr><td>${m.name}</td><td>${m.value.toFixed(3)}</td><td>${m.probability.toFixed(4)}</td></tr>`);
+data.forEach(d => {
+    names = `<p>▪ ${d.eat.name}</p><p>▪ ${d.play.name}</p><p>▪ ${d.drink.name}</p>`;
 
-$("#metrics tbody").html(output);
+    output += `<tr><td>${names}</td><td>${d.metric.toFixed(3)}</td><td>${d.probability.toFixed(4)}</td></tr>`;
+});
+
+$("#recommendations tbody").html(output);
 
 
 
 /****************************************************************************
  ****************************************************************************
     
-    Display the map
+    Display map
     
 *****************************************************************************
 *****************************************************************************/
 function displayMap() {
     // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById("map"), {
-        "center"          : coordinates_austin,
+        "center"          : location_austin,
         "disableDefaultUI": true,
         "zoomControl"     : true,
         "zoom"            : 13
     });
 }
 
-$("tbody tr").on("click", function() {
+// Respond to clicks on dynamically generated rows
+$("body").on("click", "tbody tr", function() {
     // Delete existing markers
     markers.forEach(m => m.setMap(null));
     markers = [];
     
     // Find out which row was clicked
-    const index  = $("tbody tr").index(this);
-    const places = metrics[index].places;
+    const d = data[$("tbody tr").index(this)];
+    const places = {
+        "eat"  : d.eat.geometry,
+        "play" : d.play.geometry,
+        "drink": d.drink.geometry
+    };
     
     // Adjust the center of the map
-    let center = {"lat": 0, "lng": 0};
-    
-    places.forEach (p => {
-        center.lat += p.geometry.lat;
-        center.lng += p.geometry.lng;
-    });
-
-    center.lat /= places.length;
-    center.lng /= places.length;
-
-    map.setCenter(center);
+    map.setCenter(d.center);
 
     // Adjust the zoom level
-    map.setZoom(Math.max(10, 15 - Math.floor(1 + metrics[index].perimeter / 4)));
+    map.setZoom(Math.max(10, 14 - Math.floor(1 + d.metric / 4)));
     
     // Place a marker for each place
-    places.forEach(p => {
+    for (key in places) {
         var marker = new google.maps.Marker({
             "map"     : map,
-            "position": p.geometry,
-            "icon"    : markerIcons[p.type]
+            "position": places[key],
+            "icon"    : markerIcons[key]
         });
 
         markers.push(marker);
-    });
+    }
 });

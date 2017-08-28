@@ -26,7 +26,7 @@ const database = firebase.database();
 /****************************************************************************
  ****************************************************************************
     
-    Useful objects
+    Initialize
     
 *****************************************************************************
 *****************************************************************************/
@@ -34,12 +34,13 @@ const database = firebase.database();
 let   map, service;
 const delayBetweenAPICalls = 6000;
 
-const location_austin = {"lat": 30.2849, "lng": -97.7341};
-const searchRadius    = 20 * 1609.34;
+const location_central = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
+const location_north   = {"lat": 30.402065, "lng": -97.725883};  // The Domain
+const location_west    = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
+const location_east    = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
+const location_south   = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
+const searchRadius     = 10 * 1609.34;
 
-// ADMIN TODO: Do 10 queries at a time (change query_index from 0 to 1)
-// (Google Maps limits the number of calls)
-const query_index = 0;
 const queries = [
     [
         {"keyword": "asian"  , "type": ["restaurant"]   , "event": {"type": "eat"  , "name": "asian"  }},
@@ -64,12 +65,20 @@ const queries = [
     ]
 ];
 
+// ADMIN TODO: Take permuations below
+// location_austin = location_central, location_north, location_west, location_east, location_south
+// rankBy          = "distance", "prominence"
+// queryIndex      = 0, 1
+const location_austin = location_central;
+const rankBy          = "distance";
+const queryIndex      = 0;
+
 
 
 /****************************************************************************
  ****************************************************************************
     
-    Google Maps API
+    Create databases
     
 *****************************************************************************
 *****************************************************************************/
@@ -85,12 +94,13 @@ function createDatabases() {
     service = new google.maps.places.PlacesService(map);
     
     // Create a database for each query
-    queries[query_index].forEach(q => {
+    queries[queryIndex].forEach(q => {
         service.nearbySearch({
-            keyword : q.keyword,
-            location: location_austin,
-            radius  : searchRadius,
-            type    : q.type
+            "keyword" : q.keyword,
+            "location": location_austin,
+            "radius"  : searchRadius,
+            "rankby"  : rankBy,
+            "type"    : q.type
 
         }, function(results, status) {
             getPlaceIDs(results, status, q.event);

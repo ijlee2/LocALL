@@ -17,27 +17,30 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+const database_eat   = database.ref("events").child("eat");
+const database_play  = database.ref("events").child("play");
+const database_drink = database.ref("events").child("drink");
+const database_recommendations = database.ref("recommendations");
+
+// ADMIN TODO: Uncomment to remove existing databases (be careful!)
+//database_recommendations.remove();
 
 
 
 /****************************************************************************
  ****************************************************************************
     
-    Useful objects
+    Initialize
     
 *****************************************************************************
 *****************************************************************************/
-// For Firebase
-const database_eat   = database.ref("events").child("eat");
-const database_play  = database.ref("events").child("play");
-const database_drink = database.ref("events").child("drink");
-const database_recommendations = database.ref("recommendations");
+// A metric allows us to make a quantitative recommendation
+const metric_max = 10;
 
+// Possible events
 const eventNames_eat   = ["asian"  , "bbq"    , "indian" , "pizza"  , "tex-mex"];
 const eventNames_play  = ["bowl"   , "hike"   , "movie"  , "spa"    , "swim"   ];
 const eventNames_drink = ["bar"    , "brewery", "coffee" , "tea"    , "wine"   ];
-
-const metric_max = 10;
 
 function loadDatabases(eventName_eat, eventName_play, eventName_drink) {
     let   eat, play, drink;
@@ -59,7 +62,7 @@ function loadDatabases(eventName_eat, eventName_play, eventName_drink) {
     });
 }
 
-// Do 25 queries at a time (change index from 0 to 4)
+// ADMIN TODO: Create 25 databases at a time (change index from 0 to 4)
 const index = 0;
 
 eventNames_play.forEach(eventName_play =>
@@ -73,7 +76,7 @@ eventNames_play.forEach(eventName_play =>
 /****************************************************************************
  ****************************************************************************
     
-    Create recommendations
+    Distance formula
     
 *****************************************************************************
 *****************************************************************************/
@@ -90,23 +93,32 @@ function spherical_distance(point1, point2) {
     const lat2_rad = point2.lat * deg_to_rad;
     const lng2_rad = point2.lng * deg_to_rad;
 
-    // Find the distance (normalized by r)
-    return 2 * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
+    // Find the distance
+    return 2 * r * Math.sqrt(Math.pow(Math.sin((lat2_rad - lat1_rad) / 2), 2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.pow(Math.sin((lng2_rad - lng1_rad) / 2), 2));
 }
 
+
+
+/****************************************************************************
+ ****************************************************************************
+    
+    Create recommendations
+    
+*****************************************************************************
+*****************************************************************************/
 function createRecommendations(eat, play, drink, directoryName) {
     // Variables that we will store in Firebase
-    let data = [], numData = 0, bins = [0];
+    let data = [], bins = [0];
 
     // Temporary variables
+    let key1, key2, key3;
+    let event1, event2, event3;
     let a, b, c;
     let metric;
+    let latitude, longitude;
     let temp, total = 0;
 
-    let event1, event2, event3;
-    let latitude, longitude;
-
-    for (let key1 in eat) {
+    for (key1 in eat) {
         // Ignore the proto method
         if (!eat.hasOwnProperty(key1)) {
             continue;
@@ -114,7 +126,7 @@ function createRecommendations(eat, play, drink, directoryName) {
 
         event1 = eat[key1];
 
-        for (let key2 in play) {
+        for (key2 in play) {
             if (!play.hasOwnProperty(key2)) {
                 continue;
             }
@@ -124,7 +136,7 @@ function createRecommendations(eat, play, drink, directoryName) {
             // Find the distance between points
             a = spherical_distance(event1.geometry, event2.geometry);
 
-            for (let key3 in drink) {
+            for (key3 in drink) {
                 if (!drink.hasOwnProperty(key3)) {
                     continue;
                 }
@@ -135,18 +147,16 @@ function createRecommendations(eat, play, drink, directoryName) {
                 b = spherical_distance(event2.geometry, event3.geometry);
                 c = spherical_distance(event3.geometry, event1.geometry);
 
-                // Spherical perimeter
-                metric = r * (a + b + c);
+                // Use the spherical perimeter as our metric
+                metric = a + b + c;
 
-                // Save only good recommendations
-                if (metric <= metric_max) {
-                    numData++;
-
+                // Save the recommendation if it is good
+                if (metric < metric_max) {
                     // Find the center of the 3 places
                     latitude  = (event1.geometry.lat + event2.geometry.lat + event3.geometry.lat) / 3;
                     longitude = (event1.geometry.lng + event2.geometry.lng + event3.geometry.lng) / 3;
 
-                    // Probability is yet to be normalized
+                    // Un-normalized probability
                     temp = 1 / Math.pow(Math.log(1 + metric), 2);
 
                     data.push({
@@ -158,35 +168,23 @@ function createRecommendations(eat, play, drink, directoryName) {
                         "probability": temp
                     });
 
-                    // Tally the total for normalization
+                    // Keep track of the total for normalization
                     total += temp;
                 }
             }
         }
     }
 
-    // List our recommendations from best (low metric) to worst (high metric)
+    // List our recommendations from best to worst (low to high metric)
     data.sort(function(a, b) {
         return a.metric - b.metric;
     });
 
     // Assign the probability that a recommendation occurs
-    let bin_count = 0;
-
-    data.forEach(m => {
-        m.probability /= total;
-
-        bin_count += Math.round(1000000 * m.probability);
-
-        bins.push(bin_count);
-    });
+    data.forEach(d => d.probability /= total);
 
     // Save to Firebase
-    database_recommendations.child(directoryName).set({
-        "data"   : data,
-        "numData": numData,
-        "bins"   : bins
-    });
+    database_recommendations.child(directoryName).set(data);
 
-    console.log(`${directoryName} successfully created.\nNumber of recommendations: ${numData}`);
+    console.log(`${directoryName} successfully created.\nNumber of recommendations: ${data.length}`);
 }

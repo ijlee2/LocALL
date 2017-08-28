@@ -23,13 +23,15 @@ const database_recommendations = firebase.database().ref("recommendations");
 /****************************************************************************
  ****************************************************************************
     
-    Useful objects
+    Initialize
     
 *****************************************************************************
 *****************************************************************************/
+// For making recommendations
+numRecommendations = 20;
+
 // For Google Maps
 let   map;
-const coordinates_austin = {"lat": 30.2849, "lng": -97.7341};
 let   markers     = [];
 const markerIcons = {
     "eat"  : "assets/images/eat.png",
@@ -47,15 +49,14 @@ const markerIcons = {
 *****************************************************************************
 *****************************************************************************/
 let eventName_eat = "", eventName_play = "", eventName_drink = "", myLocation = "";
-let recommendations = [];
 
 // Handle button clicks
 $("li").click(function() {
     const eventType = $(this).parent().attr("id");
     const eventName = $(this).text().toLowerCase();
 
-    // Highlight the choices
-    var index  = $("li").index(this) % 5;
+    // Highlight the user's choices
+    var index = $("li").index(this) % 5;
 
     $(`#${eventType} li`).css({
         "background-color": "var(--color-background)",
@@ -81,16 +82,19 @@ $("li").click(function() {
 
         case "location":
             if (eventName === "central") {
-                // UT Austin
-                myLocation = coordinates_austin;
+                myLocation = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
 
             } else if (eventName === "north") {
-                // The Domain
-                myLocation = {"lat": 30.402065, "lng": -97.725883};
+                myLocation = {"lat": 30.402065, "lng": -97.725883};  // The Domain
+
+            } else if (eventName === "west") {
+                myLocation = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
+
+            } else if (eventName === "east") {
+                myLocation = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
 
             } else if (eventName === "south") {
-                // Auditorium Shores
-                myLocation = {"lat": 30.262717, "lng": -97.751530};
+                myLocation = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
 
             }
 
@@ -98,17 +102,27 @@ $("li").click(function() {
 
     }
 
-    // Display recommendations once the user selects 3 events
+    // Display recommendations once the user selects all options
     if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && myLocation !== "") {
         displayRecommendations(eventName_eat, eventName_play, eventName_drink);
     }
 });
 
 
-// Haversine formula
+
+/****************************************************************************
+ ****************************************************************************
+    
+    Distance formula
+    
+*****************************************************************************
+*****************************************************************************/
 const deg_to_rad = Math.PI / 180;
+
+// Radius of Earth (in miles)
 const r = 6371 / 1.60934;
 
+// Haversine formula
 function spherical_distance(point1, point2) {
     const lat1_rad = point1.lat * deg_to_rad;
     const lng1_rad = point1.lng * deg_to_rad;
@@ -121,25 +135,40 @@ function spherical_distance(point1, point2) {
 }
 
 
+/****************************************************************************
+ ****************************************************************************
+    
+    Create recommendations
+    
+*****************************************************************************
+*****************************************************************************/
+let recommendations;
+
+function createBins(data) {
+    let bin_count = 0;
+
+    data.forEach(d => {
+        bin_count += Math.round(1000000 * d.probability);
+
+        bins.push(bin_count);
+    });
+}
+
+
 function displayRecommendations(eventName_eat, eventName_play, eventName_drink) {
     const directoryName = `${eventName_eat}_${eventName_play}_${eventName_drink}`;
 
-    // Get the recommendations database from Firebase
-    let data, numData, bins;
-
     database_recommendations.child(directoryName).on("value", function(snapshot) {
-        data    = snapshot.val().data;
-        numData = snapshot.val().numData;
-        bins    = snapshot.val().bins;   
-
-        console.log(data);
-        console.log(bins);
-
-
-        // Reset the recommendations array
+        // Reset our recommendations
         recommendations = [];
 
-        // find last index of bins
+        // Read database from Firebase
+        let data    = snapshot.val().data;
+        let numData = snapshot.val().numData;
+        let bins    = snapshot.val().bins;
+
+
+        // Randomly select recommendations
         var maximum = bins[bins.length - 1];
         var randomNumbers = [];
 
@@ -172,12 +201,12 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
         // Display the top 10 recommendations
         recommendations = recommendations.slice(0, 10);
         
-        let output = "", name;
+        let names, output = "";
 
         recommendations.forEach(r => {
-            name = `<p>▪ ${r.eat.name}</p><p>▪ ${r.play.name}</p><p>▪ ${r.drink.name}</p>`;
+            names = `<p>▪ ${r.eat.name}</p><p>▪ ${r.play.name}</p><p>▪ ${r.drink.name}</p>`;
 
-            output += `<tr><td>${name}</td><td>${r.metric.toFixed(3)}</td></tr>`
+            output += `<tr><td>${names}</td><td>${r.metric.toFixed(3)}</td></tr>`;
         });
 
         $("#recommendations tbody").html(output);
@@ -196,7 +225,7 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
 function displayMap() {
     // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById("map"), {
-        "center"          : coordinates_austin,
+        "center"          : {"lat": 30.2849, "lng": -97.7341},
         "disableDefaultUI": true,
         "zoomControl"     : true,
         "zoom"            : 13
@@ -211,9 +240,11 @@ $("body").on("click", "tbody tr", function() {
     
     // Find out which row was clicked
     const r = recommendations[$("tbody tr").index(this)];
-    const places = [{"type": "eat"  , "geometry": r.eat.geometry},
-                    {"type": "play" , "geometry": r.play.geometry},
-                    {"type": "drink", "geometry": r.drink.geometry}];
+    const places = {
+        "eat"  : r.eat.geometry,
+        "play" : r.play.geometry,
+        "drink": r.drink.geometry
+    };
     
     // Adjust the center of the map
     map.setCenter(r.center);
@@ -222,13 +253,13 @@ $("body").on("click", "tbody tr", function() {
     map.setZoom(Math.max(10, 14 - Math.floor(1 + r.metric / 4)));
     
     // Place a marker for each place
-    places.forEach(p => {
+    for (key in places) {
         var marker = new google.maps.Marker({
             "map"     : map,
-            "position": p.geometry,
-            "icon"    : markerIcons[p.type]
+            "position": places[key],
+            "icon"    : markerIcons[key]
         });
 
         markers.push(marker);
-    });
+    }
 });

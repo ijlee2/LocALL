@@ -1,7 +1,7 @@
 /****************************************************************************
  ****************************************************************************
     
-    Useful objects
+    Initialize
     
 *****************************************************************************
 *****************************************************************************/
@@ -9,8 +9,10 @@
 let   map, infowindow, service;
 const delayBetweenAPICalls = 1500;
 
-const location_austin = {"lat": 30.2849, "lng": -97.7341};
+// UT Austin
+const location_austin = {"lat": 30.284919, "lng": -97.734057};
 const searchRadius    = 20 * 1609.34;
+
 const markerIcons = {
     "eat"  : "assets/images/eat.png",
     "play" : "assets/images/play.png",
@@ -22,7 +24,7 @@ const markerIcons = {
 /****************************************************************************
  ****************************************************************************
     
-    Google Maps API
+    Create databases
     
 *****************************************************************************
 *****************************************************************************/
@@ -130,24 +132,19 @@ function getPlaceDetails(place, status, event) {
         // Provide null value if an information is missing
         // (Firebase does not allow undefined)
         const phone      = (typeof place.formatted_phone_number !== "undefined") ? place.formatted_phone_number : null;
-        const hours      = (typeof place.opening_hours !== "undefined") ? place.opening_hours.weekday_text : null;
         const websiteURL = (typeof place.website !== "undefined") ? place.website : null;
         const imageURL   = (typeof place.photos  !== "undefined") ? place.photos[0].getUrl({"maxWidth": 600, "maxHeight": 600}) : null;
         const rating     = (typeof place.rating  !== "undefined") ? place.rating : null;
-        const reviews    = (typeof place.reviews !== "undefined") ? place.reviews : null;
-
+        
         // Save the information that we want
         const placeData = {
-            "id"      : place.place_id,
             "name"    : place.name,
             "location": location,
             "geometry": geometry,
             "phone"   : phone,
-            "hours"   : hours,
             "website" : websiteURL,
             "image"   : imageURL,
-            "rating"  : rating,
-            "reviews" : reviews
+            "rating"  : rating
         };
 
         // Place a marker on the map
@@ -172,6 +169,15 @@ function getPlaceDetails(place, status, event) {
     }
 }
 
+
+
+/****************************************************************************
+ ****************************************************************************
+    
+    Display map
+    
+*****************************************************************************
+*****************************************************************************/
 function displayMarker(placeData, eventType) {
     const marker = new google.maps.Marker({
         "map"     : map,
