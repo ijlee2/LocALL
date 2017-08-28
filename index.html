@@ -120,20 +120,7 @@
 
             <!-- TODO: Combine with back-end -->
             <div class="containerPage2">
-<<<<<<< HEAD
-                <div class="panel" id="recommendations" style="color:azure">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-=======
-                <div id="recommendations">
->>>>>>> 05abc6ab90ee1fd08c001e96b59574aa80cf4990
+                <div id="recommendations" style="color:azure">
                 </div>
 
                 <div id="map"></div>
@@ -189,20 +176,21 @@
             <div class="containerPage5">
                 <h2 id="header">Log In</h2>
                
-                <div class="input_container" id="userName_container">
+                <div>
                     <label for="userName">Name (required)</label>
-                    <input type="text" id="userName">
+                    <input type="text" id="userName_login">
                 </div>              
-                <div class="input_container" id="userPassword_container">
+
+                <div>
                     <label for="userPassword">Password (required)</label>
-                    <input type="text" id="userPassword">
+                    <input type="text" id="userPassword_login">
                 </div>
+
                 <div id="messageToUser"></div>
 
-               <div class="btn btn-primary">Submit</div>
+                <div class="btn btn-primary" id="button_login">Submit</div>
 
-               <div>Don't have a username and password?</div>
-                <div class="btn btn-primary btn-sm"onClick="displayPage(5)">Sign up</div>
+                <p>Want to create an account?</p><div class="btn btn-primary btn-sm" onclick="displayPage(5)">Sign up</div>
             </div>
         </div>
       
@@ -210,24 +198,24 @@
             <div class="containerPage5">
                 <h2 id="header">Sign Up</h2>
                
-                <div class="input_container" id="userName_container">
+                <div>
                     <label for="userName">Name (required)</label>
-                    <input type="text" id="userName">
+                    <input type="text" id="userName_signup">
                 </div>
                
-                <div class="input_container" id="userEmail_container">
+                <div>
                     <label for="userEmail">Email (required)</label>
-                    <input type="email" id="userEmail">
+                    <input type="email" id="userEmail_signup">
                 </div>
                
-                <div class="input_container" id="userPassword_container">
+                <div>
                     <label for="userPassword">Password (required)</label>
-                    <input type="text" id="userPassword">
+                    <input type="text" id="userPassword_signup">
                 </div>
 
                <div id="messageToUser"></div>
 
-               <div class="btn btn-primary"onClick="displayPage(5)">Submit</div>
+               <div class="btn btn-primary" id="button_signup">Submit</div>
             </div>
         </div>
 
