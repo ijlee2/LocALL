@@ -25,6 +25,14 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo|Kalam">
         <link rel="stylesheet" href="assets/css/style.css">
+        <style>
+            /* IMPORTANT: Set the map height explicitly */
+            #map {
+                float : right;
+                width : 400px;
+                height: 400px;
+            }
+        </style>
 
         <!-- Firebase -->
         <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
@@ -177,7 +185,7 @@
         <!-- Go Local! Page -->
         <div class="content page" id="page2" style="display: none">
             <div class="row locall_flex_container">
-                <div class="btn-group col-md-4" id="events_eat">
+                <div class="btn-group col-md-3" id="events_eat">
                     <button type="button" class="btn btn-secondary dropdown-toggle button_events" id="button_eat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Eat</button>
                     <div class="dropdown-menu dropdown-menu-right locall_menu_events">
                         <button class="dropdown-item" type="button">Asian</button>
@@ -188,7 +196,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group col-md-4" id="events_play">
+                <div class="btn-group col-md-3" id="events_play">
                     <button type="button" class="btn btn-secondary dropdown-toggle button_events" id="button_play" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Play</button>
                     <div class="dropdown-menu dropdown-menu-right locall_menu_events">
                         <button class="dropdown-item" type="button">Bowl</button>
@@ -199,7 +207,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group col-md-4" id="events_drink">
+                <div class="btn-group col-md-3" id="events_drink">
                     <button type="button" class="btn btn-secondary dropdown-toggle button_events" id="button_drink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Drink</button>
                     <div class="dropdown-menu dropdown-menu-right locall_menu_events">
                         <button class="dropdown-item" type="button">Bar</button>
@@ -207,6 +215,17 @@
                         <button class="dropdown-item" type="button">Coffee</button>
                         <button class="dropdown-item" type="button">Tea</button>
                         <button class="dropdown-item" type="button">Wine</button>
+                    </div>
+                </div>
+
+                <div class="btn-group col-md-3" id="events_location">
+                    <button type="button" class="btn btn-secondary dropdown-toggle button_events" id="button_location" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Location</button>
+                    <div class="dropdown-menu dropdown-menu-right locall_menu_events">
+                        <button class="dropdown-item" type="button">Central</button>
+                        <button class="dropdown-item" type="button">North</button>
+                        <button class="dropdown-item" type="button">West</button>
+                        <button class="dropdown-item" type="button">East</button>
+                        <button class="dropdown-item" type="button">South</button>
                     </div>
                 </div>
             </div>

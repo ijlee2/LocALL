@@ -59,7 +59,7 @@ const markerIcons = {
 *****************************************************************************
 *****************************************************************************/
 let eventType, eventName;
-let eventName_eat = "", eventName_play = "", eventName_drink = "", myLocation = "";
+let eventName_eat = "", eventName_play = "", eventName_drink = "", eventName_location = "";
 
 $(".dropdown-item").click(function() {
     const eventName = $(this).text();
@@ -68,77 +68,51 @@ $(".dropdown-item").click(function() {
 
     if (type === 0) {
         eventType = "eat";
-        eventName_eat = eventName;
+        eventName_eat = eventName.toLowerCase();
 
     } else if (type === 1) {
         eventType = "play";
-        eventName_play = eventName;
+        eventName_play = eventName.toLowerCase();
 
     } else if (type === 2) {
         eventType = "drink";
-        eventName_drink = eventName;
+        eventName_drink = eventName.toLowerCase();
+
+    } else if (type === 3) {
+        eventType = "location";
+        eventName_location = eventName.toLowerCase();
 
     }
     
     $(`#button_${eventType}`).text(eventName);
-});
 
+    let myLocation;
 
-// Handle button clicks
-$("li").click(function() {
-    const eventType = $(this).parent().attr("id");
-    const eventName = $(this).text().toLowerCase();
-
-    // Highlight the user's choices
-    let index = $("li").index(this) % 5;
-
-    $(`#${eventType} li`).css({
-        "background-color": "var(--color-background)",
-        "color"           : "var(--color-text)"}
-    );
-    $(`#${eventType} li:nth-of-type(${index + 1})`).css({
-        "background-color": "var(--color-light-blue)",
-        "color"           : "var(--color-text-contrast)"
-    });
-
-    switch (eventType) {
-        case "eat":
-            eventName_eat = eventName;
+    switch (eventName_location) {
+        case "central": 
+            myLocation = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
             break;
 
-        case "play":
-            eventName_play = eventName;
+        case "north":
+            myLocation = {"lat": 30.402065, "lng": -97.725883};  // The Domain
             break;
 
-        case "drink":
-            eventName_drink = eventName;
+        case "west":
+            myLocation = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
+            break;
+        
+        case "east": 
+            myLocation = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
             break;
 
-        case "location":
-            if (eventName === "central") {
-                myLocation = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
-
-            } else if (eventName === "north") {
-                myLocation = {"lat": 30.402065, "lng": -97.725883};  // The Domain
-
-            } else if (eventName === "west") {
-                myLocation = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
-
-            } else if (eventName === "east") {
-                myLocation = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
-
-            } else if (eventName === "south") {
-                myLocation = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
-
-            }
-
+        case "south":
+            myLocation = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
             break;
-
     }
 
     // Display recommendations once the user selects all options
-    if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && myLocation !== "") {
-        displayRecommendations(eventName_eat, eventName_play, eventName_drink);
+    if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && eventName_location !== "") {
+        displayRecommendations(eventName_eat, eventName_play, eventName_drink, myLocation);
     }
 });
 
@@ -190,9 +164,9 @@ function createBins(data) {
 }
 
 
-function displayRecommendations(eventName_eat, eventName_play, eventName_drink) {
+function displayRecommendations(eventName_eat, eventName_play, eventName_drink, myLocation) {
     const directoryName = `${eventName_eat}_${eventName_play}_${eventName_drink}`;
-
+    
     // Temporary variables
     let i, j;
     let bins, bin_max;

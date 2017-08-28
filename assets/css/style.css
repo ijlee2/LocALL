@@ -130,7 +130,7 @@ p {
     margin-top: 2em;
 }
 
-#events_eat, #events_play, #events_drink {
+#events_eat, #events_play, #events_drink, #events_location {
 /* TODO?    display       : -webkit-flex;*/
     display       : flex;
     flex-direction: column;
