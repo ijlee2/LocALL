@@ -48,118 +48,8 @@
                         <button type="button" class="btn btn-outline-primary"   onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">Home</button>
                         <button type="button" class="btn btn-outline-warning"   onClick="displayPage(2)" data-toggle="collapse" data-target=".collapse">Go Local!</button>
                         <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">Your Dev Team</button>
-                        <button type="button" class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Log In / Sign Up</button>
+                        <button type="button" class="btn btn-outline-success" onClick="displayPage(4)" data-toggle="collapse" data-target=".collapse">Log In / Sign Up</button>
                     </div>
-
-                    <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="log-in-and-sign-up" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <!-- TODO: Why are bs-example and bs-example-tabs needed? -->
-                                <div class="bs-example bs-example-tabs">
-                                    <ul class="nav nav-tabs">
-                                        <li class="locall_act"><a href="#login" data-toggle="tab">Log In</a></li>
-                                        <li class="locall_act"><a href="#signup" data-toggle="tab">Sign Up</a></li>
-                                        <li class="locall_act"><a href="#closeModal" data-toggle="tab">X</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="tab-content">
-                                        <!-- Log-in page -->
-                                        <div class="tab-pane fade active in" id="login">
-                                            <form class="form-horizontal">
-                                                <fieldset>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userEmail_login">Email:</label>
-                                                        <div class="controls">
-                                                            <input type="text" class="form-control input-medium" id="userEmail_login">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userPassword_login">Password:</label>
-                                                        <div class="controls">
-                                                            <input type="password" class="form-control input-medium" id="userPassword_login">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userRemember_login"></label>
-    <!--                                                    <label class="checkbox inline" for="rememberme-0">-->
-                                                        <div class="controls">
-                                                            <input type="checkbox" id="userRemember_login"> Remember me
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <div class="controls">
-                                                            <button type="button" class="btn btn-success" id="button_login">Log In</button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                        <!-- Sign-up page -->
-                                        <div class="tab-pane fade" id="signup">
-                                            <form class="form-horizontal">
-                                                <fieldset>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userName_signup">Name:</label>
-                                                        <div class="controls">
-                                                            <input type="text" class="form-control input-medium" id="userName_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userEmail_signup">Email:</label>
-                                                        <div class="controls">
-                                                            <input type="text" class="form-control input-medium" id="userEmail_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="ZipCode">Location:</label>
-                                                        <div class="controls">
-                                                            <select name="userLocation_signup">
-                                                                <option value="central" selected>Central Austin</option>
-                                                                <option value="north">North Austin</option>
-                                                                <option value="west">West Austin</option>
-                                                                <option value="east">East Austin</option>
-                                                                <option value="south">South Austin</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userPassword_signup">Password:</label>
-                                                        <div class="controls">
-                                                            <input type="password" class="form-control input-medium" id="userPassword_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="userPassword2_signup">Re-enter Password:</label>
-                                                        <div class="controls">
-                                                            <input type="password" class="form-control input-medium" id="userPassword2_signup">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="control-group">
-                                                        <div class="controls">
-                                                            <button type="button" class="btn btn-success" id="button_signup">Sign Up</button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End: modal-body -->
-                            </div>   
-                        </div>
-                    </div>
-                    <!-- End: Modal -->
                 </div>
             </div>
             <!--toggle function  -->
@@ -169,8 +59,6 @@
                 </button>
             </nav>
         </div>
-
-
         <!-- Cover Page -->
         <div class="page locall_page_full" id="page1">
             <div class="jumbotron">
@@ -238,42 +126,6 @@
                 <div id="map"></div>
             </div>
         </div>
-                <!--
-                    <div class="listItem">
-                        <div>
-                            <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height="100">
-                        </div>
-                        <div>
-                            <p>Eat name</p>
-                            <p>1234 Fake Street, Austin, TX 78705</p>
-                            <p>512-555-5555</p>
-                            <p>restaurantwebsite@website.com</p>
-                        </div>
-                    </div>
-                    <div class="listItem">
-                        <div>
-                            <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height="100">
-                        </div>
-                        <div>
-                            <p>Play name</p>
-                            <p>1234 Fake Street, Austin, TX 78705</p>
-                            <p>512-555-5555</p>
-                            <p>restaurantwebsite@website.com</p>
-                        </div> 
-                    </div>     
-                    <div class="listItem">
-                        <div>
-                            <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height="100">
-                        </div>
-                        <div>
-                            <p>Drink name</p>
-                            <p>1234 Fake Street, Austin, TX 78705</p>
-                            <p>512-555-5555</p>
-                            <p>restaurantwebsite@website.com</p>
-                        </div>  
-                    </div>
-                -->
-
         
         <!-- Your Dev Team Page -->
         <div class="page locall_page_full" id="page3" style="display: none">
@@ -311,15 +163,63 @@
                         <h2>Margarita Tagaban</h2>
                         <h3>Front-End Developer</h3>
 
-                        <p>Hi, I'm Margie! I'm a Texas native who loves problem solving. I earned my Bachelor's Degree July 2017 at Texas State University.</p>
+                        <p>Hi, I'm Margie! I'm a Texas native who loves problem solving. 
+                            <br>
+                            I earned my Bachelor's Degree July 2017 at Texas State University.
+                        </p>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="page locall_page_full" id="page4" style="display: none">
+            <div class="containerPage5">
+                <h2 id="header">Log In</h2>
+               
+                <div class="input_container" id="userName_container">
+                    <label for="userName">Name (required)</label>
+                    <input type="text" id="userName">
+                </div>              
+                <div class="input_container" id="userPassword_container">
+                    <label for="userPassword">Password (required)</label>
+                    <input type="text" id="userPassword">
+                </div>
+                <div id="messageToUser"></div>
+
+               <div class="btn btn-primary">Submit</div>
+
+               <div>Don't have a username and password?</div>
+                <div class="btn btn-primary btn-sm"onClick="displayPage(5)">Sign up</div>
+            </div>
+        </div>
+      
+        <div class="page locall_page_full" id="page5" style="display: none">
+            <div class="containerPage5">
+                <h2 id="header">Sign Up</h2>
+               
+                <div class="input_container" id="userName_container">
+                    <label for="userName">Name (required)</label>
+                    <input type="text" id="userName">
+                </div>
+               
+                <div class="input_container" id="userEmail_container">
+                    <label for="userEmail">Email (required)</label>
+                    <input type="email" id="userEmail">
+                </div>
+               
+                <div class="input_container" id="userPassword_container">
+                    <label for="userPassword">Password (required)</label>
+                    <input type="text" id="userPassword">
+                </div>
+
+               <div id="messageToUser"></div>
+
+               <div class="btn btn-primary"onClick="displayPage(5)">Submit</div>
             </div>
         </div>
 
         <!-- Custom JavaScript -->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5UBuB1NoQsps2oc6EdyNhrLGbYY_FZMQ&libraries=places&callback=displayMap" async defer></script>
         <script src="assets/js/app.js"></script>
-
     </body>
 </html>
