@@ -44,7 +44,7 @@ const drink = [
 const metric_max = 20;
 
 // For Google Maps
-let   map;
+let   map, infowindow;
 const location_austin = {"lat": 30.284919, "lng": -97.734057};
 
 let   markers     = [];
@@ -180,6 +180,8 @@ function displayMap() {
         "zoomControl"     : true,
         "zoom"            : 13
     });
+
+    infowindow = new google.maps.InfoWindow();
 }
 
 // Respond to clicks on dynamically generated rows
@@ -190,11 +192,7 @@ $("body").on("click", "tbody tr", function() {
     
     // Find out which row was clicked
     const d = data[$("tbody tr").index(this)];
-    const places = {
-        "eat"  : d.eat.geometry,
-        "play" : d.play.geometry,
-        "drink": d.drink.geometry
-    };
+    const places = {"eat": d.eat, "play": d.play, "drink": d.drink};
     
     // Adjust the center of the map
     map.setCenter(d.center);
@@ -203,11 +201,18 @@ $("body").on("click", "tbody tr", function() {
     map.setZoom(Math.max(10, 15 - Math.floor(1 + d.metric / 3)));
     
     // Place a marker for each place
-    for (key in places) {
+    for (let key in places) {
         var marker = new google.maps.Marker({
             "map"     : map,
-            "position": places[key],
+            "position": places[key].geometry,
             "icon"    : markerIcons[key]
+        });
+
+        google.maps.event.addListener(marker, "click", function() {
+            const output = `<div><strong>${places[key].name}</strong></div>`;
+
+            infowindow.setContent(output);
+            infowindow.open(map, this);
         });
 
         markers.push(marker);
