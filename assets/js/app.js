@@ -257,7 +257,7 @@ function displayMap() {
         "zoomControl"     : true,
         "zoom"            : 13
     });
-
+        
     infowindow = new google.maps.InfoWindow();
 }
 
@@ -334,7 +334,7 @@ $("#button_login").click(function() {
             .then(function(user) {
                 database_users.child(user.uid).once("value", function(snapshot) {
                     $(".messageToUser").text(`Welcome, ${snapshot.val().name}!`);
-                    
+
                     setTimeout(function() {
                         displayPage(2);
                         

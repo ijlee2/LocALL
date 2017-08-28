@@ -141,7 +141,7 @@ p {
     width: 270px;
 }
 
-.containerPage2 align-items {
+.containerPage2 {
     display              : grid;
     grid-template-columns: 2fr 1fr;
     grid-column-gap      : 0.3em;
