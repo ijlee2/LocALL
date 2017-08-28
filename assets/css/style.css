@@ -50,14 +50,15 @@ p {
 }
 
 
-/* Page 0: Modal */
-.locall_menuItems {
-    margin-left: 599px;
+.myContainer {
+    width: 960px;
+    margin: auto;
 }
 
-.locall_modal {
-    float       : right;
-    margin-right: 55px;
+
+/* Page 0: Modal */
+.locall_menuItems button {
+    margin-left: 20px;
 }
 
 /* this is was used to make the modal signin and register to separate and the other two classes are so our buttons dont look all smooshed together*/
@@ -81,7 +82,6 @@ p {
 #page1 a {
     font-size    : 30px;
 
-    width        : 178px;
     height       : 60px;
     margin-bottom: .5em;
 }

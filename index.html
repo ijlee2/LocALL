@@ -34,20 +34,16 @@
         <div class="pos-f-t">
             <div class="collapse" id="navbarToggleExternalContent">
                 <div class="bg-dark p-4">
-                    <!-- Added data-toggle and data-target to each button so that the menu collapses when user jumps to another page -->
-                    <span class="text-muted locall_menuItems">
+                    <div class="myContainer">
+                    <!-- Added data-toggle and data-target to specify an action -->
+                    <div class="locall_menuItems">
                         <!-- TODO: Remove the inline onClick function -->
                         <button type="button" class="btn btn-outline-primary"   onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">Home</button>
                         <button type="button" class="btn btn-outline-warning"   onClick="displayPage(2)" data-toggle="collapse" data-target=".collapse">Go Local!</button>
                         <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">Your Dev Team</button>
-                    </span>  
-                    
-                    <!-- Modal-->
-                    <div class="container locall_modal"> 
-    <!--                    <center>-->
-                            <button type="button" class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Log In / Sign Up</button>
-    <!--                    </center>-->
+                        <button type="button" class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Log In / Sign Up</button>
                     </div>
+
                     <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="log-in-and-sign-up" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
@@ -155,6 +151,7 @@
                                 <!-- End: modal-body -->
                             </div>   
                         </div>
+                    </div>
                     </div>
                     <!-- End: Modal -->
                 </div>
