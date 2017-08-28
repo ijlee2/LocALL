@@ -205,12 +205,36 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
         let names, output = "";
 
         recommendations.forEach(r => {
-            names = `<p>▪ ${r.eat.name}</p><p>▪ ${r.play.name}</p><p>▪ ${r.drink.name}</p>`;
 
-            output += `<tr><td>${names}</td><td>${r.metric.toFixed(3)}</td></tr>`;
+            output +=`<div>
+                          <img width="200" src="${r.eat.image}" alt="${r.eat.name}">
+                          <p>▪ ${r.eat.name}</p>
+                          <p>▪ ${r.eat.location.address}</p>
+                          <p>▪ ${r.eat.phone}</p>
+                          <p>▪ <a href="${r.eat.website}" target="_blank">Visit their website</a></p>
+                          <p>▪ ${r.eat.rating} / 5</p>
+                      </div>`;
+
+            output +=`<div>
+                          <img width="200" src="${r.play.image}" alt="${r.play.name}">
+                          <p>▪ ${r.play.name}</p>
+                          <p>▪ ${r.play.location.address}</p>
+                          <p>▪ ${r.play.phone}</p>
+                          <p>▪ <a href="${r.play.website}" target="_blank">Visit their website</a></p>
+                          <p>▪ ${r.play.rating} / 5</p>
+                      </div>`;
+
+            output +=`<div>
+                          <img width="200" src="${r.eat.image}" alt="${r.drink.name}">
+                          <p>▪ ${r.drink.name}</p>
+                          <p>▪ ${r.drink.location.address}</p>
+                          <p>▪ ${r.drink.phone}</p>
+                          <p>▪ <a href="${r.drink.website}" target="_blank">Visit their website</a></p>
+                          <p>▪ ${r.drink.rating} / 5</p>
+                      </div>`;
         });
 
-        $("#recommendations tbody").html(output);
+        $("#recommendations").html(output);
     });
 }
 
