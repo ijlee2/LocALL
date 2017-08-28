@@ -308,7 +308,7 @@ $("body").on("click", "tbody tr", function() {
 // When the page loads
 
 $("#button_login").click(function() {
-    $("#messageToUser").empty();
+    $(".messageToUser").empty();
 
     const email    = $("#userEmail_login").val().trim();
     const password = $("#userPassword_login").val();
@@ -319,22 +319,26 @@ $("#button_login").click(function() {
 
     if (status !== "success") {
         validationPassed = false;
-        $("#messageToUser").append(`<p>${status}</p>`);
+        $(".messageToUser").append(`<p>${status}</p>`);
     }
 
     status = checkPassword(password);
 
     if (status !== "success") {
         validationPassed = false;
-        $("#messageToUser").append(`<p>${status}</p>`);
+        $(".messageToUser").append(`<p>${status}</p>`);
     }
 
     if (validationPassed) {
        auth.signInWithEmailAndPassword(email, password)
             .then(function(user) {
                 database_users.child(user.uid).once("value", function(snapshot) {
-                    console.log("My name is: "     + snapshot.val().name);
-                    console.log("My email is: "    + snapshot.val().email);
+                    $(".messageToUser").text(`Welcome, ${snapshot.val().name}!`);
+                    
+                    setTimeout(function() {
+                        displayPage(2);
+                        
+                    }, 2000);
                 });
             })
             .catch(
@@ -345,7 +349,7 @@ $("#button_login").click(function() {
 });
 
 $("#button_signup").click(function() {
-    $("#messageToUser").empty();
+    $(".messageToUser").empty();
 
     const name     = $("#userName_signup").val().trim();
     const email    = $("#userEmail_signup").val().trim();
@@ -357,21 +361,21 @@ $("#button_signup").click(function() {
 
     if (status !== "success") {
         validationPassed = false;
-        $("#messageToUser").append(`<p>${status}</p>`);
+        $(".messageToUser").append(`<p>${status}</p>`);
     }
 
     status = checkEmail(email);
 
     if (status !== "success") {
         validationPassed = false;
-        $("#messageToUser").append(`<p>${status}</p>`);
+        $(".messageToUser").append(`<p>${status}</p>`);
     }
 
     status = checkPassword(password);
 
     if (status !== "success") {
         validationPassed = false;
-        $("#messageToUser").append(`<p>${status}</p>`);
+        $(".messageToUser").append(`<p>${status}</p>`);
     }
 
     if (validationPassed) {
@@ -381,6 +385,13 @@ $("#button_signup").click(function() {
                     "name"    : name,
                     "email"   : email
                 });
+
+                $(".messageToUser").text(`Thanks for signing up, ${name}!`);
+
+                setTimeout(function() {
+                    displayPage(2);
+
+                }, 2000);
             })
             .catch(
                 e => console.log(e.message)
@@ -388,15 +399,15 @@ $("#button_signup").click(function() {
     }
 });
 
-auth.onAuthStateChanged(user => {
-    if (user) {
-        console.log("Logged in.");
+// auth.onAuthStateChanged(user => {
+//     if (user) {
+//         console.log("Logged in.");
 
-    } else {
-        console.log("Not logged in.");
+//     } else {
+//         console.log("Not logged in.");
         
-    }
-});
+//     }
+// });
 
 
 
