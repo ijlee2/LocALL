@@ -52,7 +52,7 @@ const markerIcons = {
 *****************************************************************************
 *****************************************************************************/
 let eventType, eventName;
-let eventName_eat, eventName_play, eventName_drink, eventName_location;
+let eventName_eat = "", eventName_play = "", eventName_drink = "", eventName_location = "";
 
 $(".dropdown-item").click(function() {
     const eventName = $(this).text();
