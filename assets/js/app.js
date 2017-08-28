@@ -206,32 +206,40 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
 
         recommendations.forEach(r => {
 
-            output +=`<div>
-                          <img width="200" src="${r.eat.image}" alt="${r.eat.name}">
-                          <p>▪ ${r.eat.name}</p>
-                          <p>▪ ${r.eat.location.address}</p>
-                          <p>▪ ${r.eat.phone}</p>
-                          <p>▪ <a href="${r.eat.website}" target="_blank">Visit their website</a></p>
-                          <p>▪ ${r.eat.rating} / 5</p>
+            output +=`<div class = "subContainer">
+                        <div class="listItem food">
+                            <div class="restaurantImage">
+                                <p> ${r.eat.name}</p>
+                                <img height="150" width="150" src="${r.eat.image}" alt="${r.eat.name}"> 
+                            </div>
+                            <div class="columnTwo">  
+                                <p>${r.play.name}</p>
+                                <img height="150" width="150" src="${r.play.image}" alt="${r.play.name}">
+                            </div>
+                            <div class="item restaurantAddress">
+                                <p> ${r.drink.name}</p>
+                                <img height="150" width="150" src="${r.drink.image}" alt="${r.drink.name}">
+                            </div>
+                        </div>
                       </div>`;
 
-            output +=`<div>
-                          <img width="200" src="${r.play.image}" alt="${r.play.name}">
-                          <p>▪ ${r.play.name}</p>
-                          <p>▪ ${r.play.location.address}</p>
-                          <p>▪ ${r.play.phone}</p>
-                          <p>▪ <a href="${r.play.website}" target="_blank">Visit their website</a></p>
-                          <p>▪ ${r.play.rating} / 5</p>
-                      </div>`;
+            // output +=`<div class = "subContainer">
+            //                 <div class="listItem play">
+            //                     <div class="restaurantImage">
 
-            output +=`<div>
-                          <img width="200" src="${r.eat.image}" alt="${r.drink.name}">
-                          <p>▪ ${r.drink.name}</p>
-                          <p>▪ ${r.drink.location.address}</p>
-                          <p>▪ ${r.drink.phone}</p>
-                          <p>▪ <a href="${r.drink.website}" target="_blank">Visit their website</a></p>
-                          <p>▪ ${r.drink.rating} / 5</p>
-                      </div>`;
+            //                     </div>
+            //                     <div class="columnTwo"> 
+            //                         <p>${r.play.phone}</p>
+            //                         <p> <a href="${r.play.website}" target="_blank">Visit their website</a></p>
+            //                         <p> ${r.play.rating} / 5</p>
+            //                     </div>
+            //                     <div class="item restaurantAddress"> 
+            //                         <p> ${r.play.location.address}</p>
+            //                     </div>    
+            //                 </div>
+            //             </div>`;
+
+
         });
 
         $("#recommendations").html(output);
@@ -247,6 +255,8 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
     
 *****************************************************************************
 *****************************************************************************/
+$(document).on("ready", displayMap);
+
 function displayMap() {
     // Initialize the map (only allow zooms)
     map = new google.maps.Map(document.getElementById("map"), {
@@ -260,13 +270,13 @@ function displayMap() {
 }
 
 // Respond to clicks on dynamically generated rows
-$("body").on("click", "tbody tr", function() {
+$("body").on("click", ".subContainer", function() {
     // Delete existing markers
     markers.forEach(m => m.setMap(null));
     markers = [];
     
     // Find out which row was clicked
-    const r      = recommendations[$("tbody tr").index(this)];
+    const r      = recommendations[$(".subContainer").index(this)];
     const places = {"eat": r.eat, "play": r.play, "drink": r.drink};
     
     // Adjust the center of the map
