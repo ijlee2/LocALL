@@ -12,205 +12,243 @@ const config = {
     "projectId"        : "locall-atx512",
     "storageBucket"    : "locall-atx512.appspot.com",
     "messagingSenderId": "1032168672035"
-
 };
 
 firebase.initializeApp(config);
 
-const database       = firebase.database();
-const database_users = database.ref("users");
+const database_users = firebase.database().ref("users");
 const auth           = firebase.auth();
 
-// database_users.remove();
+// ADMIN TODO: Uncomment to remove existing database (be careful!)
+//database_users.remove();
+
 
 
 /****************************************************************************
  ****************************************************************************
     
-    User actions
+    Respond to user actions
     
 *****************************************************************************
 *****************************************************************************/
 // When the page loads
 let pageStatus = "signup";
 
-$("#messageToUser").text("");
-$("#messageToUser").css({"display": "hide"});
+$("#messageToUser").empty();
+$("#messageToUser").css({"display": "none"});
 
 
-// When the user clicks on sign up, log in, or log out button
 $("#button_signup").click(function() {
     pageStatus = "signup";
 
     $("#header").text("Sign Up");
-    $("#userName_container").css({"display": "block"});
-    $("#userEmail_container").css({"display": "block"});
-    $("#userPassword_container").css({"display": "block"});
-    $("#userLocation_container").css({"display": "block"});
-    $("#button_submit").css({"display": "block"});
+    $(".input_container, #button_submit").css({"display": "block"});
 
-    $("#messageToUser").text("");
-    $("#messageToUser").css({"display": "hide"});
-
+    $("#messageToUser").empty();
+    $("#messageToUser").css({"display": "none"});
 });
+
 
 $("#button_login").click(function() {
     pageStatus = "login";
 
     $("#header").text("Log In");
-    $("#userName_container").css({"display": "none"});
-    $("#userEmail_container").css({"display": "block"});
-    $("#userPassword_container").css({"display": "block"});
-    $("#userLocation_container").css({"display": "none"});
-    $("#button_submit").css({"display": "block"});
+    $(".input_container").css({"display": "none"});
+    $("#userEmail_container, #userPassword_container, #button_submit").css({"display": "block"});
 
-    $("#messageToUser").text("");
-    $("#messageToUser").css({"display": "hide"});
-
+    $("#messageToUser").empty();
+    $("#messageToUser").css({"display": "none"});
 });
 
+
 $("#button_logout").click(function() {
+    auth.signOut();
+
     pageStatus = "logout";
 
     $("#header").text("Log Out");
-    $("#userName_container").css({"display": "none"});
-    $("#userEmail_container").css({"display": "none"});
-    $("#userPassword_container").css({"display": "none"});
-    $("#userLocation_container").css({"display": "none"});
-    $("#button_submit").css({"display": "none"});
+    $(".input_container, #button_submit").css({"display": "none"});
 
-    $("#messageToUser").text("Success!");
+    $("#messageToUser").text("See you again!");
     $("#messageToUser").css({"display": "block"});
-    
 });
 
 
-// When the user clicks on the submit button
 $("#button_submit").click(function() {
     const name     = $("#userName").val().trim();
     const email    = $("#userEmail").val().trim();
     const password = $("#userPassword").val();
     const location = $("#userLocation").val().trim().toLowerCase();
 
-    // Validate the inputs using regular expression and match function.
-    // If there is an error, display an error message in the input field.
-
-    /*
-    // First name must be all letters
-    var regex;
-    var matches;
-    var validationPassed = true;
-
-    // If valid
-    if (name === "") {
-        $("#messageToUser").text("Please enter your name.");
-        validationPassed = false; 
-    
-    } else { 
-        regex = /^[a-z]+$/;
-        matches = name.match(regex);
-
-        if (!matches) {
-            $("#messageToUser").text("Name is invalid."); 
-            validationPassed = false; 
-        }
-    }
+    $("#messageToUser").empty();
+    $("#messageToUser").css({"display": "block"});
 
 
-    // Email must have format of ***@***.com (*** cannot be empty)
-     if (email === "") {
-        $("#messageToUser").append("<br>Please enter your email.");
-    
-    } else { 
-        regex = /^[a-z0-9._]+@[a-z]+.(com|net|edu)$/i;
-        matches = email.match(regex);
-
-        if (!matches) {
-            $("#messageToUser").append("<br>Email is invalid.");
-            validationPassed = false; 
+    /************************************************************************
         
+        Validate inputs
+    
+    *************************************************************************/
+    let status, validationPassed = true;
+
+    if (pageStatus === "signup" || pageStatus === "login") {
+        if (pageStatus === "signup") {
+            // Name
+            status = checkName(name);
+
+            if (status !== "success") {
+                validationPassed = false;
+                $("#messageToUser").append(`<p>${status}</p>`);
+            }
+        }
+
+        // Email
+        status = checkEmail(email);
+
+        if (status !== "success") {
+            validationPassed = false;
+            $("#messageToUser").append(`<p>${status}</p>`);
+        }
+        
+        // Password
+        status = checkPassword(password);
+
+        if (status !== "success") {
+            validationPassed = false;
+            $("#messageToUser").append(`<p>${status}</p>`);
         }
     }
 
+
+    /************************************************************************
+        
+        Connect to Firebase
     
-    // Password must have 8-64 characters, 1 letter, 1 number, 1 special character
-      if (password === "") {
-        $("#messageToUser").append("<br>Please enter your password.");
+    *************************************************************************/
+    if (validationPassed) {
+        // Create an account on Firebase
+        if (pageStatus === "signup") {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(function(user) {
+                    database_users.child(user.uid).set({
+                        "name"    : name,
+                        "email"   : email,
+                        "location": location
+                    });
+                })
+                .catch(
+                    e => console.log(e.message)
+                );
+
+        // Log in to an existing account
+        } else if (pageStatus === "login") {
+            auth.signInWithEmailAndPassword(email, password)
+                .then(function(user) {
+                    database_users.child(user.uid).once("value", function(snapshot) {
+                        console.log("My name is: "     + snapshot.val().name);
+                        console.log("My email is: "    + snapshot.val().email);
+                        console.log("My location is: " + snapshot.val().location);
+                    });
+                })
+                .catch(
+                    e => console.log(e.message)
+                );
+
+        }
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                console.log("Logged in.");
+
+            } else {
+                console.log("Not logged in.");
+                
+            }
+        });
+    }
+});
+
+
+
+/****************************************************************************
+ ****************************************************************************
+    
+    Input validations
+    
+*****************************************************************************
+*****************************************************************************/
+let regex;
+
+// Name consists of all letters and possibly a space
+function checkName(name) {
+    if (name === "") {
+        return "Please enter your name.";
     
     } else {
+        regex = /^[a-z]+$/i;
+
+        const names    = name.split(" ");
+        const numNames = names.length;
+
+        if (numNames <= 2 && !names[0].match(regex)) {
+            return "Please enter only letters for your first name.";
+
+        } else if (numNames === 2 && !names[1].match(regex)) {
+            return "Please enter only letters for your last name.";
+
+        } else if (numNames > 2) {
+            return "Please enter only your first and last names.";
+
+        }
+    }
+
+    return "success";
+}
+
+// Email must have format of ***@***.com (*** cannot be empty)
+function checkEmail(email) {
+    if (email === "") {
+        return "Please enter your email.";
+    
+    } else {
+        regex = /^[a-z0-9._]+@[a-z]+.(com|net|edu)$/i;
+        
+        if (!email.match(regex)) {
+            return "Please enter a valid email address (.com, .net, or .edu).";
+        }
+    }
+
+    return "success";
+}
+
+// Password must have 8-64 characters and include 1 letter, 1 number, and 1 special character
+function checkPassword(password) {
+    if (password === "") {
+        return "Please enter your password.";
+        
+    } else {
         if (password.length < 8 || password.length > 64) {
-            $("#messageToUser").append("<br>Password length must be between 8-64.");
+            return "Password length must be between 8 and 64.";
         }
 
         regex = /[a-z]+/i;
-        matches = password.match(regex);
-        if (!matches) {
-            $("#messageToUser").append("<br>Password must contain at least 1 letter.");
-        
+
+        if (!password.match(regex)) {
+            return "Password must contain at least 1 letter.";
         }
 
         regex = /[0-9]+/;
-        matches = password.match(regex);
-        if (!matches) {
-            $("#messageToUser").append("<br>Password must contain at least 1 number.");
-        
+
+        if (!password.match(regex)) {
+            return "Password must contain at least 1 number.";
         }
 
-        regex = /[!@#$%^&*]+/;
-        matches = password.match(regex);
-        if (!matches) {
-            $("#messageToUser").append("<br>Password must contain at least 1 special character.");
-        
+        regex = /[!@#$%^&*()<>{}\[\]-_+=|\\;:'",./?]+/;
+
+        if (!password.match(regex)) {
+            return "Password must contain at least 1 special character.";
         }
     }
-    */
 
-    // Create an account on Firebase
-    if (pageStatus === "signup") {
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(function(user) {
-                console.log("Sign up:");
-                console.log(user);
-
-                database_users.child(user.uid).set({
-                    "name"    : name,
-                    "email"   : email,
-                    "location": location
-                });
-            })
-            .catch(
-                e => console.log(e.message)
-            );
-
-    // Log in to an existing account
-    } else if (pageStatus === "login") {
-        auth.signInWithEmailAndPassword(email, password)
-            .then(function(user) {
-                console.log("Log in:");
-                console.log(user);
-
-                database_users.child(user.uid).on("value", function(snapshot) {
-                    console.log("My name is: " + snapshot.val().name);
-                    console.log("My email is: " + snapshot.val().email);
-                    console.log("My location is: " + snapshot.val().location);
-
-                });
-            })
-            .catch(
-                e => console.log(e.message)
-            );
-
-    // Log out of an existing account
-    } else if (pageStatus === "logout") {
-        auth.signOut();
-
-    }
-
-    auth.onAuthStateChanged(user => {
-        if (user) {
-//            console.log(user);
-        } else {
-            console.log("Not logged in.");
-        }
-    });
-});
+    return "success";
+}

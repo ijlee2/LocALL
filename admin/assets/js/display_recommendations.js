@@ -28,7 +28,7 @@ const database_recommendations = firebase.database().ref("recommendations");
 *****************************************************************************
 *****************************************************************************/
 // For making recommendations
-let recommendations;
+let   recommendations;
 const numRecommendations_max = 10, metric_max = 7;
 
 // For Google Maps
