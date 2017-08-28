@@ -6,8 +6,9 @@ body {
     background-size        : cover;
     background-color       : #333;
 
-    font-size              : 25px;
-    text-align             : center;
+    font-family: "Kalam", cursive;
+    font-size  : 25px;
+    text-align : center;
 
     width  : 100%;
     margin : 0;
@@ -42,7 +43,6 @@ h1 {
 
 /* changes the size and text alignment of h2 elements */
 h2, h3 {
-    font-family: "Kalam", cursive;
     font-weight: bold;
     text-align : center;
 }
@@ -56,7 +56,6 @@ h3 {
 }
 
 p {
-    font-family: "Homemade Apple", cursive;
     font-size  : 1.2em;
     font-weight: bold;
 }
