@@ -55,6 +55,13 @@ h2{
 .heading{
     font-size: 90px;
 }
+/* .mdol{
+    float: right;
+    margin-right: 52px;
+}
+.buton{
+    margin-left: 600px;
+} */
 
 #primary {
     display: flex;
@@ -148,6 +155,7 @@ h2{
     grid-template-columns: 2fr 1fr;
     grid-column-gap: 1em;
     margin-top: 4em;
+    
 }
 
 
@@ -163,9 +171,18 @@ h2{
 }
 .listItem{
     display: grid;
-    grid-template-columns:  1fr 1fr 1fr;
+    grid-template-columns:  1fr 2fr;
     padding-top: 2em;
     padding-bottom: 2em;
 }
+@media (max-width:667px){
+    .container{
 
+        grid-template-columns: 1fr;
+ 
+    }
+    .item-2{
+        height: 30px;
+    }
+}
 
