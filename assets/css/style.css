@@ -16,10 +16,11 @@ body {
 
 h1 {
     font-family: "Arvo", serif;
+    font-size  : 4em;
     font-weight: normal;
     text-align : center;
     
-    margin : 0;
+    margin : 1% 0;
     padding: 0;
 
     -webkit-animation-name    : rainbow; /* Safari 4.0 - 8.0 */
@@ -40,16 +41,23 @@ h1 {
 } 
 
 /* changes the size and text alignment of h2 elements */
-h2 {
+h2, h3 {
     font-family: "Kalam", cursive;
-    font-size  : 40px;
     font-weight: bold;
     text-align : center;
 }
 
+h2 {
+    font-size: 3em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
 p {
     font-family: "Homemade Apple", cursive;
-    font-size  : 20px;
+    font-size  : 1.2em;
     font-weight: bold;
 }
 
@@ -87,9 +95,8 @@ p {
     background: rgba(255, 255, 255, 0);
 }
 
-.locall_page_full h1 {
-    font-size    : 5em;
-    margin-bottom: 1%;
+.jumbotron h1 {
+    font-size: 5em;
 }
 
 .locall_page_full h2 {
@@ -167,21 +174,25 @@ p {
 
 /* Page 3: Your Dev Team */
 /* background opacity and the height and padding to make the background look similar to the jumbotron so we wouldnt have to use a jumbotron with our carousel */
-.locall_carousel_container {
+.carousel {
     background: rgba(255, 255, 255, 0);
     
-    width     : 600px;
-    margin    : auto;
-    border    : 1px solid red;
+    width     : 800px;
+    margin    : 1% auto 0 auto;
 }
 
 .locall_team_photos {
     width : 200px;
     height: 200px;
+    margin-bottom: 5%;
 }
 
 #page3 h2 {
     font-size: 50px;
+}
+
+#page3 h3 {
+    margin-bottom: 4%;
 }
 
 
