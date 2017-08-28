@@ -23,7 +23,7 @@
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
         
         <!-- Custom CSS -->
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo|Goudy+Bookletter+1911|Wellfleet">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo|Homemade+Apple|Kalam">
         <link rel="stylesheet" href="assets/css/style.css">
 
         <!-- Firebase -->
@@ -34,7 +34,6 @@
         <div class="pos-f-t">
             <div class="collapse" id="navbarToggleExternalContent">
                 <div class="bg-dark p-4">
-                    <div class="myContainer">
                     <!-- Added data-toggle and data-target to specify an action -->
                     <div class="locall_menuItems">
                         <!-- TODO: Remove the inline onClick function -->
@@ -152,7 +151,6 @@
                             </div>   
                         </div>
                     </div>
-                    </div>
                     <!-- End: Modal -->
                 </div>
             </div>
@@ -166,13 +164,12 @@
 
 
         <!-- Cover Page -->
-        <div class="page" id="page1">
+        <div class="page locall_page_full" id="page1">
             <div class="jumbotron">
                 <h1>LocALL</h1>
                 <h2>Eat, Play, Drink Locally</h2>
 
-                <a class="btn btn-primary btn-lg" onClick="displayPage(2)">Go Local!</a>
-                <a class="btn btn-primary btn-lg" onClick="displayPage(3)">Your Dev Team</a>
+                <a class="btn btn-primary" onClick="displayPage(2)">Go Local!</a>
             </div>
         </div>
 
@@ -259,11 +256,9 @@
 
         
         <!-- Your Dev Team Page -->
-        <div class="page" id="page3" style="display: none">
-            <div class="center"> 
-                <h1 class="section-heading">Your Dev Team</h1> 
-            </div>
-
+        <div class="page locall_page_full" id="page3" style="display: none">
+            <h1 class="section-heading">Your Dev Team</h1> 
+            
             <div id="carouselExampleSlidesOnly" class="carousel slide locall_carousel_container" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">

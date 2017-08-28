@@ -5,6 +5,8 @@ body {
     -o-background-size     : cover;
     background-size        : cover;
     background-color       : #333;
+
+    font-size              : 25px;
     text-align             : center;
 
     width  : 100%;
@@ -13,8 +15,7 @@ body {
 }
 
 h1 {
-    font-family: "Arvo";
-    font-size  : 100px;
+    font-family: "Arvo", serif;
     font-weight: normal;
     text-align : center;
     
@@ -40,19 +41,16 @@ h1 {
 
 /* changes the size and text alignment of h2 elements */
 h2 {
-    font-size : 40px;
-    text-align: center;
+    font-family: "Kalam", cursive;
+    font-size  : 40px;
+    font-weight: bold;
+    text-align : center;
 }
 
 p {
+    font-family: "Homemade Apple", cursive;
     font-size  : 20px;
     font-weight: bold;
-}
-
-
-.myContainer {
-    width: 960px;
-    margin: auto;
 }
 
 
@@ -68,22 +66,40 @@ p {
 }
 
 
-/* Page 1: Main */
-.jumbotron {
+.locall_page_full {
     background: rgba(255, 255, 255, 0.6);
-    text-align: center;
-    margin-top: 6em;
+    
+    /* Center vertically */
+    min-height     : 100%;   /* Fallback for browsers do not support vh unit */
+    min-height     : 100vh;  /* These two lines are counted as one           */
+
+    display        : flex;
+    flex-direction : column;
 }
 
-#page1 h1 {
-    font-size: 90px;
+
+/* Page 1: Main */
+#page1 {
+    justify-content: center;
 }
 
-#page1 a {
-    font-size    : 30px;
+.jumbotron {
+    background: rgba(255, 255, 255, 0);
+}
 
-    height       : 60px;
-    margin-bottom: .5em;
+.locall_page_full h1 {
+    font-size    : 5em;
+    margin-bottom: 1%;
+}
+
+.locall_page_full h2 {
+    margin-bottom: 2%;
+}
+
+.locall_page_full a {
+    font-size: 2em;
+
+    padding  : 10px 30px;
 }
 
 
@@ -119,7 +135,7 @@ p {
     width: 270px;
 }
 
-.containerPage2 align-items: {
+.containerPage2 align-items {
     display              : grid;
     grid-template-columns: 2fr 1fr;
     grid-column-gap      : 0.3em;
@@ -152,11 +168,11 @@ p {
 /* Page 3: Your Dev Team */
 /* background opacity and the height and padding to make the background look similar to the jumbotron so we wouldnt have to use a jumbotron with our carousel */
 .locall_carousel_container {
-    background     : rgba(255, 255, 255, 0.6);
-    background-size: cover;
-
-    height         : 428px;
-    padding        : 45px 0 0 0;
+    background: rgba(255, 255, 255, 0);
+    
+    width     : 600px;
+    margin    : auto;
+    border    : 1px solid red;
 }
 
 .locall_team_photos {
