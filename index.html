@@ -120,7 +120,11 @@
 
             <!-- TODO: Combine with back-end -->
             <div class="containerPage2">
+<<<<<<< HEAD
                 <div id="recommendations" class="subContainer">
+=======
+                <div id="recommendations" style="color:azure">
+>>>>>>> 4cd63931f1acffca9d7e43a496949106bfb87236
                 </div>
                 <div id="map"></div>
             </div>
@@ -175,20 +179,21 @@
             <div class="containerPage5">
                 <h2 id="header">Log In</h2>
                
-                <div class="input_container" id="userName_container">
+                <div>
                     <label for="userName">Name (required)</label>
-                    <input type="text" id="userName">
+                    <input type="text" id="userName_login">
                 </div>              
-                <div class="input_container" id="userPassword_container">
+
+                <div>
                     <label for="userPassword">Password (required)</label>
-                    <input type="text" id="userPassword">
+                    <input type="text" id="userPassword_login">
                 </div>
-                <div id="messageToUser"></div>
 
-               <div class="btn btn-primary">Submit</div>
+                <div class="messageToUser"></div>
 
-               <div>Don't have a username and password?</div>
-                <div class="btn btn-primary btn-sm"onClick="displayPage(5)">Sign up</div>
+                <div class="btn btn-primary" id="button_login">Submit</div>
+
+                <p>Want to create an account?</p><div class="btn btn-primary btn-sm" onclick="displayPage(5)">Sign up</div>
             </div>
         </div>
       
@@ -196,24 +201,24 @@
             <div class="containerPage5">
                 <h2 id="header">Sign Up</h2>
                
-                <div class="input_container" id="userName_container">
+                <div>
                     <label for="userName">Name (required)</label>
-                    <input type="text" id="userName">
+                    <input type="text" id="userName_signup">
                 </div>
                
-                <div class="input_container" id="userEmail_container">
+                <div>
                     <label for="userEmail">Email (required)</label>
-                    <input type="email" id="userEmail">
+                    <input type="email" id="userEmail_signup">
                 </div>
                
-                <div class="input_container" id="userPassword_container">
+                <div>
                     <label for="userPassword">Password (required)</label>
-                    <input type="text" id="userPassword">
+                    <input type="text" id="userPassword_signup">
                 </div>
 
-               <div id="messageToUser"></div>
+               <div class="messageToUser"></div>
 
-               <div class="btn btn-primary"onClick="displayPage(5)">Submit</div>
+               <div class="btn btn-primary" id="button_signup">Submit</div>
             </div>
         </div>
 
