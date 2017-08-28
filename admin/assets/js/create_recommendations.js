@@ -35,8 +35,7 @@ const database_recommendations = database.ref("recommendations");
 *****************************************************************************
 *****************************************************************************/
 // For making recommendations
-const numRecommendations_max = 400,
-const metric_max = 10;
+const numRecommendations_max = 400, metric_max = 10;
 
 // Possible events
 const eventNames_eat   = ["asian"  , "bbq"    , "indian" , "pizza"  , "tex-mex"];
