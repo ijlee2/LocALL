@@ -48,7 +48,7 @@
                         <button type="button" class="btn btn-outline-primary"   onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">Home</button>
                         <button type="button" class="btn btn-outline-warning"   onClick="displayPage(2)" data-toggle="collapse" data-target=".collapse">Go Local!</button>
                         <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">Your Dev Team</button>
-                        <button type="button" class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Log In / Sign Up</button>
+                        <button type="button" class="btn btn-outline-success" onClick="displayPage(4)" data-toggle="collapse" data-target=".collapse">Log In / Sign Up</button>
                     </div>
                 </div>
             </div>
@@ -59,8 +59,6 @@
                 </button>
             </nav>
         </div>
-
-
         <!-- Cover Page -->
         <div class="page locall_page_full" id="page1">
             <div class="jumbotron">
@@ -210,9 +208,56 @@
                         <h2>Margarita Tagaban</h2>
                         <h3>Front-End Developer</h3>
 
-                        <p>Hi, I'm Margie! I'm a Texas native who loves problem solving. I earned my Bachelor's Degree July 2017 at Texas State University.</p>
+                        <p>Hi, I'm Margie! I'm a Texas native who loves problem solving. 
+                            <br>
+                            I earned my Bachelor's Degree July 2017 at Texas State University.
+                        </p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="page locall_page_full" id="page4" style="display: none">
+            <div class="containerPage5">
+                <h2 id="header">Log In</h2>
+               
+                <div class="input_container" id="userName_container">
+                    <label for="userName">Name (required)</label>
+                    <input type="text" id="userName">
+                </div>              
+                <div class="input_container" id="userPassword_container">
+                    <label for="userPassword">Password (required)</label>
+                    <input type="text" id="userPassword">
+                </div>
+                <div id="messageToUser"></div>
+
+               <div class="btn btn-primary">Submit</div>
+
+               <div>Don't have a username and password?</div>
+                <div class="btn btn-primary btn-sm"onClick="displayPage(5)">Sign up</div>
+            </div>
+        </div>
+        <div class="page locall_page_full" id="page5" style="display: none">
+            <div class="containerPage5">
+                <h2 id="header">Sign Up</h2>
+               
+                <div class="input_container" id="userName_container">
+                    <label for="userName">Name (required)</label>
+                    <input type="text" id="userName">
+                </div>
+               
+                <div class="input_container" id="userEmail_container">
+                    <label for="userEmail">Email (required)</label>
+                    <input type="email" id="userEmail">
+                </div>
+               
+                <div class="input_container" id="userPassword_container">
+                    <label for="userPassword">Password (required)</label>
+                    <input type="text" id="userPassword">
+                </div>
+
+               <div id="messageToUser"></div>
+
+               <div class="btn btn-primary"onClick="displayPage(5)">Submit</div>
             </div>
         </div>
     </body>
