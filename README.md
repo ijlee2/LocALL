@@ -8,7 +8,7 @@ A website that lets you pick places to eat, play, and drink locally in Austin!
 - Jacque White (backend)
 
 ## GitHub Demos
-- [Click here to see the website in action.](https://ijlee2.github.io/LocAll/)
+- [Click here to see our website in action.](https://ijlee2.github.io/LocAll/)
 - [Click here to see creating databases in action.](https://ijlee2.github.io/LocAll/admin/create_databases_nofirebase.html)
 - [Click here to see making recommendations in action.](https://ijlee2.github.io/LocAll/admin/display_recommendations.html)
 
