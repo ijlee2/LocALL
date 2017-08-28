@@ -4,146 +4,347 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
     integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-   <!--  I used a different jQuery CDN link.. the original was giving me issues -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" 
     integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" 
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
+    
     <title>LocALL</title>
 </head>
-
-<body id ="dcd">
-
+<body>
+    <!--this begins the navbar section  -->
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
-            <h4 class="text-white">Menu</h4>
-            <span class="text-muted">
-                <button type="button" class="btn btn-outline-primary">Home</button>
-                <button type="button" class="btn btn-outline-secondary">About</button>
-                <button type="button" class="btn btn-outline-success">Contact</button>
-            </span>
+            <div class="bg-dark p-4">
+                <!--we added datatoggle and datatarget to each button so that the menu would disappear when we jumped to another page -->
+                    <span class="text-muted buton">
+                        <!--we added an onclick function inline because we set each page to display none and in order for the page to appear we needed to add this functionality inline -->
+                        <button type="button" class="btn btn-outline-primary" onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">
+                            Home
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">
+                            About
+                        </button>
+                        <button type="button" class="btn btn-outline-warning" onClick="displayPage(2)" data-toggle="collapse" data-target=".collapse">
+                            Go
+                        </button>
+                    </span>  
+                    <!--the beginning of the modal section this section is really bulky I was able to condense it the classes in and id are all part of bootstrap this makes the modal function -->
+                        <div class="container mdol"> 
+                            <center>
+                            <button class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In/Register</button>
+                            </center>
+                        </div>
+                        <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="bs-example bs-example-tabs">
+                                        <ul id="myTab" class="nav nav-tabs">
+                                            <li class="act"><a href="#signin" data-toggle="tab">Sign In</a></li>
+                                            <li class="act"><a href="#signup" data-toggle="tab">Register</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="myTabContent" class="tab-content">
+                                            <div class="tab-pane fade active in" id="signin">
+                                                <form class="form-horizontal">
+                                                    <fieldset>
+                                                        <!-- Sign In Form -->
+                                                        <!-- Text input-->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="userid">
+                                                                UserName:
+                                                            </label>
+                                                            <div class="controls">
+                                                                <input required="" id="userid" name="userid" type="text" class="form-control" placeholder="example" class="input-medium" required="">
+                                                            </div>
+                                                        </div>
+                                                        <!--zipcode input -->
+                                                        <div class="control-group">
+                                                                <label class="control-label" for="zipcode">
+                                                                    ZipCode:
+                                                                </label>
+                                                                <div class="controls">
+                                                                    <input required="" id="zipcode" name="zipcode" type="text" class="form-control" placeholder="00000" class="input-medium" required="">
+                                                                </div>
+                                                            </div>
+                                                        <!-- Password input-->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="passwordinput">
+                                                                Password:
+                                                            </label>
+                                                            <div class="controls">
+                                                                <input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="********" class="input-medium">
+                                                            </div>
+                                                        </div>
+                                                        <!-- Multiple Checkboxes (inline) -->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="rememberme"></label>
+                                                            <div class="controls">
+                                                                <label class="checkbox inline" for="rememberme-0">
+                                                                    <input type="checkbox" name="rememberme" id="rememberme-0" value="Remember me">
+                                                                        Remember me
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Button -->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="signin"></label>
+                                                            <div class="controls">
+                                                                <button id="signin" name="signin" class="btn btn-success">
+                                                                    Sign In
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane fade" id="signup">
+                                                <form class="form-horizontal">
+                                                    <fieldset>
+                                                        <!-- Sign Up Form -->
+                                                        <!-- Text input-->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Email">Email:</label>
+                                                            <div class="controls">
+                                                                <input id="Email" name="Email" class="form-control" type="text" placeholder="example@example.com" class="input-large" required="">
+                                                            </div>
+                                                        </div>
+                                                        <!-- Text input-->
+                                                        <div class="control-group">
+                                                                <label class="control-label" for="ZipCode">ZipCode:</label>
+                                                                <div class="controls">
+                                                                    <input id="ZipCode" name="Email" class="form-control" type="text" placeholder="00000" class="input-large" required="">
+                                                                </div>
+                                                            </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="userid">
+                                                                UserName:
+                                                            </label>
+                                                            <div class="controls">
+                                                                <input id="userid" name="userid" class="form-control" type="text" placeholder="example" class="input-large" required="">
+                                                            </div>
+                                                        </div>
+                                                        <!-- Password input-->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="password">
+                                                                Password:
+                                                            </label>
+                                                            <div class="controls">
+                                                                <input id="password" name="password" class="form-control" type="password" placeholder="********" class="input-large" required="">
+                                                                    <em>1-8 Characters</em>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Text input-->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="reenterpassword">
+                                                                Re-Enter Password:
+                                                            </label>
+                                                            <div class="controls">
+                                                                <input id="reenterpassword" class="form-control" name="reenterpassword" type="password" placeholder="********" class="input-large" required="">
+                                                            </div>
+                                                        </div>
+                                                    <!-- Button -->
+                                                    <div class="control-group">
+                                                        <label class="control-label" for="confirmsignup"></label>
+                                                        <div class="controls">
+                                                            <button id="confirmsignup" name="confirmsignup" class="btn btn-success">
+                                                                Sign Up
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <center>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </center>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>  
+                </div> 
+            </div>
         </div>
-       </div>
-    </div>
+        <!--toggle function  -->
         <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </nav>
-      
     </div>
-<div id = "page1">
-    <div class="jumbotron">
-        <h1 class="local-head">LocALL</h1>
-        <h2>Eat, Play, and Drink Locally</h2>
-        <a class="btn btn-primary btn-lg page1Button" id ="goLocal" href="#" role="button">Go Local!</a><br>
-        <a class="btn btn-primary btn-lg page1Button" id ="aboutUs" href="#" role="button">About Us</a>
-        <div class="row myModal" >
-        <h1 class="text-center"><a href="#myModal" role="button" class="btn btn-primary btn-lg" data-toggle="modal">Contact Us</a></h1>
+<!--our cover page its a simple jumbotron bootstrap we only added an id and class in order for are onclick to function  -->
+    <div id="page1" class="page">
+        <div class="jumbotron">
+            <h1 class="local-head heading">LocALL</h1>
+            <h2>Eat, Play, and Drink Locally</h2>
+            <a class="btn btn-primary btn-lg" onClick="displayPage(2)"  role="button">Go Local!</a><br>
+            <a class="btn btn-primary btn-lg" onClick="displayPage(3)"  role="button">About Us</a>
+        </div>
     </div>
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModal">We'd Love to Hear From You</h3>
-            </div>
-        <div class="modal-body">
-            <form class="form-horizontal col-sm-12">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input class="form-control required" placeholder="Your name" data-placement="top" data-trigger="manual" 
-                    data-content="Must be at least 3 characters long, and must only contain letters." type="text">
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea class="form-control" placeholder="Your message here.." data-placement="top" data-trigger="manual"></textarea>
+<!--our first page this is where we added the buttons for each subject we wanted to use for a search parameter and the search button also bootstrap buttons -->
+    <div id = "page2" class ="content page" style="display: none">
+            <div class = "row flexContainer ">
+                <div class="btn-group col-md-3" id = "primary" >
+                    <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Eat
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
+                        <button class="dropdown-item" type="button">BBQ</button>
+                        <button class="dropdown-item" type="button">Mexican</button>
+                        <button class="dropdown-item" type="button">Asian</button>
+                        <button class="dropdown-item" type="button">Pizza</button>
                     </div>
-                <div class="form-group">
-                    <label>E-Mail</label>
-                    <input class="form-control email" placeholder="email@you.com (so that we can contact you)" data-placement="top" data-trigger="manual" 
-                    data-content="Must be a valid e-mail address (user@gmail.com)" type="text">
                 </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input class="form-control phone" placeholder="999-999-9999" data-placement="top" data-trigger="manual" 
-                    data-content="Must be a valid phone number (999-999-9999)" type="text">
+    
+                <div class="btn-group col-md-3" id = "main">
+                    <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Play
+                    </button>
+                        <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
+                            <button class="dropdown-item" type="button">Hiking</button>
+                            <button class="dropdown-item" type="button">Swimming</button>
+                            <button class="dropdown-item" type="button">Rock Climbing</button>
+                            <button class="dropdown-item" type="button">Bowling</button>
+    
+                        </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success pull-right">Send It!</button> 
-                    <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not valid. </p>
+    
+                <div class="btn-group col-md-3" id = "secondary">
+                    <button type="button" class="btn btn-secondary dropdown-toggle page2Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Drink
+    
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" style = "width:270px">
+                        <button class="dropdown-item" type="button">Breweries</button>
+                        <button class="dropdown-item" type="button">Winery</button>
+                        <button class="dropdown-item" type="button">Bars</button>
+                        <button class="dropdown-item" type="button">Coffee</button>
+                    </div>
                 </div>
-            </form>
+                <div class = "btn-group col-md-3" id = "sea">
+                    <button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning page2Button">Search</button>
+                </div>
+            </div>
+            <!-- this is where are search results will appear and our map is going to appear these are all place holders until we can combine the back-end-->
+            <div class="containerPage2">
+                <div class="subContainer">
+                    <div class="listItem">
+                        <div class="restaurantImage">
+                            <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height=100>
+                        </div>
+                        <div class="columnTwo">
+                            <div class="item restaurantName">Restaurant name</div>
+                            <div class="item restaurantRating">*****</div>
+                            <div class="item restaurantNumber">512-555-5555</div>
+                            <div class="item restaurantWebsite">restaurantwebsite@website.com</div>
+                        </div> 
+                        <div class="item restaurantAddress">2000 lamar Blvd.<br>Austin, TX<br>78705</div>   
+                    </div>
+                    <div class="listItem">
+                        <div class="restaurantImage">
+                            <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height=100>
+                        </div>
+                        <div class="columnTwo">
+                            <div class="item restaurantName">Activity</div>
+                            <div class="item restaurantRating">*****</div>
+                            <div class="item restaurantNumber">512-555-5555</div>
+                            <div class="item restaurantWebsite">activitywebsite@website.com</div>
+                        </div> 
+                        <div class="item restaurantAddress">2000 lamar Blvd.<br>Austin, TX<br>78705</div>   
+                    </div>     
+                    <div class="listItem">
+                            <div class="restaurantImage">
+                                <img src="https://s3-media1.fl.yelpcdn.com/bphoto/KNXhThgKWO36YfVP3UJREQ/300s.jpg" height=100>
+                            </div>
+                            <div class="columnTwo">
+                                <div class="item restaurantName">Brewery</div>
+                                <div class="item restaurantRating">*****</div>
+                                <div class="item restaurantNumber">512-555-5555</div>
+                                <div class="item restaurantWebsite">Brewerywebsite@website.com</div>
+                            </div> 
+                            <div class="item restaurantAddress">2000 lamar Blvd.<br>Austin, TX<br>78705</div>   
+                    </div>  
+                </div>
+                <div class="item item-2"><img src=http://staticmapmaker.com/img/google.png></div> 
+            </div>
         </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+   <!--bootstrap carousel add an id and class in order to change colors and sizes without affecting other elements of the HTML-->
+    <div id="page3"class="page" style="display: none">
+        <div class="center"> 
+            <h1 class="section-heading">About Us</h1> 
         </div>
-    </div>
-</div>
-    </div>
-</div>
-</div>
-<div id = "page2">
-	<div class = "row flexContainer ">
-    <div class="btn-group col-md-3" id = "primary" >
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Eat
-        </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">BBQ</button>
+        <div id="carouselExampleSlidesOnly" class="carousel slide aboutUs" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="d-block w-100"  alt="First slide">
+                        <img src="assets/images/jacque.jpg" class="aboutUsPics" alt="Jaque">
+                        <h2 id="us">Jaqueline White</h2>
+                        <h3 class="softWare">Software Developer</h3>
+                        <p>
+                            I'm an Austinite that has a passion for all things health 
+                            and wellness, culinary arts, and travel.
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-block w-100"  alt="Second slide">
+                        <img src="assets/images/issac.jpg" class="aboutUsPics" alt="issac">
+                        <h2 id="us">Isaac Lee</h2>
+                         <h3 class="softWare">Software Developer</h3>
+                        <p>
+                            I provide analytic and computational solutions to your engineering problems.
+                            <br> 
+                            Furthermore, I believe in beinghuman: continuous learning + communication + collaboration.
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-block w-100"  alt="First slide">
+                        <h2 id="us">Aaron Tyler</h2>
+                        <h3 class="softWare">Software Developer</h3>
+                        <img src="" alt="">
+                        <p>
+                            Biochemistry at University of Texas Austin. I enjoy both front-end and back-end development. 
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-block w-100"  alt="First slide">
+                            <img src="assets/images/margie.jpg" class="aboutUsPics" alt="margie">
+                        <h2 id="us">Margarita Tagaban</h2>
+                        <h3 class="softWare">Software Developer</h3>
+                        <p>
+                           Hi I'm Margie!
+                           <br>
+                           I'm a Texas native who loves problem solving.
+                           <br> 
+                           I earned my Bachelor's Degree July 2017 at Texas State University.
+                           
+            
+                             
+                        </p>
+                    </div>
+                </div>
             </div>
-    </div>
-
-    <div class="btn-group col-md-3" id = "main">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Play
-        </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">Hiking</button>
-
-            </div>
-    </div>
-
-    <div class="btn-group col-md-3" id = "secondary">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Drink
-        </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">Breweries</button>
-            </div>
-    </div>
-    	<div class = "btn-group col-md-3" id = "sea">
-    	<button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning">Search</button>
-    	</div>
-    </div>
-    </div>
-    <div id = "page3">
-    <div class = "row">
-    <div id = "aboutU" class= "col-sm-12">
-        <h1></h1>
-        <p></p>
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
-    </div>
-    </div>
-
+        </div>
 </body>
-<!-- to access the databases, uncomment the below and look at the console
- --><!-- <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>-->
- <script src = "assets/js/local.js"></script>
-<!-- to access the databases, uncomment the below and look at the console-->
-<!-- <script type="text/javascript" src="api_demos/assets/javascript/create_databases.js"></script> -->
+<script src = "assets/js/local.js"></script>
 </html>
-

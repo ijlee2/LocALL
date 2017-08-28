@@ -1,46 +1,109 @@
+/* this is our bakground so that it will stay still until throughout our html page */
 body {
-   
     background: url("http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/08/12154910/atx-pano.jpg") no-repeat center center fixed;
-    
-   /* background: url("../images/background.jpg") no-repeat center center fixed;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background-color:#333;
+    background-color: #333;
     text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+/* this adds animation to the h1 elements the changing colors animation name is used in the @keyframes as a sort of call function */
+h1 {
+    font-family:"Arvo";
+    font-weight:normal;
+    font-size: 100px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    -webkit-animation-name: font; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 5s; /* Safari 4.0 - 8.0 */
+    animation-name: font;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
 }
 
-h1 .btn {
-    font-size:30px;
+@keyframes font {
+    0%   {color: #5bfe35;}
+    25%  {color: #35fec8;}
+    50%  {color: #35a9fe;}
+    100% {color: #e135fe;}
+} 
+/* changes the size and text alignment of h2 elements */
+h2{
+    font-size:40px;
     text-align: center;
 }
+/* we used a simple background function to change the background opacity without affecting the rest of the elements within the jumbotron */
 .jumbotron{
+    background: rgba(255,255,255, .6);
     text-align: center;
-    opacity: 0.75;
+    margin-top: 6em;
 }
-.navbar{
-    opacity: .7;
+.page2Button{
+    font-size:20px;
+    text-align: center;
+    margin-top: 2em;
 }
-.myModal{
+
+.heading{
+    font-size: 90px;
+}
+
+
+#page1 a {
+    width: 178px;
+    height: 60px;
+    margin-bottom: .5em;
+    font-size: 30px;
+}
+/* background opacity and the height and padding to make the background look similar to the jumbotron so we wouldnt have to use a jumbotron with our carousel */
+.aboutUs{
+    background: rgba(255,255,255, .6);
+    height: 428px;
+    padding: 45px 0 0 0;
+    background-size: cover;   
+}
+/* this is was used to make the modal signin and register to separate and the other two classes are so our buttons dont look all smooshed together*/
+.act{
+    margin-right: 40px;
+    margin-left: 40px;
+}
+.mdol{
+    float: right;
+    margin-right: 55px;
+}
+.buton{
+    margin-left: 600px;
+}
+/* these functionalities all pertain to our about us page  */
+.aboutUsPics{
+    width: 200px;
+    height: 200px;
+}
+#us{
+    font-size: 50px;
+}
+
+p{
+    font-weight: bold;
+}
+/* this all pertains to page two and gives it stilling with flex functions and css grid */
+.flexContainer {
     display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: row /* works with row or column */
+    -webkit-flex-direction: row; /* works with row or column */
     flex-direction: row;
     -webkit-align-items: center;
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-
-   
-}
-h2{
-    font-size: 40px;
-}
-.local-head{
-    font-size: 90px;
-}
-#primary {
+    margin-top: 3em;
+ }
+ #primary {
     display: flex;
     flex-direction: column;
     flex-basis: 300px;
@@ -63,19 +126,63 @@ h2{
     flex-direction: column;
     flex-basis: 300px;
 }
-.flexContainer {
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row /* works with row or column */
-   flex-direction: row;
-   -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: center;
-   justify-content: center;
+.containerPage2{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 0.3em;
+    margin-top: 4em;
+    margin-left: 7em;
+
 }
-.page1Button{
-    width: 178px;
-    height: 60px;
-    margin-bottom: .5em;
-    font-size: 30px;
+
+.subContainer{
+    display: grid;
+    grid-row-gap: 1em; 
+}
+.subContainer > div:nth-child(odd){
+    background: rgba(220, 213, 213, 0.93);
+}
+.subContainer > div:nth-child(even){
+    background: rgba(238, 232, 232, 0.93);
+}
+.listItem{
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+/* this styles the web app fo media with screens smaller than 667px width */
+@media (max-width: 667px) 
+    { 
+        .containerPage2{
+            grid-template-columns: 1fr;
+            margin-left: 0;
+            grid-row-gap: 2em;
+        
+        }
+        .flexContainer{
+            margin-top: 0;
+        }
+        .listItem{
+            grid-template-columns: 1fr 2fr;
+            grid-gap: 1em;
+        }
+        
+        h1{
+            font-size: 50px;
+        }
+        .mdol{
+            float:initial;
+            margin-right: 0;
+        }
+        .buton{
+            margin-left: 0;
+        }
+        #us{
+            font-size:30px;
+        }
+        .softWare{
+           font-size: 20px;
+        }
+        
 }
