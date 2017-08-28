@@ -28,10 +28,11 @@ const database_recommendations = firebase.database().ref("recommendations");
 *****************************************************************************
 *****************************************************************************/
 // For making recommendations
-numRecommendations = 20;
+let recommendations;
+const numRecommendations_max = 10, metric_max = 7;
 
 // For Google Maps
-let   map;
+let   map, infowindow;
 let   markers     = [];
 const markerIcons = {
     "eat"  : "assets/images/eat.png",
@@ -56,7 +57,7 @@ $("li").click(function() {
     const eventName = $(this).text().toLowerCase();
 
     // Highlight the user's choices
-    var index = $("li").index(this) % 5;
+    let index = $("li").index(this) % 5;
 
     $(`#${eventType} li`).css({
         "background-color": "var(--color-background)",
@@ -142,9 +143,8 @@ function spherical_distance(point1, point2) {
     
 *****************************************************************************
 *****************************************************************************/
-let recommendations;
-
 function createBins(data) {
+    let bins = [0];
     let bin_count = 0;
 
     data.forEach(d => {
@@ -152,54 +152,45 @@ function createBins(data) {
 
         bins.push(bin_count);
     });
+
+    return bins;
 }
 
 
 function displayRecommendations(eventName_eat, eventName_play, eventName_drink) {
     const directoryName = `${eventName_eat}_${eventName_play}_${eventName_drink}`;
 
-    database_recommendations.child(directoryName).on("value", function(snapshot) {
+    // Temporary variables
+    let i, j;
+    let bins, bin_max;
+    let randomNumber;
+
+    database_recommendations.child(directoryName).once("value", function(snapshot) {
         // Reset our recommendations
         recommendations = [];
 
-        // Read database from Firebase
-        let data    = snapshot.val().data;
-        let numData = snapshot.val().numData;
-        let bins    = snapshot.val().bins;
+        // Recommend events near the user
+        let data = snapshot.val().filter(function(a) {
+            return spherical_distance(a.center, myLocation) < metric_max;
+        });
 
+        // Return a finite number of recommendations at random
+        for (i = 0; i < numRecommendations_max; i++) {
+            // Create bins
+            bins    = createBins(data);
+            bin_max = bins[bins.length - 1];
 
-        // Randomly select recommendations
-        var maximum = bins[bins.length - 1];
-        var randomNumbers = [];
+            // Select a number at random
+            randomNumber = Math.floor(bin_max * Math.random());
 
-        for (var i = 0; i < 20; i++) {
-            var randomNumber = Math.floor(Math.random() * (maximum + 1));
-
-            // If randomNumber already exists in randomNumbers array
-            while (randomNumbers.indexOf(randomNumber) >= 0) {
-                // Generate a new random number
-                randomNumber = Math.floor(Math.random() * (maximum + 1));
-            }
-
-            randomNumbers.push(randomNumber);
-
-            for (var index = 0; index < numData; index++) {
-                if (bins[index] <= randomNumber && randomNumber <= bins[index + 1]) {
-                    recommendations.push(data[index]);
+            for (j = 0; j < (bins.length - 1); j++) {
+                if (bins[j] <= randomNumber && randomNumber < bins[j + 1]) {
+                    recommendations.push(...data.splice(j, 1));
 
                     break;
                 }
             }
-
         }
-
-        // Display recommendations close to the user
-        recommendations = recommendations.filter(function(a) {
-            return spherical_distance(a.center, myLocation) <= 2.5;
-        });
-        
-        // Display the top 10 recommendations
-        recommendations = recommendations.slice(0, 10);
         
         let names, output = "";
 
@@ -230,6 +221,8 @@ function displayMap() {
         "zoomControl"     : true,
         "zoom"            : 13
     });
+
+    infowindow = new google.maps.InfoWindow();
 }
 
 // Respond to clicks on dynamically generated rows
@@ -239,25 +232,28 @@ $("body").on("click", "tbody tr", function() {
     markers = [];
     
     // Find out which row was clicked
-    const r = recommendations[$("tbody tr").index(this)];
-    const places = {
-        "eat"  : r.eat.geometry,
-        "play" : r.play.geometry,
-        "drink": r.drink.geometry
-    };
+    const r      = recommendations[$("tbody tr").index(this)];
+    const places = {"eat": r.eat, "play": r.play, "drink": r.drink};
     
     // Adjust the center of the map
     map.setCenter(r.center);
 
     // Adjust the zoom level
-    map.setZoom(Math.max(10, 14 - Math.floor(1 + r.metric / 4)));
+    map.setZoom(Math.max(10, 15 - Math.floor(1 + r.metric / 3)));
     
     // Place a marker for each place
-    for (key in places) {
-        var marker = new google.maps.Marker({
+    for (let key in places) {
+        const marker = new google.maps.Marker({
             "map"     : map,
-            "position": places[key],
+            "position": places[key].geometry,
             "icon"    : markerIcons[key]
+        });
+
+        google.maps.event.addListener(marker, "click", function() {
+            const output = `<div><strong>${places[key].name}</strong><br>${places[key].location.address}</div>`;
+
+            infowindow.setContent(output);
+            infowindow.open(map, this);
         });
 
         markers.push(marker);

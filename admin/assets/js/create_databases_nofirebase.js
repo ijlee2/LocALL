@@ -42,10 +42,10 @@ function createDatabases() {
 
     // Create the restaurants database
     service.nearbySearch({
-        keyword : "bbq",
-        location: location_austin,
-        radius  : searchRadius,
-        type    : ["restaurant"]
+        "keyword" : "bbq",
+        "location": location_austin,
+        "radius"  : searchRadius,
+        "type"    : ["restaurant"]
 
     }, function(results, status) {
         getPlaceIDs(results, status, {"type": "eat", "name": "bbq"});
@@ -54,10 +54,10 @@ function createDatabases() {
 
     // Create the trails database
     service.nearbySearch({
-        keyword : "trail",
-        location: location_austin,
-        radius  : searchRadius,
-        type    : ["park"]
+        "keyword" : "trail",
+        "location": location_austin,
+        "radius"  : searchRadius,
+        "type"    : ["park"]
 
     }, function(results, status) {
         getPlaceIDs(results, status, {"type": "play", "name": "hike"});
@@ -66,10 +66,10 @@ function createDatabases() {
 
     // Create the breweries database
     service.nearbySearch({
-        keyword : "brewery",
-        location: location_austin,
-        radius  : searchRadius,
-        type    : ["bar"]
+        "keyword" : "brewery",
+        "location": location_austin,
+        "radius"  : searchRadius,
+        "type"    : ["bar"]
 
     }, function(results, status) {
         getPlaceIDs(results, status, {"type": "drink", "name": "brewery"});

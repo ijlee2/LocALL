@@ -34,7 +34,8 @@ const database_recommendations = database.ref("recommendations");
     
 *****************************************************************************
 *****************************************************************************/
-// A metric allows us to make a quantitative recommendation
+// For making recommendations
+const numRecommendations_max = 400,
 const metric_max = 10;
 
 // Possible events
@@ -62,12 +63,13 @@ function loadDatabases(eventName_eat, eventName_play, eventName_drink) {
     });
 }
 
-// ADMIN TODO: Create 25 databases at a time (change index from 0 to 4)
-const index = 0;
+// ADMIN TODO: Create 25 databases at a time
+// eventIndex = 0, 1, 2, 3, 4
+const eventIndex = 0;
 
 eventNames_play.forEach(eventName_play =>
     eventNames_drink.forEach(eventName_drink =>
-        loadDatabases(eventNames_eat[index], eventName_play, eventName_drink)
+        loadDatabases(eventNames_eat[eventIndex], eventName_play, eventName_drink)
     )
 )
 
@@ -179,6 +181,10 @@ function createRecommendations(eat, play, drink, directoryName) {
     data.sort(function(a, b) {
         return a.metric - b.metric;
     });
+
+    if (data.length > numRecommendations_max) {
+        data.splice(numRecommendations_max, data.length - numRecommendations_max);
+    }
 
     // Assign the probability that a recommendation occurs
     data.forEach(d => d.probability /= total);

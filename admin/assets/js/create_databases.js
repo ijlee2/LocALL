@@ -65,12 +65,12 @@ const queries = [
     ]
 ];
 
-// ADMIN TODO: Take permuations below
+// ADMIN TODO: Take permutations below
 // location_austin = location_central, location_north, location_west, location_east, location_south
-// rankBy          = "distance", "prominence"
+// rankBy          = "prominence", "distance"
 // queryIndex      = 0, 1
 const location_austin = location_central;
-const rankBy          = "distance";
+const rankBy          = "prominence";
 const queryIndex      = 0;
 
 

@@ -200,7 +200,7 @@ $("body").on("click", "tbody tr", function() {
     map.setCenter(d.center);
 
     // Adjust the zoom level
-    map.setZoom(Math.max(10, 14 - Math.floor(1 + d.metric / 4)));
+    map.setZoom(Math.max(10, 15 - Math.floor(1 + d.metric / 3)));
     
     // Place a marker for each place
     for (key in places) {

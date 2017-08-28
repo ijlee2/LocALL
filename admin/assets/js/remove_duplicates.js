@@ -43,38 +43,34 @@ const eventNames = {
     
 *****************************************************************************
 *****************************************************************************/
-function removeDuplicates() {
-    let key1, key2;
-    
-    for (let eventType in eventNames) {
-        eventNames[eventType].forEach(eventName =>
-            database_events.child(`${eventType}/${eventName}`).once("value").then(function(snapshot) {
-                let database     = snapshot.val();
-                let database_new = {};
+for (let eventType in eventNames) {
+    eventNames[eventType].forEach(eventName =>
+        database_events.child(`${eventType}/${eventName}`).once("value").then(function(snapshot) {
+            let database     = snapshot.val();
+            let database_new = {};
 
-                let names = [], name;
+            let names = [], name;
 
-                for (let key in database) {
-                    // Ignore the proto method
-                    if (!database.hasOwnProperty(key)) {
-                        continue;
-                    }
-
-                    name = database[key].name;
-
-                    if (names.indexOf(name) === -1) {
-                        database_new[key] = database[key];
-                        names.push(name);
-                    }
+            for (let key in database) {
+                // Ignore the proto method
+                if (!database.hasOwnProperty(key)) {
+                    continue;
                 }
 
-//                firebase.database().ref(`temp/${eventType}/${eventName}`).set(database_new);
+                // Check for duplicate names
+                name = database[key].name;
 
-                console.log(`${eventType}, ${eventName}:`);
-                console.log(Object.keys(database).length + " -> " + Object.keys(database_new).length);
-            })
-        );
-    }      
+                if (names.indexOf(name) === -1) {
+                    database_new[key] = database[key];
+                    names.push(name);
+                }
+            }
+
+            // Overwrite in Firebase
+            database_events.child(`${eventType}/${eventName}`).set(database_new);
+
+            console.log(`${eventType}, ${eventName}:`);
+            console.log(`\t${Object.keys(database).length} -> ${Object.keys(database_new).length}`);
+        })
+    );
 }
-
-removeDuplicates();
