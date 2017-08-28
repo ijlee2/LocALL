@@ -24,12 +24,14 @@
     
     <title>LocALL</title>
 </head>
-
 <body>
+    <!--this begins the navbar section  -->
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
+                <!--we added datatoggle and datatarget to each button so that the menu would disappear when we jumped to another page -->
                     <span class="text-muted buton">
+                        <!--we added an onclick function inline because we set each page to display none and in order for the page to appear we needed to add this functionality inline -->
                         <button type="button" class="btn btn-outline-primary" onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">
                             Home
                         </button>
@@ -40,6 +42,7 @@
                             Go
                         </button>
                     </span>  
+                    <!--the beginning of the modal section this section is really bulky I was able to condense it the classes in and id are all part of bootstrap this makes the modal function -->
                         <div class="container mdol"> 
                             <center>
                             <button class="btn btn-outline-success" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In/Register</button>
@@ -48,7 +51,6 @@
                         <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
-                                    <br>
                                     <div class="bs-example bs-example-tabs">
                                         <ul id="myTab" class="nav nav-tabs">
                                             <li class="act"><a href="#signin" data-toggle="tab">Sign In</a></li>
@@ -64,12 +66,21 @@
                                                         <!-- Text input-->
                                                         <div class="control-group">
                                                             <label class="control-label" for="userid">
-                                                                Alias:
+                                                                UserName:
                                                             </label>
                                                             <div class="controls">
                                                                 <input required="" id="userid" name="userid" type="text" class="form-control" placeholder="example" class="input-medium" required="">
                                                             </div>
                                                         </div>
+                                                        <!--zipcode input -->
+                                                        <div class="control-group">
+                                                                <label class="control-label" for="zipcode">
+                                                                    ZipCode:
+                                                                </label>
+                                                                <div class="controls">
+                                                                    <input required="" id="zipcode" name="zipcode" type="text" class="form-control" placeholder="00000" class="input-medium" required="">
+                                                                </div>
+                                                            </div>
                                                         <!-- Password input-->
                                                         <div class="control-group">
                                                             <label class="control-label" for="passwordinput">
@@ -114,8 +125,14 @@
                                                         </div>
                                                         <!-- Text input-->
                                                         <div class="control-group">
+                                                                <label class="control-label" for="ZipCode">ZipCode:</label>
+                                                                <div class="controls">
+                                                                    <input id="ZipCode" name="Email" class="form-control" type="text" placeholder="00000" class="input-large" required="">
+                                                                </div>
+                                                            </div>
+                                                        <div class="control-group">
                                                             <label class="control-label" for="userid">
-                                                                Alias:
+                                                                UserName:
                                                             </label>
                                                             <div class="controls">
                                                                 <input id="userid" name="userid" class="form-control" type="text" placeholder="example" class="input-large" required="">
@@ -140,23 +157,6 @@
                                                                 <input id="reenterpassword" class="form-control" name="reenterpassword" type="password" placeholder="********" class="input-large" required="">
                                                             </div>
                                                         </div>
-                                                        <!-- Multiple Radios (inline) -->
-                                                        <br>
-                                                        <div class="control-group">
-                                                            <label class="control-label" for="humancheck">
-                                                                Humanity Check:
-                                                            </label>
-                                                        <div class="controls">
-                                                            <label class="radio inline" for="humancheck-0">
-                                                                <input type="radio" name="humancheck" id="humancheck-0" value="robot" checked="checked">
-                                                                    I'm a Robot
-                                                            </label>
-                                                            <label class="radio inline" for="humancheck-1">
-                                                                <input type="radio" name="humancheck" id="humancheck-1" value="human">
-                                                                    I'm Human
-                                                            </label>
-                                                        </div>
-                                                    </div>
                                                     <!-- Button -->
                                                     <div class="control-group">
                                                         <label class="control-label" for="confirmsignup"></label>
@@ -178,29 +178,29 @@
                                         </button>
                                     </center>
                                 </div>
-                            </div>
-                            </div>
-
+                            </div>   
                         </div>
-                     
+                    </div>  
+                </div> 
             </div>
         </div>
+        <!--toggle function  -->
         <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
     </div>
-
+<!--our cover page its a simple jumbotron bootstrap we only added an id and class in order for are onclick to function  -->
     <div id="page1" class="page">
         <div class="jumbotron">
             <h1 class="local-head heading">LocALL</h1>
             <h2>Eat, Play, and Drink Locally</h2>
-            <a class="btn btn-primary btn-lg" onClick="displayPage(2)" href="#" role="button">Go Local!</a><br>
-            <a class="btn btn-primary btn-lg" onClick="displayPage(3)" href="#" role="button">About Us</a>
+            <a class="btn btn-primary btn-lg" onClick="displayPage(2)"  role="button">Go Local!</a><br>
+            <a class="btn btn-primary btn-lg" onClick="displayPage(3)"  role="button">About Us</a>
         </div>
     </div>
-
+<!--our first page this is where we added the buttons for each subject we wanted to use for a search parameter and the search button also bootstrap buttons -->
     <div id = "page2" class ="content page" style="display: none">
             <div class = "row flexContainer ">
                 <div class="btn-group col-md-3" id = "primary" >
@@ -244,6 +244,7 @@
                     <button type="submit" data-refresh="Loading..." data-label="Search" name="update_results" class="update_results btn btn-warning page2Button">Search</button>
                 </div>
             </div>
+            <!-- this is where are search results will appear and our map is going to appear these are all place holders until we can combine the back-end-->
             <div class="containerPage2">
                 <div class="subContainer">
                     <div class="listItem">
@@ -286,7 +287,7 @@
                 <div class="item item-2"><img src=http://staticmapmaker.com/img/google.png></div> 
             </div>
         </div>
-    
+   <!--bootstrap carousel add an id and class in order to change colors and sizes without affecting other elements of the HTML-->
     <div id="page3"class="page" style="display: none">
         <div class="center"> 
             <h1 class="section-heading">About Us</h1> 
@@ -297,7 +298,7 @@
                     <div class="d-block w-100"  alt="First slide">
                         <img src="assets/images/jacque.jpg" class="aboutUsPics" alt="Jaque">
                         <h2 id="us">Jaqueline White</h2>
-                        <h3>Software Developer</h3>
+                        <h3 class="softWare">Software Developer</h3>
                         <p>
                             I'm an Austinite that has a passion for all things health 
                             and wellness, culinary arts, and travel.
@@ -308,7 +309,7 @@
                     <div class="d-block w-100"  alt="Second slide">
                         <img src="assets/images/issac.jpg" class="aboutUsPics" alt="issac">
                         <h2 id="us">Isaac Lee</h2>
-                         <h3>Software Developer</h3>
+                         <h3 class="softWare">Software Developer</h3>
                         <p>
                             I provide analytic and computational solutions to your engineering problems.
                             <br> 
@@ -319,14 +320,10 @@
                 <div class="carousel-item">
                     <div class="d-block w-100"  alt="First slide">
                         <h2 id="us">Aaron Tyler</h2>
-                        <h3>Software Developer</h3>
+                        <h3 class="softWare">Software Developer</h3>
                         <img src="" alt="">
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy 
-                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently 
-                            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            Biochemistry at University of Texas Austin. I enjoy both front-end and back-end development. 
                         </p>
                     </div>
                 </div>
@@ -334,13 +331,16 @@
                     <div class="d-block w-100"  alt="First slide">
                             <img src="assets/images/margie.jpg" class="aboutUsPics" alt="margie">
                         <h2 id="us">Margarita Tagaban</h2>
-                        <h3>Software Developer</h3>
+                        <h3 class="softWare">Software Developer</h3>
                         <p>
                            Hi I'm Margie!
                            <br>
-                           I'm a Texas native who loves problem solving. I earned my Bachelor's Degree July 2017 at Texas State University.
-                           <br>
-                           My hobbies include reading, kayaking, hiking, gaming, and traveling.  
+                           I'm a Texas native who loves problem solving.
+                           <br> 
+                           I earned my Bachelor's Degree July 2017 at Texas State University.
+                           
+            
+                             
                         </p>
                     </div>
                 </div>
