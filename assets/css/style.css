@@ -5,11 +5,9 @@ body {
     -o-background-size     : cover;
     background-size        : cover;
     background-color       : #333;
-
     font-family: "Arvo", sans-serif;
     font-size  : 20px;
     text-align : center;
-
     width  : 100%;
     margin : 0;
     padding: 0;
@@ -80,7 +78,7 @@ p {
 }
 
 .locall_page_full {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0);
 
     /* Center vertically */
     min-height    : 100%;   /* Fallback for browsers do not support vh unit */
@@ -102,11 +100,6 @@ p {
 
 
 /* Page 2: Go Local! */
-#page2 {
-    /* Allow Google Maps to always appear on the screen */
-    position: relative;
-}
-
 .locall_flex_container {
     display                : -webkit-flex;
     display                : flex;
@@ -171,8 +164,6 @@ p {
 
 /* IMPORTANT: Set the map height explicitly */
 #map {
-    /* Allow Google Maps to always appear on the screen */
-    position: fixed !important;
     width   : 400px;
     height  : 400px;
     margin-top: .5em;
@@ -183,7 +174,6 @@ p {
 /* background opacity and the height and padding to make the background look similar to the jumbotron so we wouldnt have to use a jumbotron with our carousel */
 .carousel {
     background: rgba(255, 255, 255, 0);
-
     width     : 800px;
     margin    : 1% auto 0 auto;
 }
@@ -210,17 +200,17 @@ p {
 }
 
 .containerPage5 align-items {
-    display              : grid;
+    display: grid;
     grid-template-columns: 1fr;
-    margin-top           : 4em;
-    margin-left          : 7em;
+    margin-top: 4em;
+    margin-left: 7em;
 }
 
 /* Mobile */
-@media (max-width: 660px) {
+@media screen and (max-width: 660px) {
     .listItem {
         grid-template-columns: 1fr;
-        grid-gap             : 0;
+        grid-gap: 0;
     }
     .subContainer{
         margin-right: 3.3em;
@@ -258,7 +248,6 @@ p {
         font-size: 20px;
     }
     #map{
-        position: static !important;
         width   : 300px;
         height  : 300px;
         margin-left: 4em;
