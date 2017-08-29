@@ -1,13 +1,12 @@
+![LocALL](assets/images/locall_splash.png?raw=true)
 # LocAll
 A website that lets you pick places to eat, play, and drink locally!
 
-![LocALL](assets/images/locall_splash.png?raw=true)
-
 ## Team Members
-- Margie Tagaban (frontend)
-- Aaron Tyler (frontend)
-- Isaac Lee (backend)
-- Jacque White (backend)
+- Margie Tagaban (front-end)
+- Aaron Tyler (front-end)
+- Isaac Lee (back-end)
+- Jacque White (back-end)
 
 ## GitHub Demos
 - [Click here to see our website in action.](https://ijlee2.github.io/LocAll/)
