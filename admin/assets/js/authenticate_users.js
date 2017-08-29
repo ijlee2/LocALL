@@ -78,7 +78,7 @@ $("#button_submit").click(function() {
     const name     = $("#userName").val().trim();
     const email    = $("#userEmail").val().trim();
     const password = $("#userPassword").val();
-    const location = $("#userLocation").val().trim().toLowerCase();
+    const location = $("#userLocation").val();
 
     $("#messageToUser").empty();
     $("#messageToUser").css({"display": "block"});

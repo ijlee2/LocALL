@@ -13,6 +13,11 @@
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/css/style_api.css">
         <style>
+            /* This div allows Google Maps to always appear on the screen */
+            .page {
+                position: relative;
+            }
+    
             /* Menu */
             #menu {
                 margin-bottom: 5%;
@@ -66,11 +71,18 @@
                 transform       : scale(1.1);
             }
             
+            /* This div allows Google Maps to always appear on the screen */
+            #googleMaps {
+                position: absolute;
+                top     : 0;
+                right   : 400px;
+            }
+            
             /* IMPORTANT: Set the map height explicitly */
             #map {
-                float : right;
-                width : 400px;
-                height: 400px;
+                position: fixed !important;
+                width   : 400px;
+                height  : 400px;
             }
         </style>
 
@@ -84,46 +96,50 @@
             <div class="page clearfix" id="menu">
                 <div class="menu_events">
                     <h2>Eat</h2>
-                    <ul id="eat">
-                        <li>Asian</li>
-                        <li>BBQ</li>
-                        <li>Indian</li>
-                        <li>Pizza</li>
-                        <li>Tex-Mex</li>
-                    </ul>
+                    <select name="eat" id="eat">
+                        <option value="" disabled selected></option>
+                        <option value="asian">Asian</option>
+                        <option value="bbq">BBQ</option>
+                        <option value="indian">Indian</option>
+                        <option value="pizza">Pizza</option>
+                        <option value="tex-mex">Tex-Mex</option>
+                    </select>
                 </div>
 
                 <div class="menu_events">
                     <h2>Play</h2>
-                    <ul id="play">
-                        <li>Bowl</li>
-                        <li>Hike</li>
-                        <li>Movie</li>
-                        <li>Spa</li>
-                        <li>Swim</li>
-                    </ul>
+                    <select name="play" id="play">
+                        <option value="" disabled selected></option>
+                        <option value="bowl">Bowl</option>
+                        <option value="hike">Hike</option>
+                        <option value="movie">Movie</option>
+                        <option value="spa">Spa</option>
+                        <option value="swim">Swim</option>
+                    </select>
                 </div>
 
                 <div class="menu_events">
                     <h2>Drink</h2>
-                    <ul id="drink">
-                        <li>Bar</li>
-                        <li>Brewery</li>
-                        <li>Coffee</li>
-                        <li>Tea</li>
-                        <li>Wine</li>
-                    </ul>
+                    <select name="drink" id="drink">
+                        <option value="" disabled selected></option>
+                        <option value="bar">Bar</option>
+                        <option value="brewery">Brewery</option>
+                        <option value="coffee">Coffee</option>
+                        <option value="tea">Tea</option>
+                        <option value="wine">Wine</option>
+                    </select>
                 </div>
 
                 <div class="menu_events">
                     <h2>Location</h2>
-                    <ul id="location">
-                        <li>Central</li>
-                        <li>North</li>
-                        <li>West</li>
-                        <li>East</li>
-                        <li>South</li>
-                    </ul>
+                    <select name="location" id="location">
+                        <option value="" disabled selected></option>
+                        <option value="central">Central Austin</option>
+                        <option value="north">North Austin</option>
+                        <option value="west">West Austin</option>
+                        <option value="east">East Austin</option>
+                        <option value="south">South Austin</option>
+                    </select>
                 </div>
             </div>
 
@@ -142,7 +158,9 @@
                     </table>
                 </div>
 
-                <div id="map"></div>
+                <div class="panel" id="googleMaps">
+                    <div id="map"></div>
+                </div>
             </div>
         </div>
 
