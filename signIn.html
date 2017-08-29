@@ -23,7 +23,7 @@
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
         
         <!-- Custom CSS -->
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arvo">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arvo|Kalam">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
         <!-- Firebase -->
@@ -36,7 +36,7 @@
                 <div class="bg-dark p-4">
                     <!-- Added data-toggle and data-target to specify an action -->
                     <div class="locall_menuItems">
-                        <a class="btn btn-primary" href="">Home</a>
+                        <a class="btn btn-primary" href="index.html">Home</a>
                         <a class="btn btn-warning" href="eat_drink_play.html">Go Local!</a>
                         <a class="btn btn-secondary" href="devTeam.html" >Your Dev Team</a>
                         <a class="btn btn-success" href="signIn.html">Log In / Sign Up</a>
@@ -50,16 +50,28 @@
                 </button>
             </nav>
         </div>
-        <!-- Cover Page -->
-        <div class="page locall_page_full" id="page1">
-            <div class="jumbotron">
-                <h1>LocALL</h1>
-                <h2>Eat, Play, Drink Locally</h2>
+        <div class="page locall_page_full disappear" id="page4">
+            <div class="containerPage5">
+                <h2>Log In</h2>
+               
+                <div>
+                    <label for="userName_login">Name (required)</label>
+                    <input type="text" id="userName_login">
+                </div>              
 
-                <a class="btn btn-primary" href="eat_drink_play.html">Go Local!</a>
+                <div>
+                    <label for="userPassword_login">Password (required)</label>
+                    <input type="text" id="userPassword_login">
+                </div>
+
+                <div class="messageToUser"></div>
+
+                <div class="btn btn-primary" id="button_login">Submit</div>
+
+                <p>Want to create an account?</p>
+                <a class="btn btn-primary" href="signUp.html">Sign Up</a>
             </div>
         </div>
-
         <!-- Custom JavaScript -->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5UBuB1NoQsps2oc6EdyNhrLGbYY_FZMQ&libraries=places&callback=displayMap" async defer></script>
         <script src="assets/js/app.js"></script>

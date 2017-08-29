@@ -1,20 +1,20 @@
 // This allows us to hide pages without affecting Google Maps
-$(document).init(function(event) {
-    $(".disappear").hide();
+// $(document).init(function(event) {
+//     $(".disappear").hide();
     
-    $(this).parent().siblings().each(function(index, element) {
-        $(element).find(".page").show();
-    });
-});
+//     $(this).parent().siblings().each(function(index, element) {
+//         $(element).find(".page").show();
+//     });
+// });
 
-$(document).on("click", ".access", function(event) {
-    $(this).siblings().show();
-    $(this).parent().siblings().each(function(index, element) {
-        $(element).find(".page").hide();
-    });
-});
+// $(document).on("click", ".access", function(event) {
+//     $(this).siblings().show();
+//     $(this).parent().siblings().each(function(index, element) {
+//         $(element).find(".page").hide();
+//     });
+// });
 
-$(".dropdown-toggle").dropdown("update");
+// $(".dropdown-toggle").dropdown("update");
 
 
 
