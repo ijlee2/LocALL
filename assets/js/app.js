@@ -184,8 +184,6 @@ function displayRecommendations(eventNames) {
         let names, output = "";
 
         recommendations.forEach(r => {
-
-
             output +=
                 `<div class="subContainer">
                     <div class="listItem food">
@@ -221,7 +219,7 @@ function displayRating(event) {
     }
 
     // Fractional part
-    if (Math.floor(event.rating) !== event.rating) {
+    if (Math.trunc(event.rating) !== event.rating) {
         stars_string += "½";
     }
 
