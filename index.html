@@ -25,14 +25,6 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arvo|Kalam">
         <link rel="stylesheet" href="assets/css/style.css">
-        <style>
-            /* IMPORTANT: Set the map height explicitly */
-            #map {
-                float : right;
-                width : 400px;
-                height: 400px;
-            }
-        </style>
 
         <!-- Firebase -->
         <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
@@ -44,10 +36,10 @@
                 <div class="bg-dark p-4">
                     <!-- Added data-toggle and data-target to specify an action -->
                     <div class="locall_menuItems">
-                        <button type="button" class="btn btn-outline-primary"   onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">Home</button>
-                        <button type="button" class="btn btn-outline-warning"   onClick="displayPage(2)" data-toggle="collapse" data-target=".collapse">Go Local!</button>
-                        <button type="button" class="btn btn-outline-secondary" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">Your Dev Team</button>
-                        <button type="button" class="btn btn-outline-success"   onClick="displayPage(4)" data-toggle="collapse" data-target=".collapse">Log In / Sign Up</button>
+                        <button type="button" class="btn btn-outline-primary home"   onClick="displayPage(1)" data-toggle="collapse" data-target=".collapse">Home</button>
+                        <button type="button" class="btn btn-outline-warning access"   onClick="displayPage(2)" data-toggle="collapse" data-target=".collapse">Go Local!</button>
+                        <button type="button" class="btn btn-outline-secondary access" onClick="displayPage(3)" data-toggle="collapse" data-target=".collapse">Your Dev Team</button>
+                        <button type="button" class="btn btn-outline-success access"   onClick="displayPage(4)" data-toggle="collapse" data-target=".collapse">Log In / Sign Up</button>
                     </div>
                 </div>
             </div>
@@ -120,12 +112,13 @@
             <!-- TODO: Combine with back-end -->
             <div class="containerPage2">
                 <div id="recommendations"></div>
-                <div id="map"></div>
+                <!-- in order for the map to show I had to place a inline style display block -->
+                <div id="map" style="display:block"></div>
             </div>
         </div>
         
         <!-- Your Dev Team Page -->
-        <div class="page locall_page_full" id="page3">
+        <div class="page locall_page_full disappear" id="page3">
             <h1>Your Dev Team</h1>
             
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -148,7 +141,7 @@
                     </div>
 
                     <div class="carousel-item">
-                        <img src="#" class="locall_team_photos" alt="Photo of Aaron Tyler">
+                        <img src="assets/images/aaron.jpg" class="locall_team_photos" alt="Photo of Aaron Tyler">
                         <h2>Aaron Tyler</h2>
                         <h3>Front-End Developer</h3>
 
@@ -169,7 +162,7 @@
             </div>
         </div>
 
-        <div class="page locall_page_full" id="page4">
+        <div class="page locall_page_full disappear" id="page4">
             <div class="containerPage5">
                 <h2>Log In</h2>
                
@@ -191,7 +184,7 @@
             </div>
         </div>
       
-        <div class="page locall_page_full" id="page5">
+        <div class="page locall_page_full disappear" id="page5">
             <div class="containerPage5">
                 <h2>Sign Up</h2>
                

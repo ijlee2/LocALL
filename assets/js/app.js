@@ -1,3 +1,24 @@
+
+    //this code is what makes the pages on the front end disappear without it affecting the google map 
+   
+    $(document).init(function(event){
+        $(".disappear").hide();
+        $(this).parent().siblings().each(function(index,element){
+            $(element).find(".page").show();
+    });  
+}); 
+        $(document).on("click", ".access", function(event){
+            $(this).siblings().show()
+            $(this).parent().siblings().each(function(index,element){
+            $(element).find(".page").hide();
+          });
+        });
+
+   
+
+        
+    
+
 /****************************************************************************
  ****************************************************************************
     
@@ -247,7 +268,6 @@ $("body").on("click", ".subContainer", function() {
     // Delete existing markers
     markers.forEach(m => m.setMap(null));
     markers = [];
-    
     // Find out which row was clicked
     const r      = recommendations[$(".subContainer").index(this)];
     const places = {"eat": r.eat, "play": r.play, "drink": r.drink};

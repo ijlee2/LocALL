@@ -1,177 +1,183 @@
 body {
-    background             : url("../images/background.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size   : cover;
-    -o-background-size     : cover;
-    background-size        : cover;
-    background-color       : #333;
+background             : url("../images/background.jpg") no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size   : cover;
+-o-background-size     : cover;
+background-size        : cover;
+background-color       : #333;
 
-    font-family: "Kalam", cursive;
-    font-size  : 25px;
-    text-align : center;
+font-family: "Kalam", cursive;
+font-size  : 25px;
+text-align : center;
 
-    width  : 100%;
-    margin : 0;
-    padding: 0;
+width  : 100%;
+margin : 0;
+padding: 0;
 }
 
 h1 {
-    font-family: "Arvo", serif;
-    font-size  : 4em;
-    font-weight: normal;
-    text-align : center;
-    
-    margin : 1% 0;
-    padding: 0;
+font-family: "Arvo", serif;
+font-size  : 4em;
+font-weight: normal;
+text-align : center;
 
-    -webkit-animation-name    : rainbow; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 6s;
-    animation-name            : rainbow;
-    animation-duration        : 6s;
-    animation-iteration-count : infinite;
+margin : 1% 0;
+padding: 0;
+
+-webkit-animation-name    : rainbow; /* Safari 4.0 - 8.0 */
+-webkit-animation-duration: 6s;
+animation-name            : rainbow;
+animation-duration        : 6s;
+animation-iteration-count : infinite;
 }
 
 @keyframes rainbow {
-    0%   { color: #97E649; }
-    16%  { color: #35fec8; }
-    33%  { color: #35a9fe; }
-    49%  { color: #e135fe; }
-    66%  { color: #FE6C52; }
-    82%  { color: #F4EE44; }
-    100% { color: #97E649; }
+0%   { color: #97E649; }
+16%  { color: #35fec8; }
+33%  { color: #35a9fe; }
+49%  { color: #e135fe; }
+66%  { color: #FE6C52; }
+82%  { color: #F4EE44; }
+100% { color: #97E649; }
 } 
 
 /* changes the size and text alignment of h2 elements */
 h2, h3 {
-    font-weight: bold;
-    text-align : center;
+font-weight: bold;
+text-align : center;
 }
 
 h2 {
-    font-size: 3em;
+font-size: 3em;
 }
 
 h3 {
-    font-size: 1.5em;
+font-size: 1.5em;
 }
 
 p {
-    font-size  : 1.2em;
-    font-weight: bold;
+font-size  : 1.2em;
+font-weight: bold;
 }
 
 
 /* Page 0: Modal */
 .locall_menuItems button {
-    margin-left: 20px;
+margin-left: 20px;
 }
 
 /* this is was used to make the modal signin and register to separate and the other two classes are so our buttons dont look all smooshed together*/
 .locall_act {
-    margin-right: 30px;
-    margin-left : 30px;
+margin-right: 30px;
+margin-left : 30px;
 }
 
 
 .locall_page_full {
-    background: rgba(255, 255, 255, 0.6);
-    
-    /* Center vertically */
-    min-height     : 100%;   /* Fallback for browsers do not support vh unit */
-    min-height     : 100vh;  /* These two lines are counted as one           */
+background: rgba(255, 255, 255, 0.6);
 
-    display        : flex;
-    flex-direction : column;
+/* Center vertically */
+min-height     : 100%;   /* Fallback for browsers do not support vh unit */
+min-height     : 100vh;  /* These two lines are counted as one           */
+
+display        : flex;
+flex-direction : column;
 }
 
 
 /* Page 1: Main */
 #page1 {
-    justify-content: center;
+justify-content: center;
 }
 
 .jumbotron {
-    background: rgba(255, 255, 255, 0);
+background: rgba(255, 255, 255, 0);
 }
 
 .jumbotron h1 {
-    font-size: 5em;
+font-size: 5em;
 }
 
 .locall_page_full h2 {
-    margin-bottom: 2%;
+margin-bottom: 2%;
 }
 
 .locall_page_full a {
-    font-size: 2em;
+font-size: 2em;
 
-    padding  : 10px 30px;
+padding  : 10px 30px;
 }
 
 
 /* Page 2: Go Local! */
 /* this all pertains to page two and gives it stilling with flex functions and css grid */
 .locall_flex_container {
-    display                : -webkit-flex;
-    display                : flex;
-    -webkit-flex-direction : row; /* works with row or column */
-    flex-direction         : row;
-    -webkit-align-items    : center;
-    align-items            : center;
-    -webkit-justify-content: center;
-    justify-content        : center;
-    margin-top             : 3em;
- }
+display                : -webkit-flex;
+display                : flex;
+-webkit-flex-direction : row; /* works with row or column */
+flex-direction         : row;
+-webkit-align-items    : center;
+align-items            : center;
+-webkit-justify-content: center;
+justify-content        : center;
+margin-top             : 3em;
+}
 
 .button_events {
-    font-size : 20px;
-    text-align: center;
+font-size : 20px;
+text-align: center;
 
-    margin-top: 2em;
+margin-top: 2em;
 }
 
 #events_eat, #events_play, #events_drink, #events_location {
 /* TODO?    display       : -webkit-flex;*/
-    display       : flex;
-    flex-direction: column;
-    flex-basis    : 300px;
+display       : flex;
+flex-direction: column;
+flex-basis    : 300px;
 }
 
 .locall_menu_events {
-    width: 270px;
+width: 270px;
 }
 
 .containerPage2 {
-    display              : grid;
-    grid-template-columns: 2fr 1fr;
-    grid-column-gap      : 0.3em;
-    margin-top           : 4em;
-    margin-left          : 7em;
+display              : grid;
+grid-template-columns: 2fr 1fr;
+grid-column-gap      : 0.3em;
+margin-top           : 4em;
+margin-left          : 7em;
 }
 
 .subContainer {
-    display     : grid;
-    grid-row-gap: 1em; 
+display     : grid;
+grid-row-gap: 1em; 
 }
 
 .food {
-    background: rgba(220, 213, 213, 0.93);
+background: rgba(220, 213, 213, 0.93);
 }
 
 .drink {
-    background: rgba(221, 28, 28, 0.93);
+background: rgba(221, 28, 28, 0.93);
 }
 
 .play {
-    background: rgba(39, 18, 186, 0.96);
+background: rgba(39, 18, 186, 0.96);
 }
 
 
 .listItem {
-    display              : grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding-top          : 2em;
-    padding-bottom       : 2em;
+display              : grid;
+grid-template-columns: 1fr 1fr 1fr;
+padding-top          : 2em;
+padding-bottom       : 2em;
+}
+
+#map {
+float : right;
+width : 400px;
+height: 400px;
 }
 
 
@@ -179,7 +185,7 @@ p {
 /* background opacity and the height and padding to make the background look similar to the jumbotron so we wouldnt have to use a jumbotron with our carousel */
 .carousel {
     background: rgba(255, 255, 255, 0);
-    
+
     width     : 800px;
     margin    : 1% auto 0 auto;
 }
@@ -218,7 +224,6 @@ p {
     .containerPage2 {
         grid-template-columns: 1fr;
         grid-row-gap         : 2em;
-        
         margin-left: 0;
     }
 
@@ -230,26 +235,28 @@ p {
         grid-template-columns: 1fr 2fr;
         grid-gap             : 1em;
     }
-    
+
     h1 {
-        font-size: 50px;
+    font-size: 50px;
     }
 
     .locall_modal {
-        float       : initial;
-        margin-right: 0;
+    float       : initial;
+    margin-right: 0;
     }
 
     .locall_menuItems {
-        margin-left: 0;
+    margin-left: 0;
     }
 
     #page3 h2 {
-        font-size: 30px;
+    font-size: 30px;
     }
 
     #page3 h3 {
-       font-size: 20px;
+    font-size: 20px;
     }
 }
+
+
 
