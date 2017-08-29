@@ -49,63 +49,17 @@ const markerIcons = {
     
 *****************************************************************************
 *****************************************************************************/
-let eventName_eat = "", eventName_play = "", eventName_drink = "", myLocation = "";
+const eventNames = ["", "", "", ""];
 
-// Handle button clicks
-$("li").click(function() {
-    const eventType = $(this).parent().attr("id");
-    const eventName = $(this).text().toLowerCase();
+$("select").change(function() {
+    const events = $("select option:selected");
+    const index  = $("select").index(this);
 
-    // Highlight the user's choices
-    let index = $("li").index(this) % 5;
-
-    $(`#${eventType} li`).css({
-        "background-color": "var(--color-background)",
-        "color"           : "var(--color-text)"}
-    );
-    $(`#${eventType} li:nth-of-type(${index + 1})`).css({
-        "background-color": "var(--color-light-blue)",
-        "color"           : "var(--color-text-contrast)"
-    });
-
-    switch (eventType) {
-        case "eat":
-            eventName_eat = eventName;
-            break;
-
-        case "play":
-            eventName_play = eventName;
-            break;
-
-        case "drink":
-            eventName_drink = eventName;
-            break;
-
-        case "location":
-            if (eventName === "central") {
-                myLocation = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
-
-            } else if (eventName === "north") {
-                myLocation = {"lat": 30.402065, "lng": -97.725883};  // The Domain
-
-            } else if (eventName === "west") {
-                myLocation = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
-
-            } else if (eventName === "east") {
-                myLocation = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
-
-            } else if (eventName === "south") {
-                myLocation = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
-
-            }
-
-            break;
-
-    }
+    eventNames[index] = events[index].value;
 
     // Display recommendations once the user selects all options
-    if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && myLocation !== "") {
-        displayRecommendations(eventName_eat, eventName_play, eventName_drink);
+    if (eventNames.filter((a) => a !== "").length === eventNames.length) {
+        displayRecommendations(eventNames);
     }
 });
 
@@ -136,6 +90,7 @@ function spherical_distance(point1, point2) {
 }
 
 
+
 /****************************************************************************
  ****************************************************************************
     
@@ -157,9 +112,33 @@ function createBins(data) {
 }
 
 
-function displayRecommendations(eventName_eat, eventName_play, eventName_drink) {
-    const directoryName = `${eventName_eat}_${eventName_play}_${eventName_drink}`;
+function displayRecommendations(eventNames) {
+    const directoryName = `${eventNames[0]}_${eventNames[1]}_${eventNames[2]}`;
+    let   myLocation;
 
+    switch (eventNames[3]) {
+        case "central":
+            myLocation = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
+            break;
+
+        case "north":
+            myLocation = {"lat": 30.402065, "lng": -97.725883};  // The Domain
+            break;
+
+        case "west":
+            myLocation = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
+            break;
+
+        case "east":
+            myLocation = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
+            break;
+
+        case "south":
+            myLocation = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
+            break;
+
+    }
+    
     // Temporary variables
     let i, j;
     let bins, bin_max;
@@ -174,7 +153,7 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
             return spherical_distance(a.center, myLocation) < metric_max;
         });
 
-        // Return a finite number of recommendations at random
+        // Select recommendations at random
         for (i = 0; i < numRecommendations_max; i++) {
             // Create bins
             bins    = createBins(data);
@@ -186,7 +165,7 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink) 
             // Find the correct bin
             for (j = 0; j < (bins.length - 1); j++) {
                 if (bins[j] <= randomNumber && randomNumber < bins[j + 1]) {
-                    // Save the recommendation
+                    // Save the recommendation (use ... since splice returns an array)
                     recommendations.push(...data.splice(j, 1));
 
                     break;
@@ -252,6 +231,7 @@ $("body").on("click", "tbody tr", function() {
             "icon"    : markerIcons[key]
         });
 
+        // Provide additional information
         google.maps.event.addListener(marker, "click", function() {
             const output = `<div><strong>${places[key].name}</strong><br>${places[key].location.address}</div>`;
 
