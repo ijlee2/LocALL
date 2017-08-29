@@ -120,7 +120,7 @@ label {
     margin-bottom: 1em;
 }
 
-input {
+input, select {
     background-color: white;
     font-size       : 1em;
     
@@ -128,4 +128,8 @@ input {
     width           : 94%;
     padding         : 2% 3%;
     margin-bottom   : 2em;
+}
+
+select {
+    width: 100%;
 }
