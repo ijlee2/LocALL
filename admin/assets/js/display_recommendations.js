@@ -165,7 +165,7 @@ function displayRecommendations(eventNames) {
             // Find the correct bin
             for (j = 0; j < (bins.length - 1); j++) {
                 if (bins[j] <= randomNumber && randomNumber < bins[j + 1]) {
-                    // Save the recommendation (use ... since splice returns an array)
+                    // Save the recommendation (we use ... since splice returns an array)
                     recommendations.push(...data.splice(j, 1));
 
                     break;

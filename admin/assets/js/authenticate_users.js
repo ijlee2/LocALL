@@ -75,8 +75,8 @@ $("#button_logout").click(function() {
 
 
 $("#button_submit").click(function() {
-    const name     = $("#userName").val().trim();
-    const email    = $("#userEmail").val().trim();
+    const name     = $("#userName").val();
+    const email    = $("#userEmail").val();
     const password = $("#userPassword").val();
     const location = $("#userLocation").val();
 
@@ -181,7 +181,7 @@ let regex;
 
 // Name consists of all letters and possibly a space
 function checkName(name) {
-    if (name === "") {
+    if (!name) {
         return "Please enter your name.";
     
     } else {
@@ -207,7 +207,7 @@ function checkName(name) {
 
 // Email must have format of ***@***.com (*** cannot be empty)
 function checkEmail(email) {
-    if (email === "") {
+    if (!email) {
         return "Please enter your email.";
     
     } else {
@@ -223,7 +223,7 @@ function checkEmail(email) {
 
 // Password must have 8-64 characters and include 1 letter, 1 number, and 1 special character
 function checkPassword(password) {
-    if (password === "") {
+    if (!password) {
         return "Please enter your password.";
         
     } else {

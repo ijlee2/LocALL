@@ -1,23 +1,22 @@
-
-    //this code is what makes the pages on the front end disappear without it affecting the google map 
-   
-    $(document).init(function(event){
-        $(".disappear").hide();
-        $(this).parent().siblings().each(function(index,element){
-            $(element).find(".page").show();
-    });  
-}); 
-        $(document).on("click", ".access", function(event){
-            $(this).siblings().show()
-            $(this).parent().siblings().each(function(index,element){
-            $(element).find(".page").hide();
-          });
-        });
-
-   
-
-        
+// This allows us to hide pages without affecting Google Maps
+$(document).init(function(event) {
+    $(".disappear").hide();
     
+    $(this).parent().siblings().each(function(index, element) {
+        $(element).find(".page").show();
+    });
+});
+
+$(document).on("click", ".access", function(event) {
+    $(this).siblings().show();
+    $(this).parent().siblings().each(function(index, element) {
+        $(element).find(".page").hide();
+    });
+});
+
+$(".dropdown-toggle").dropdown("update");
+
+
 
 /****************************************************************************
  ****************************************************************************
@@ -38,8 +37,8 @@ const config = {
 firebase.initializeApp(config);
 
 const database_recommendations = firebase.database().ref("recommendations");
-const database_users = firebase.database().ref("users");
-const auth           = firebase.auth();
+const database_users           = firebase.database().ref("users");
+const auth                     = firebase.auth();
 
 
 
@@ -73,60 +72,23 @@ const markerIcons = {
 *****************************************************************************
 *****************************************************************************/
 let eventType, eventName;
-let eventName_eat = "", eventName_play = "", eventName_drink = "", eventName_location = "";
+const eventTypes = ["eat", "play", "drink", "location"];
+let   eventNames = ["", "", "", ""];
 
 $(".dropdown-item").click(function() {
     const eventName = $(this).text();
+    const index     = Math.floor($(".dropdown-item").index(this) / 5);
 
-    const type = Math.floor($(".dropdown-item").index(this) / 5);
+    eventNames[index] = eventName.toLowerCase();
 
-    if (type === 0) {
-        eventType = "eat";
-        eventName_eat = eventName.toLowerCase();
-
-    } else if (type === 1) {
-        eventType = "play";
-        eventName_play = eventName.toLowerCase();
-
-    } else if (type === 2) {
-        eventType = "drink";
-        eventName_drink = eventName.toLowerCase();
-
-    } else if (type === 3) {
-        eventType = "location";
-        eventName_location = eventName.toLowerCase();
-
-    }
+    console.log(eventNames);
     
-    $(`#button_${eventType}`).text(eventName);
-
-    let myLocation;
-
-    switch (eventName_location) {
-        case "central": 
-            myLocation = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
-            break;
-
-        case "north":
-            myLocation = {"lat": 30.402065, "lng": -97.725883};  // The Domain
-            break;
-
-        case "west":
-            myLocation = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
-            break;
-        
-        case "east": 
-            myLocation = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
-            break;
-
-        case "south":
-            myLocation = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
-            break;
-    }
+    // Change the text in HTML
+    $(`#button_${eventTypes[index]}`).text(eventName);
 
     // Display recommendations once the user selects all options
-    if (eventName_eat !== "" && eventName_play !== "" && eventName_drink !== "" && eventName_location !== "") {
-        displayRecommendations(eventName_eat, eventName_play, eventName_drink, myLocation);
+    if (eventNames.filter((a) => a !== "").length === eventNames.length) {
+        displayRecommendations(eventNames);
     }
 });
 
@@ -178,8 +140,32 @@ function createBins(data) {
 }
 
 
-function displayRecommendations(eventName_eat, eventName_play, eventName_drink, myLocation) {
-    const directoryName = `${eventName_eat}_${eventName_play}_${eventName_drink}`;
+function displayRecommendations(eventNames) {
+    const directoryName = `${eventNames[0]}_${eventNames[1]}_${eventNames[2]}`;
+    let   myLocation;
+
+    switch (eventNames[3]) {
+        case "central":
+            myLocation = {"lat": 30.284919, "lng": -97.734057};  // UT Austin
+            break;
+
+        case "north":
+            myLocation = {"lat": 30.402065, "lng": -97.725883};  // The Domain
+            break;
+
+        case "west":
+            myLocation = {"lat": 30.343171, "lng": -97.835514};  // Emma Long Metropolitan Park
+            break;
+
+        case "east":
+            myLocation = {"lat": 30.263466, "lng": -97.695904};  // Austin Bouldering Project
+            break;
+
+        case "south":
+            myLocation = {"lat": 30.256079, "lng": -97.763509};  // Alamo Drafthouse South Lamar
+            break;
+
+    }
     
     // Temporary variables
     let i, j;
@@ -195,7 +181,7 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
             return spherical_distance(a.center, myLocation) < metric_max;
         });
 
-        // Return a finite number of recommendations at random
+        // Select recommendations at random
         for (i = 0; i < numRecommendations_max; i++) {
             // Create bins
             bins    = createBins(data);
@@ -207,7 +193,7 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
             // Find the correct bin
             for (j = 0; j < (bins.length - 1); j++) {
                 if (bins[j] <= randomNumber && randomNumber < bins[j + 1]) {
-                    // Save the recommendation
+                    // Save the recommendation (we use ... since splice returns an array)
                     recommendations.push(...data.splice(j, 1));
 
                     break;
@@ -220,18 +206,18 @@ function displayRecommendations(eventName_eat, eventName_play, eventName_drink, 
 
         recommendations.forEach(r => {
             output +=
-                `<div class = "subContainer">
+                `<div class="subContainer">
                     <div class="listItem food">
                         <div class="restaurantImage">
-                            <p> ${r.eat.name}</p>
-                            <img height="150" width="150" src="${r.eat.image}" alt="${r.eat.name}"> 
+                            <p>${r.eat.name}</p>
+                            <img height="150" width="150" src="${r.eat.image}" alt="${r.eat.name}">
                         </div>
-                        <div class="columnTwo">  
+                        <div class="columnTwo">
                             <p>${r.play.name}</p>
                             <img height="150" width="150" src="${r.play.image}" alt="${r.play.name}">
                         </div>
                         <div class="item restaurantAddress">
-                            <p> ${r.drink.name}</p>
+                            <p>${r.drink.name}</p>
                             <img height="150" width="150" src="${r.drink.image}" alt="${r.drink.name}">
                         </div>
                     </div>
@@ -268,6 +254,7 @@ $("body").on("click", ".subContainer", function() {
     // Delete existing markers
     markers.forEach(m => m.setMap(null));
     markers = [];
+
     // Find out which row was clicked
     const r      = recommendations[$(".subContainer").index(this)];
     const places = {"eat": r.eat, "play": r.play, "drink": r.drink};
@@ -280,14 +267,20 @@ $("body").on("click", ".subContainer", function() {
     
     // Place a marker for each place
     for (let key in places) {
+        const p = places[key];
+
         const marker = new google.maps.Marker({
             "map"     : map,
-            "position": places[key].geometry,
+            "position": p.geometry,
             "icon"    : markerIcons[key]
         });
 
+        // Provide additional information
         google.maps.event.addListener(marker, "click", function() {
-            const output = `<div><strong>${places[key].name}</strong><br>${places[key].location.address}</div>`;
+            const phone   = (p.phone)   ? `${p.phone}<br>` : "";
+            const website = (p.website) ? `<a href="${p.website}" target="_blank">Visit their website</a>` : "";
+
+            const output = `<div><strong>${p.name}</strong><br>${p.location.street}<br>${phone}${website}</div>`;
 
             infowindow.setContent(output);
             infowindow.open(map, this);
@@ -306,19 +299,25 @@ $("body").on("click", ".subContainer", function() {
     
 *****************************************************************************
 *****************************************************************************/
-$(".dropdown-toggle").dropdown("update");
-
 function displayPage(page) {
     $(".page").hide();
     $(`.page:nth-of-type(${page + 1})`).show();
 
-    eventName_eat = "", eventName_play = "", eventName_drink = "", eventName_location = "";
+    // Go Local! page
+    if (page === 2) {
+        eventNames = ["", "", "", ""];
+    }
+
+    // Log-in & Sign-up pages
+    if (page === 4 || page === 5) {
+        $(".messageToUser").empty();
+    }
 };
 
 $("#button_login").click(function() {
     $(".messageToUser").empty();
 
-    const email    = $("#userEmail_login").val().trim();
+    const email    = $("#userEmail_login").val();
     const password = $("#userPassword_login").val();
 
     let status, validationPassed = true;
@@ -359,8 +358,8 @@ $("#button_login").click(function() {
 $("#button_signup").click(function() {
     $(".messageToUser").empty();
 
-    const name     = $("#userName_signup").val().trim();
-    const email    = $("#userEmail_signup").val().trim();
+    const name     = $("#userName_signup").val();
+    const email    = $("#userEmail_signup").val();
     const password = $("#userPassword_signup").val();
 
     let status, validationPassed = true;
@@ -420,7 +419,7 @@ let regex;
 
 // Name consists of all letters and possibly a space
 function checkName(name) {
-    if (name === "") {
+    if (!name) {
         return "Please enter your name.";
     
     } else {
@@ -446,7 +445,7 @@ function checkName(name) {
 
 // Email must have format of ***@***.com (*** cannot be empty)
 function checkEmail(email) {
-    if (email === "") {
+    if (!email) {
         return "Please enter your email.";
     
     } else {
@@ -462,7 +461,7 @@ function checkEmail(email) {
 
 // Password must have 8-64 characters and include 1 letter, 1 number, and 1 special character
 function checkPassword(password) {
-    if (password === "") {
+    if (!password) {
         return "Please enter your password.";
         
     } else {
