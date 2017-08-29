@@ -296,21 +296,6 @@ $("body").on("click", ".subContainer", function() {
     
 *****************************************************************************
 *****************************************************************************/
-function displayPage(page) {
-    $(".page").hide();
-    $(`.page:nth-of-type(${page + 1})`).show();
-
-    // Go Local! page
-    if (page === 2) {
-        eventNames = ["", "", "", ""];
-    }
-
-    // Log-in & Sign-up pages
-    if (page === 4 || page === 5) {
-        $(".messageToUser").empty();
-    }
-};
-
 $("#button_login").click(function() {
     $(".messageToUser").empty();
 

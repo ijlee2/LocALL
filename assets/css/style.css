@@ -172,7 +172,7 @@ p {
 /* IMPORTANT: Set the map height explicitly */
 #map {
     /* Allow Google Maps to always appear on the screen */
-    position: fixed ;
+    position: fixed !important;
     width   : 400px;
     height  : 400px;
     margin-top: .5em;
@@ -258,7 +258,7 @@ p {
         font-size: 20px;
     }
     #map{
-        position: static;
+        position: static !important;
         width   : 300px;
         height  : 300px;
         margin-left: 4em;
