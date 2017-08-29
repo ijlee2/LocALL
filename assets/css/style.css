@@ -5,9 +5,11 @@ body {
     -o-background-size     : cover;
     background-size        : cover;
     background-color       : #333;
+
     font-family: "Arvo", sans-serif;
     font-size  : 20px;
     text-align : center;
+    
     width  : 100%;
     margin : 0;
     padding: 0;
@@ -95,7 +97,7 @@ p {
 .locall_page_full a {
     font-size: 2em;
 
-    padding  : 10px 30px;
+    padding: 10px 30px;
 }
 
 
@@ -109,7 +111,8 @@ p {
     align-items            : center;
     -webkit-justify-content: center;
     justify-content        : center;
-    margin-top             : 3em;
+    
+    margin-top: 3em;
 }
 
 .button_events {
@@ -134,15 +137,16 @@ p {
     display              : grid;
     grid-template-columns: 2fr 1fr;
     grid-column-gap      : 0.3em;
-    margin-top: 2.6em;
 
+    margin-top: 2.6em;
 }
 
 .subContainer {
     display     : grid;
     grid-row-gap: .5em;
-    margin-left: 5em;
+    margin-left : 5em;
 }
+
 .restaurantImage {
     background: rgba(220, 213, 213, 0.93);
 }
@@ -152,20 +156,20 @@ p {
 } 
 
 .columnTwo {
-    background:  rgba(196, 188, 188, 0.93);
+    background: rgba(196, 188, 188, 0.93);
 }
 
 .listItem {
     display              : grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding-bottom       : .5em;
-    padding-top     : .5em;
+    padding-top          : .5em;
 }
 
 /* IMPORTANT: Set the map height explicitly */
 #map {
-    width   : 400px;
-    height  : 400px;
+    width     : 400px;
+    height    : 400px;
     margin-top: .5em;
 }
 
@@ -202,7 +206,8 @@ p {
 .containerPage5 align-items {
     display: grid;
     grid-template-columns: 1fr;
-    margin-top: 4em;
+    
+    margin-top : 4em;
     margin-left: 7em;
 }
 
@@ -212,10 +217,11 @@ p {
         grid-template-columns: 1fr;
         grid-gap: 0;
     }
+
     .subContainer{
-        margin-right: 3.3em;
-        border-bottom: solid #DFCE80;
         grid-template-columns: 1fr;
+        margin-right : 3.3em;
+        border-bottom: solid #DFCE80;
     }
 
     h1 {
@@ -225,8 +231,6 @@ p {
     .locall_menuItems {
         margin-left: 0;
     }
-
-
 
     .flexContainer {
         margin-top: 0;
@@ -239,7 +243,6 @@ p {
         margin-left: 0;
     }
 
-
     #page3 h2 {
         font-size: 30px;
     }
@@ -247,9 +250,10 @@ p {
     #page3 h3 {
         font-size: 20px;
     }
+
     #map{
-        width   : 300px;
-        height  : 300px;
+        width      : 300px;
+        height     : 300px;
         margin-left: 4em;
     }
 }
