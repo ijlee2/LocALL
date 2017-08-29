@@ -18,3 +18,7 @@ A website that lets you pick places to eat, play, and drink locally in Austin!
 - [Google Maps](https://ijlee2.github.io/LocAll/api_demos/google_maps.html)
 - [TrailAPI](https://ijlee2.github.io/LocAll/api_demos/trail_api.html)
 - [Zomato](https://ijlee2.github.io/LocAll/api_demos/zomato.html)
+
+## Sketches
+- [Front-End](https://raw.githubusercontent.com/ijlee2/LocAll/master/sketches/front_end.jpg)
+- [Back-End](https://raw.githubusercontent.com/ijlee2/LocAll/master/sketches/back_end.jpg)
