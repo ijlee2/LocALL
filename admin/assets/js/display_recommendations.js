@@ -225,15 +225,20 @@ $("body").on("click", "tbody tr", function() {
     
     // Place a marker for each place
     for (let key in places) {
+        const p = places[key];
+
         const marker = new google.maps.Marker({
             "map"     : map,
-            "position": places[key].geometry,
+            "position": p.geometry,
             "icon"    : markerIcons[key]
         });
 
         // Provide additional information
         google.maps.event.addListener(marker, "click", function() {
-            const output = `<div><strong>${places[key].name}</strong><br>${places[key].location.address}</div>`;
+            const phone   = (p.phone)   ? `${p.phone}<br>` : "";
+            const website = (p.website) ? `<a href="${p.website}" target="_blank">Visit their website</a>` : "";
+
+            const output = `<div><strong>${p.name}</strong><br>${p.location.street}<br>${phone}${website}</div>`;
 
             infowindow.setContent(output);
             infowindow.open(map, this);
