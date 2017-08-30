@@ -14,6 +14,15 @@ For places to eat, to play, and to drink, choose LocALL. We give you the best re
 - [Click here to see making recommendations in action.](https://ijlee2.github.io/LocAll/admin/display_recommendations.html)
 - [Click here to see authenticating users in action.](https://ijlee2.github.io/LocAll/admin/authenticate_users.html)
 
+## Technologies Used
+- [x] Bootstrap, CSS Grid
+
+- [x] ES6, jQuery
+
+- [x] Google Maps, Google Places, Google Firebase
+
+- [x] Math (spherical geometry, probability)
+
 ## API Demos
 - [Beer Mapping](https://ijlee2.github.io/LocAll/api_demos/beer_mapping.html)
 - [Google Maps](https://ijlee2.github.io/LocAll/api_demos/google_maps.html)
