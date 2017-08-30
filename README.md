@@ -1,6 +1,6 @@
 ![LocALL](assets/images/locall_splash.png?raw=true)
 # LocAll
-A website that lets you pick places to eat, play, and drink locally!
+For places to eat, to play, and to drink, choose LocALL. We give you the best recommendations in an instant!
 
 ## Team Members
 - Margie Tagaban (front-end)
