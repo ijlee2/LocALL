@@ -1,5 +1,5 @@
 ![LocALL](assets/images/locall_splash.png?raw=true)
-# LocAll
+# LocALL
 For places to eat, to play, and to drink, choose LocALL. We give you the best recommendations in an instant!
 
 ## Team Members
