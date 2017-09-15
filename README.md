@@ -21,7 +21,7 @@ For places to eat, to play, and to drink, choose LocALL. We give you the best re
 
 - [x] Google Maps, Google Places, Google Firebase
 
-- [x] Math (spherical geometry, probability)
+- [x] [Math (spherical geometry, probability)](https://crunchingnumbers.live/2017/09/15/metric-and-probability-based-recommendations/)
 
 ## API Demos
 - [Beer Mapping](https://ijlee2.github.io/LocALL/api_demos/beer_mapping.html)
